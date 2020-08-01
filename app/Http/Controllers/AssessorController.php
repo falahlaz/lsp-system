@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Assessor;
+use App\User;
+use App\AssessorScheme;
 use Illuminate\Http\Request;
 
 class AssessorController extends Controller
@@ -14,7 +16,7 @@ class AssessorController extends Controller
      */
     public function index()
     {
-        $data = Assessor::with('scheme','tuk')->get();
+        $data = \DB::table('m_asesor')->select('id','name','reg_num','phone')->get();
         return response()->json($data,200);
     }
 
@@ -45,21 +47,42 @@ class AssessorController extends Controller
             'phone' => 'required',
             'status' => 'required',
             'id_tuk' => 'required',
-            'id_scheme' => 'required'
+            'id_scheme' => 'required',
+            'username' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        // menambah data ke tabel user
+        $user = User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password'=> bcrypt($request->password),
+            'id_position' => 2,
+            'status' => 1
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        Assessor::create([
+        $asesor = Assessor::create([
             'name' => $request->name,
+            'id_users' => $user->id,
             'reg_num' => $request->reg_num,
             'gender' => $request->gender,
             'address' => $request->address,
             'phone' => $request->phone,
             'status' => $request->status,
-            'id_tuk' => $request->id_tuk,
-            'id_scheme' => $request->id_scheme
+            'id_tuk' => $request->id_tuk
         ]);
+        
+        $all_scheme = $request->id_scheme;
 
+        foreach($all_scheme as $scheme){
+            AssessorScheme::create([
+                'id_asesor' => $asesor->id,
+                'id_scheme' => $scheme,
+                'status' => 1
+            ]);
+        }
+        
         //response
         $response = [
             'message' => 'Insert Assessor success'
@@ -76,7 +99,8 @@ class AssessorController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = \DB::table('vw_assessor')->where('id',$id)->get();
+        return response()->json($data,200);
     }
 
     /**
@@ -107,8 +131,7 @@ class AssessorController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'status' => 'required',
-            'id_tuk' => 'required',
-            'id_scheme' => 'required'
+            'id_tuk' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
@@ -119,8 +142,7 @@ class AssessorController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'status' => $request->status,
-            'id_tuk' => $request->id_tuk,
-            'id_scheme' => $request->id_scheme
+            'id_tuk' => $request->id_tuk
         ]);
         
         //response

@@ -4,11 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tuk extends Model
-{   
-    //table intial
-    protected $table = 'm_tuk';
+class AssessorScheme extends Model
+{
+    protected $table = 'm_asesor_scheme';
 
     protected $guarded =[];
 }
-

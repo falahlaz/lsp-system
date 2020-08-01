@@ -16,6 +16,10 @@ class CreateMAsesorTable extends Migration
         Schema::create('m_asesor', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+
+            $table->foreignId('id_users');
+            $table->foreign('id_users')->references('id')->on('m_users');
+
             $table->string('reg_num');
             $table->string('gender');
             $table->text('address');
@@ -24,9 +28,6 @@ class CreateMAsesorTable extends Migration
             
             $table->foreignId('id_tuk');
             $table->foreign('id_tuk')->references('id')->on('m_tuk');
-
-            $table->foreignId('id_scheme');
-            $table->foreign('id_scheme')->references('id')->on('m_scheme');
             
             $table->timestamps();
         });
