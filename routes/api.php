@@ -20,12 +20,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix'=>'/lsp/be'],function(){
     // Master Table
-    Route::resource('/tuk','TukController');
-    Route::resource('/scheme','SchemeController');
-    Route::resource('/scheme/unit','UnitSchemeController');
-    Route::resource('/assessor','AssessorController');
-    Route::resource('/exam/question','ExamQuestionController');
-    Route::resource('/exam/answer','ExamAnswerController');
-    Route::resource('/unit/question','UnitQuestionController');
+    Route::resource('/tuk','Admin\TukController');
+    Route::resource('/scheme','Admin\SchemeController');
+    Route::resource('/scheme/unit','Admin\UnitSchemeController');
+    Route::resource('/assessor','Admin\AssessorController');
+    Route::resource('/exam/question','Admin\ExamQuestionController');
+    Route::resource('/exam/answer','Admin\ExamAnswerController');
+    Route::resource('/unit/question','Admin\UnitQuestionController');
 
 });

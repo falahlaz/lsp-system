@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
- 
+use Illuminate\Http\Request;
+
+use App\User;
+use App\Assessor;
+use App\AssessorScheme;
 
 class AssessorController extends Controller
 {
