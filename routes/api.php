@@ -18,7 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix'=>'/lsp/be'],function(){
+// Auth
+Route::post('/lsp/be/login', 'Admin\AuthController@login');
+
+Route::group(['prefix'=>'/lsp/be', 'middleware' => ['token']],function(){
+    // Auth
+    Route::get('/logout', 'Admin\AuthController@logout');
+
     // Master Table
     Route::resource('/tuk','Admin\TukController');
     Route::resource('/scheme','Admin\SchemeController');

@@ -25,10 +25,9 @@ class VerifyToken
             ], 403);
         }
 
-        $user       = User::where('token', $token);
-        $validUser  = $user->first();
+        $user       = User::where('token', $token)->first();
 
-        if(is_null($validUser)) {
+        if(is_null($user)) {
             return response()->json([
                 'message' => 'Unauthorized User'
             ], 401);
