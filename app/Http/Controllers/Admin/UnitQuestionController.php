@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 
-use App\Scheme;
+use App\UnitQuestion;
 use Illuminate\Http\Request;
 
-class SchemeController extends Controller
+class UnitQuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,7 @@ class SchemeController extends Controller
      */
     public function index()
     {
-        $data = Scheme::get();
-        return response()->json($data,200);
+        //
     }
 
     /**
@@ -38,27 +38,21 @@ class SchemeController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'code' => 'required',
-            'name' => 'required',
-            'category' => 'required',
-            'field' => 'required',
-            'mea_status' => 'required',
+            'question' => 'required',
+            'id_unit' => 'required',
             'status' => 'required',
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        Scheme::create([
-            'code' => $request->code,
-            'name' => $request->name,
-            'category' => $request->category,
-            'field' => $request->field,
-            'mea_status' => $request->mea_status,
-            'status' => $request->status
+        UnitQuestion::create([
+            'question' => $request->question,
+            'id_unit' => $request->id_unit,
+            'status' => $request->status,
         ]);
 
         //response
         $response = [
-            'message' => 'Insert Scheme success'
+            'message' => 'Insert Unit Question success'
         ];
 
         return response()->json($response,201);
@@ -97,27 +91,21 @@ class SchemeController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'code' => 'required',
-            'name' => 'required',
-            'category' => 'required',
-            'field' => 'required',
-            'mea_status' => 'required',
+            'question' => 'required',
+            'id_unit' => 'required',
             'status' => 'required',
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        Scheme::where('id',$id)->update([
-            'code' => $request->code,
-            'name' => $request->name,
-            'category' => $request->category,
-            'field' => $request->field,
-            'mea_status' => $request->mea_status,
-            'status' => $request->status
+        UnitQuestion::where('id',$id)->update([
+            'question' => $request->question,
+            'id_unit' => $request->id_unit,
+            'status' => $request->status,
         ]);
         
         //response
         $response = [
-            'message' => 'Update Scheme success'
+            'message' => 'Update Unit Question success'
         ];
 
         return response()->json($response,200);
@@ -131,12 +119,13 @@ class SchemeController extends Controller
      */
     public function destroy($id)
     {
-        Scheme::destroy($id);
+        UnitQuestion::destroy($id);
 
         //response
         $response = [
-            'message' => 'Delete Scheme success'
+            'message' => 'Delete Unit Question success'
         ];
+
         return response()->json($response,200);
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 
-use App\Tuk;
+use App\ExamAnswer;
 use Illuminate\Http\Request;
 
-class TukController extends Controller
+class ExamAnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,7 @@ class TukController extends Controller
      */
     public function index()
     {
-        $data = Tuk::get();
-        return response()->json($data,200);
+        //
     }
 
     /**
@@ -38,25 +38,24 @@ class TukController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'code' => 'required',
-            'type' => 'required',
-            'name' => 'required',
-            'address' => 'required',
+            'id_exam_question' => 'required',
+            'answer' => 'required',
             'status' => 'required',
+            'is_correct' => 'required'
+
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        Tuk::create([
-            'code' => $request->code,
-            'type' => $request->type,
-            'name' => $request->name,
-            'address' => $request->address,
-            'status' => $request->status
+        ExamAnswer::create([
+            'id_exam_question' => $request->id_exam_question,
+            'answer' => $request->answer,
+            'status' => $request->status,
+            'is_correct' => $request->is_correct
         ]);
 
         //response
         $response = [
-            'message' => 'Insert TUK success'
+            'message' => 'Insert Exam Answer success'
         ];
 
         return response()->json($response,201);
@@ -65,10 +64,10 @@ class TukController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tuk  $tuk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tuk $tuk)
+    public function show($id)
     {
         //
     }
@@ -76,10 +75,10 @@ class TukController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tuk  $tuk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tuk $tuk)
+    public function edit($id)
     {
         //
     }
@@ -88,32 +87,31 @@ class TukController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tuk  $tuk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'code' => 'required',
-            'type' => 'required',
-            'name' => 'required',
-            'address' => 'required',
+            'id_exam_question' => 'required',
+            'answer' => 'required',
             'status' => 'required',
+            'is_correct' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        Tuk::where('id',$id)->update([
-            'code' => $request->code,
-            'type' => $request->type,
-            'name' => $request->name,
-            'address' => $request->address,
-            'status' => $request->status
+        ExamAnswer::where('id',$id)->update([
+            'id_exam_question' => $request->id_exam_question,
+            'answer' => $request->answer,
+            'status' => $request->status,
+            'is_correct' => $request->is_correct
+
         ]);
         
         //response
         $response = [
-            'message' => 'Update TUK success'
+            'message' => 'Update Exam Answer success'
         ];
 
         return response()->json($response,200);
@@ -122,16 +120,16 @@ class TukController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tuk  $tuk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Tuk::destroy($id);
+        ExamAnswer::destroy($id);
 
         //response
         $response = [
-            'message' => 'Delete TUK success'
+            'message' => 'Delete Exam Answer success'
         ];
 
         return response()->json($response,200);

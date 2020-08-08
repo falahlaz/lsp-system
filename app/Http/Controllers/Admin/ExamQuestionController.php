@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 
-use App\ExamAnswer;
+use App\ExamQuestion;
 use Illuminate\Http\Request;
 
-class ExamAnswerController extends Controller
+class ExamQuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,24 +38,21 @@ class ExamAnswerController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'id_exam_question' => 'required',
-            'answer' => 'required',
+            'question' => 'required',
+            'id_scheme' => 'required',
             'status' => 'required',
-            'is_correct' => 'required'
-
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        ExamAnswer::create([
-            'id_exam_question' => $request->id_exam_question,
-            'answer' => $request->answer,
+        ExamQuestion::create([
+            'question' => $request->question,
+            'id_scheme' => $request->id_scheme,
             'status' => $request->status,
-            'is_correct' => $request->is_correct
         ]);
 
         //response
         $response = [
-            'message' => 'Insert Exam Answer success'
+            'message' => 'Insert Exam Question success'
         ];
 
         return response()->json($response,201);
@@ -93,24 +91,21 @@ class ExamAnswerController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'id_exam_question' => 'required',
-            'answer' => 'required',
+            'question' => 'required',
+            'id_scheme' => 'required',
             'status' => 'required',
-            'is_correct' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        ExamAnswer::where('id',$id)->update([
-            'id_exam_question' => $request->id_exam_question,
-            'answer' => $request->answer,
+        ExamQuestion::where('id',$id)->update([
+            'question' => $request->question,
+            'id_scheme' => $request->id_scheme,
             'status' => $request->status,
-            'is_correct' => $request->is_correct
-
         ]);
         
         //response
         $response = [
-            'message' => 'Update Exam Answer success'
+            'message' => 'Update Exam Question success'
         ];
 
         return response()->json($response,200);
@@ -124,11 +119,11 @@ class ExamAnswerController extends Controller
      */
     public function destroy($id)
     {
-        ExamAnswer::destroy($id);
+        ExamQuestion::destroy($id);
 
         //response
         $response = [
-            'message' => 'Delete Exam Answer success'
+            'message' => 'Delete Exam Question success'
         ];
 
         return response()->json($response,200);

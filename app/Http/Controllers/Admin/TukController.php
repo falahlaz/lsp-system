@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
 
-use App\UnitQuestion;
+use App\Tuk;
 use Illuminate\Http\Request;
 
-class UnitQuestionController extends Controller
+class TukController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,8 @@ class UnitQuestionController extends Controller
      */
     public function index()
     {
-        //
+        $data = Tuk::get();
+        return response()->json($data,200);
     }
 
     /**
@@ -37,21 +39,25 @@ class UnitQuestionController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'question' => 'required',
-            'id_unit' => 'required',
+            'code' => 'required',
+            'type' => 'required',
+            'name' => 'required',
+            'address' => 'required',
             'status' => 'required',
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitQuestion::create([
-            'question' => $request->question,
-            'id_unit' => $request->id_unit,
-            'status' => $request->status,
+        Tuk::create([
+            'code' => $request->code,
+            'type' => $request->type,
+            'name' => $request->name,
+            'address' => $request->address,
+            'status' => $request->status
         ]);
 
         //response
         $response = [
-            'message' => 'Insert Unit Question success'
+            'message' => 'Insert TUK success'
         ];
 
         return response()->json($response,201);
@@ -60,10 +66,10 @@ class UnitQuestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Tuk  $tuk
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tuk $tuk)
     {
         //
     }
@@ -71,10 +77,10 @@ class UnitQuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Tuk  $tuk
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tuk $tuk)
     {
         //
     }
@@ -83,28 +89,32 @@ class UnitQuestionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Tuk  $tuk
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'question' => 'required',
-            'id_unit' => 'required',
+            'code' => 'required',
+            'type' => 'required',
+            'name' => 'required',
+            'address' => 'required',
             'status' => 'required',
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitQuestion::where('id',$id)->update([
-            'question' => $request->question,
-            'id_unit' => $request->id_unit,
-            'status' => $request->status,
+        Tuk::where('id',$id)->update([
+            'code' => $request->code,
+            'type' => $request->type,
+            'name' => $request->name,
+            'address' => $request->address,
+            'status' => $request->status
         ]);
         
         //response
         $response = [
-            'message' => 'Update Unit Question success'
+            'message' => 'Update TUK success'
         ];
 
         return response()->json($response,200);
@@ -113,16 +123,16 @@ class UnitQuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Tuk  $tuk
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        UnitQuestion::destroy($id);
+        Tuk::destroy($id);
 
         //response
         $response = [
-            'message' => 'Delete Unit Question success'
+            'message' => 'Delete TUK success'
         ];
 
         return response()->json($response,200);
