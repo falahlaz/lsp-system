@@ -77,12 +77,15 @@ class AuthController extends Controller
     // method logout
     public function logout(Request $request)
     {
+        // get login token
         $token = $request->bearerToken();
 
+        // update token to null
         User::where('token', $token)->update([
             'token' => null
         ]);
 
+        // return response
         return response()->json([
             'message' => 'Logout success'
         ], 200);
