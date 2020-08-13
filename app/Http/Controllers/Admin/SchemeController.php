@@ -15,7 +15,7 @@ class SchemeController extends Controller
      */
     public function index()
     {
-        $data = Scheme::get();
+        $data = \DB::table('m_scheme')->where('status', 1)->select('id', 'code', 'name')->get();
         return response()->json($data,200);
     }
 
@@ -43,8 +43,7 @@ class SchemeController extends Controller
             'name' => 'required',
             'category' => 'required',
             'field' => 'required',
-            'mea_status' => 'required',
-            'status' => 'required',
+            'mea_status' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
@@ -54,7 +53,7 @@ class SchemeController extends Controller
             'category' => $request->category,
             'field' => $request->field,
             'mea_status' => $request->mea_status,
-            'status' => $request->status
+            'status' => 1
         ]);
 
         //response
@@ -84,7 +83,7 @@ class SchemeController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Scheme::find($id);
     }
 
     /**
@@ -102,8 +101,7 @@ class SchemeController extends Controller
             'name' => 'required',
             'category' => 'required',
             'field' => 'required',
-            'mea_status' => 'required',
-            'status' => 'required',
+            'mea_status' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
@@ -112,8 +110,7 @@ class SchemeController extends Controller
             'name' => $request->name,
             'category' => $request->category,
             'field' => $request->field,
-            'mea_status' => $request->mea_status,
-            'status' => $request->status
+            'mea_status' => $request->mea_status
         ]);
         
         //response
@@ -132,7 +129,9 @@ class SchemeController extends Controller
      */
     public function destroy($id)
     {
-        Scheme::destroy($id);
+        Scheme::find($id)->update([
+            'status' => 0
+        ]);
 
         //response
         $response = [
