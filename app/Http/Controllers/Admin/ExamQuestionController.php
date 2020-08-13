@@ -15,7 +15,8 @@ class ExamQuestionController extends Controller
      */
     public function index()
     {
-        //
+        $data = \DB::table('vw_exam_question')->select('id_e_question', 'question', 'scheme_name')->where('status', 1)->get();
+        return response()->json($data, 200);
     }
 
     /**
@@ -39,15 +40,14 @@ class ExamQuestionController extends Controller
         // validasi data yang diinput user
         $this->validate($request,[
             'question' => 'required',
-            'id_scheme' => 'required',
-            'status' => 'required',
+            'id_scheme' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
         ExamQuestion::create([
             'question' => $request->question,
             'id_scheme' => $request->id_scheme,
-            'status' => $request->status,
+            'status' => 1
         ]);
 
         //response
@@ -77,7 +77,7 @@ class ExamQuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        return ExamQuestion::find($id);
     }
 
     /**
@@ -92,15 +92,13 @@ class ExamQuestionController extends Controller
         // validasi data yang diinput user
         $this->validate($request,[
             'question' => 'required',
-            'id_scheme' => 'required',
-            'status' => 'required',
+            'id_scheme' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
         ExamQuestion::where('id',$id)->update([
             'question' => $request->question,
-            'id_scheme' => $request->id_scheme,
-            'status' => $request->status,
+            'id_scheme' => $request->id_scheme
         ]);
         
         //response
@@ -119,7 +117,9 @@ class ExamQuestionController extends Controller
      */
     public function destroy($id)
     {
-        ExamQuestion::destroy($id);
+        ExamQuestion::find($id)->update([
+            'status' => 0
+        ]);
 
         //response
         $response = [
