@@ -40,16 +40,14 @@ class ExamAnswerController extends Controller
         $this->validate($request,[
             'id_exam_question' => 'required',
             'answer' => 'required',
-            'status' => 'required',
             'is_correct' => 'required'
-
         ]);
 
         // mengambil data inputan dan tambah data ke database
         ExamAnswer::create([
             'id_exam_question' => $request->id_exam_question,
             'answer' => $request->answer,
-            'status' => $request->status,
+            'status' => 1,
             'is_correct' => $request->is_correct
         ]);
 
@@ -69,7 +67,10 @@ class ExamAnswerController extends Controller
      */
     public function show($id)
     {
-        //
+        return ExamAnswer::select('id', 'answer', 'is_correct')->where([
+            ['id_exam_question', $id],
+            ['status', 1]
+        ])->get();
     }
 
     /**
