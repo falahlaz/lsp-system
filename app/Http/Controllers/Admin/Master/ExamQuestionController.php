@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
-use App\Scheme;
+use App\ExamQuestion;
 use Illuminate\Http\Request;
 
-class SchemeController extends Controller
+class ExamQuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class SchemeController extends Controller
      */
     public function index()
     {
-        $data = \DB::table('m_scheme')->where('status', 1)->select('id', 'code', 'name')->get();
-        return response()->json($data,200);
+        $data = \DB::table('vw_exam_question')->select('id_e_question', 'question', 'scheme_name')->where('status', 1)->get();
+        return response()->json($data, 200);
     }
 
     /**
@@ -39,26 +39,20 @@ class SchemeController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'code' => 'required',
-            'name' => 'required',
-            'category' => 'required',
-            'field' => 'required',
-            'mea_status' => 'required'
+            'question' => 'required',
+            'id_scheme' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        Scheme::create([
-            'code' => $request->code,
-            'name' => $request->name,
-            'category' => $request->category,
-            'field' => $request->field,
-            'mea_status' => $request->mea_status,
+        ExamQuestion::create([
+            'question' => $request->question,
+            'id_scheme' => $request->id_scheme,
             'status' => 1
         ]);
 
         //response
         $response = [
-            'message' => 'Insert Scheme success'
+            'message' => 'Insert Exam Question success'
         ];
 
         return response()->json($response,201);
@@ -83,7 +77,7 @@ class SchemeController extends Controller
      */
     public function edit($id)
     {
-        return Scheme::find($id);
+        return ExamQuestion::find($id);
     }
 
     /**
@@ -97,25 +91,19 @@ class SchemeController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'code' => 'required',
-            'name' => 'required',
-            'category' => 'required',
-            'field' => 'required',
-            'mea_status' => 'required'
+            'question' => 'required',
+            'id_scheme' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        Scheme::where('id',$id)->update([
-            'code' => $request->code,
-            'name' => $request->name,
-            'category' => $request->category,
-            'field' => $request->field,
-            'mea_status' => $request->mea_status
+        ExamQuestion::where('id',$id)->update([
+            'question' => $request->question,
+            'id_scheme' => $request->id_scheme
         ]);
         
         //response
         $response = [
-            'message' => 'Update Scheme success'
+            'message' => 'Update Exam Question success'
         ];
 
         return response()->json($response,200);
@@ -129,14 +117,15 @@ class SchemeController extends Controller
      */
     public function destroy($id)
     {
-        Scheme::find($id)->update([
+        ExamQuestion::find($id)->update([
             'status' => 0
         ]);
 
         //response
         $response = [
-            'message' => 'Delete Scheme success'
+            'message' => 'Delete Exam Question success'
         ];
+
         return response()->json($response,200);
     }
 }

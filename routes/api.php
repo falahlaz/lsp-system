@@ -26,12 +26,12 @@ Route::group(['prefix'=>'/lsp/be', 'middleware' => ['token']],function(){
     Route::get('/logout', 'Admin\AuthController@logout');
 
     // Master Table
-    Route::resource('/tuk','Admin\TukController');
-    Route::resource('/scheme','Admin\SchemeController');
-    Route::resource('/scheme/unit','Admin\UnitSchemeController');
-    Route::resource('/assessor','Admin\AssessorController');
-    Route::resource('/exam/question','Admin\ExamQuestionController');
-    Route::resource('/exam/answer','Admin\ExamAnswerController');
-    Route::resource('/unit/question','Admin\UnitQuestionController');
+    Route::resource('/tuk','Admin\Master\TukController');
+    Route::resource('/scheme','Admin\Master\SchemeController');
+    Route::resource('/scheme/unit','Admin\Master\UnitSchemeController');
+    Route::resource('/assessor','Admin\Master\AssessorController');
+    Route::resource('/exam/question','Admin\Master\ExamQuestionController');
+    Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
+    Route::resource('/unit/question','Admin\Master\UnitQuestionController');
 
 });

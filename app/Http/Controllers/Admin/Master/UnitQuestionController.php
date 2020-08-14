@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
-use App\ExamAnswer;
+use App\UnitQuestion;
 use Illuminate\Http\Request;
 
-class ExamAnswerController extends Controller
+class UnitQuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,22 +38,21 @@ class ExamAnswerController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'id_exam_question' => 'required',
-            'answer' => 'required',
-            'is_correct' => 'required'
+            'question' => 'required',
+            'id_unit' => 'required',
+            'status' => 'required',
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        ExamAnswer::create([
-            'id_exam_question' => $request->id_exam_question,
-            'answer' => $request->answer,
-            'status' => 1,
-            'is_correct' => $request->is_correct
+        UnitQuestion::create([
+            'question' => $request->question,
+            'id_unit' => $request->id_unit,
+            'status' => $request->status,
         ]);
 
         //response
         $response = [
-            'message' => 'Insert Exam Answer success'
+            'message' => 'Insert Unit Question success'
         ];
 
         return response()->json($response,201);
@@ -67,10 +66,7 @@ class ExamAnswerController extends Controller
      */
     public function show($id)
     {
-        return ExamAnswer::select('id', 'answer', 'is_correct')->where([
-            ['id_exam_question', $id],
-            ['status', 1]
-        ])->get();
+        //
     }
 
     /**
@@ -95,24 +91,21 @@ class ExamAnswerController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'id_exam_question' => 'required',
-            'answer' => 'required',
+            'question' => 'required',
+            'id_unit' => 'required',
             'status' => 'required',
-            'is_correct' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        ExamAnswer::where('id',$id)->update([
-            'id_exam_question' => $request->id_exam_question,
-            'answer' => $request->answer,
+        UnitQuestion::where('id',$id)->update([
+            'question' => $request->question,
+            'id_unit' => $request->id_unit,
             'status' => $request->status,
-            'is_correct' => $request->is_correct
-
         ]);
         
         //response
         $response = [
-            'message' => 'Update Exam Answer success'
+            'message' => 'Update Unit Question success'
         ];
 
         return response()->json($response,200);
@@ -126,11 +119,11 @@ class ExamAnswerController extends Controller
      */
     public function destroy($id)
     {
-        ExamAnswer::destroy($id);
+        UnitQuestion::destroy($id);
 
         //response
         $response = [
-            'message' => 'Delete Exam Answer success'
+            'message' => 'Delete Unit Question success'
         ];
 
         return response()->json($response,200);

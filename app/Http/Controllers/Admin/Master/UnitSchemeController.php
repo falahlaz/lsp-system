@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
-use App\Tuk;
+use App\UnitScheme;
 use Illuminate\Http\Request;
 
-class TukController extends Controller
+class UnitSchemeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class TukController extends Controller
      */
     public function index()
     {
-        $data = \DB::table('m_tuk')->select('id', 'code', 'name', 'type')->where('status', 1)->get();
-        return response()->json($data,200);
+        //
     }
 
     /**
@@ -40,23 +39,24 @@ class TukController extends Controller
         // validasi data yang diinput user
         $this->validate($request,[
             'code' => 'required',
-            'type' => 'required',
             'name' => 'required',
-            'address' => 'required'
+            'pub_year' => 'required',
+            'id_scheme' => 'required',
+            'status' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        Tuk::create([
+        UnitScheme::create([
             'code' => $request->code,
-            'type' => $request->type,
             'name' => $request->name,
-            'address' => $request->address,
-            'status' => 1
+            'pub_year' => $request->pub_year,
+            'id_scheme' => $request->id_scheme,
+            'status' => $request->status
         ]);
 
         //response
         $response = [
-            'message' => 'Insert TUK success'
+            'message' => 'Insert Unit Scheme success'
         ];
 
         return response()->json($response,201);
@@ -65,10 +65,10 @@ class TukController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tuk  $tuk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tuk $tuk)
+    public function show($id)
     {
         //
     }
@@ -76,42 +76,44 @@ class TukController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tuk  $tuk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tuk $tuk)
+    public function edit($id)
     {
-        return $tuk;
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tuk  $tuk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        // validasi data yang diinput user
-        $this->validate($request,[
+         // validasi data yang diinput user
+         $this->validate($request,[
             'code' => 'required',
-            'type' => 'required',
             'name' => 'required',
-            'address' => 'required'
+            'pub_year' => 'required',
+            'id_scheme' => 'required',
+            'status' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        Tuk::where('id',$id)->update([
+        UnitScheme::where('id',$id)->update([
             'code' => $request->code,
-            'type' => $request->type,
             'name' => $request->name,
-            'address' => $request->address
+            'pub_year' => $request->pub_year,
+            'id_scheme' => $request->id_scheme,
+            'status' => $request->status
         ]);
         
         //response
         $response = [
-            'message' => 'Update TUK success'
+            'message' => 'Update Unit Scheme success'
         ];
 
         return response()->json($response,200);
@@ -120,18 +122,16 @@ class TukController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tuk  $tuk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Tuk::find($id)->update([
-            'status' => 0
-        ]);
+        UnitScheme::destroy($id);
 
         //response
         $response = [
-            'message' => 'Delete TUK success'
+            'message' => 'Delete Unit Scheme success'
         ];
 
         return response()->json($response,200);

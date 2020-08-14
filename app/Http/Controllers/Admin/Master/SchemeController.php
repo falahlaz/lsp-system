@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
-use App\UnitScheme;
+use App\Scheme;
 use Illuminate\Http\Request;
 
-class UnitSchemeController extends Controller
+class SchemeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class UnitSchemeController extends Controller
      */
     public function index()
     {
-        //
+        $data = \DB::table('m_scheme')->where('status', 1)->select('id', 'code', 'name')->get();
+        return response()->json($data,200);
     }
 
     /**
@@ -40,23 +41,24 @@ class UnitSchemeController extends Controller
         $this->validate($request,[
             'code' => 'required',
             'name' => 'required',
-            'pub_year' => 'required',
-            'id_scheme' => 'required',
-            'status' => 'required'
+            'category' => 'required',
+            'field' => 'required',
+            'mea_status' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitScheme::create([
+        Scheme::create([
             'code' => $request->code,
             'name' => $request->name,
-            'pub_year' => $request->pub_year,
-            'id_scheme' => $request->id_scheme,
-            'status' => $request->status
+            'category' => $request->category,
+            'field' => $request->field,
+            'mea_status' => $request->mea_status,
+            'status' => 1
         ]);
 
         //response
         $response = [
-            'message' => 'Insert Unit Scheme success'
+            'message' => 'Insert Scheme success'
         ];
 
         return response()->json($response,201);
@@ -81,7 +83,7 @@ class UnitSchemeController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Scheme::find($id);
     }
 
     /**
@@ -93,27 +95,27 @@ class UnitSchemeController extends Controller
      */
     public function update(Request $request, $id)
     {
-         // validasi data yang diinput user
-         $this->validate($request,[
+        // validasi data yang diinput user
+        $this->validate($request,[
             'code' => 'required',
             'name' => 'required',
-            'pub_year' => 'required',
-            'id_scheme' => 'required',
-            'status' => 'required'
+            'category' => 'required',
+            'field' => 'required',
+            'mea_status' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitScheme::where('id',$id)->update([
+        Scheme::where('id',$id)->update([
             'code' => $request->code,
             'name' => $request->name,
-            'pub_year' => $request->pub_year,
-            'id_scheme' => $request->id_scheme,
-            'status' => $request->status
+            'category' => $request->category,
+            'field' => $request->field,
+            'mea_status' => $request->mea_status
         ]);
         
         //response
         $response = [
-            'message' => 'Update Unit Scheme success'
+            'message' => 'Update Scheme success'
         ];
 
         return response()->json($response,200);
@@ -127,13 +129,14 @@ class UnitSchemeController extends Controller
      */
     public function destroy($id)
     {
-        UnitScheme::destroy($id);
+        Scheme::find($id)->update([
+            'status' => 0
+        ]);
 
         //response
         $response = [
-            'message' => 'Delete Unit Scheme success'
+            'message' => 'Delete Scheme success'
         ];
-
         return response()->json($response,200);
     }
 }
