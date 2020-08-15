@@ -18,14 +18,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix'=>'/lsp/be'],function(){
+// Auth
+Route::post('/lsp/be/login', 'Admin\AuthController@login');
+
+Route::group(['prefix'=>'/lsp/be', 'middleware' => ['token']],function(){
+    // Auth
+    Route::get('/logout', 'Admin\AuthController@logout');
+
     // Master Table
-    Route::resource('/tuk','TukController');
-    Route::resource('/scheme','SchemeController');
-    Route::resource('/scheme/unit','UnitSchemeController');
-    Route::resource('/assessor','AssessorController');
-    Route::resource('/exam/question','ExamQuestionController');
-    Route::resource('/exam/answer','ExamAnswerController');
-    Route::resource('/unit/question','UnitQuestionController');
+    Route::resource('/tuk','Admin\Master\TukController');
+    Route::resource('/scheme','Admin\Master\SchemeController');
+    Route::resource('/scheme/unit','Admin\Master\UnitSchemeController');
+    Route::resource('/assessor','Admin\Master\AssessorController');
+    Route::resource('/exam/question','Admin\Master\ExamQuestionController');
+    Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
+    Route::resource('/unit/question','Admin\Master\UnitQuestionController');
 
 });

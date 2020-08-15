@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
 use App\Tuk;
@@ -15,7 +15,7 @@ class TukController extends Controller
      */
     public function index()
     {
-        $data = Tuk::get();
+        $data = \DB::table('m_tuk')->select('id', 'code', 'name', 'type')->where('status', 1)->get();
         return response()->json($data,200);
     }
 
@@ -42,8 +42,7 @@ class TukController extends Controller
             'code' => 'required',
             'type' => 'required',
             'name' => 'required',
-            'address' => 'required',
-            'status' => 'required',
+            'address' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
@@ -52,7 +51,7 @@ class TukController extends Controller
             'type' => $request->type,
             'name' => $request->name,
             'address' => $request->address,
-            'status' => $request->status
+            'status' => 1
         ]);
 
         //response
@@ -82,7 +81,7 @@ class TukController extends Controller
      */
     public function edit(Tuk $tuk)
     {
-        //
+        return $tuk;
     }
 
     /**
@@ -99,8 +98,7 @@ class TukController extends Controller
             'code' => 'required',
             'type' => 'required',
             'name' => 'required',
-            'address' => 'required',
-            'status' => 'required',
+            'address' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
@@ -108,8 +106,7 @@ class TukController extends Controller
             'code' => $request->code,
             'type' => $request->type,
             'name' => $request->name,
-            'address' => $request->address,
-            'status' => $request->status
+            'address' => $request->address
         ]);
         
         //response
@@ -128,7 +125,9 @@ class TukController extends Controller
      */
     public function destroy($id)
     {
-        Tuk::destroy($id);
+        Tuk::find($id)->update([
+            'status' => 0
+        ]);
 
         //response
         $response = [

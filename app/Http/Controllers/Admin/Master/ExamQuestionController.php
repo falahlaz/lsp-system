@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
-use App\ExamAnswer;
+use App\ExamQuestion;
 use Illuminate\Http\Request;
 
-class ExamAnswerController extends Controller
+class ExamQuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class ExamAnswerController extends Controller
      */
     public function index()
     {
-        //
+        $data = \DB::table('vw_exam_question')->select('id_e_question', 'question', 'scheme_name')->where('status', 1)->get();
+        return response()->json($data, 200);
     }
 
     /**
@@ -38,24 +39,20 @@ class ExamAnswerController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'id_exam_question' => 'required',
-            'answer' => 'required',
-            'status' => 'required',
-            'is_correct' => 'required'
-
+            'question' => 'required',
+            'id_scheme' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        ExamAnswer::create([
-            'id_exam_question' => $request->id_exam_question,
-            'answer' => $request->answer,
-            'status' => $request->status,
-            'is_correct' => $request->is_correct
+        ExamQuestion::create([
+            'question' => $request->question,
+            'id_scheme' => $request->id_scheme,
+            'status' => 1
         ]);
 
         //response
         $response = [
-            'message' => 'Insert Exam Answer success'
+            'message' => 'Insert Exam Question success'
         ];
 
         return response()->json($response,201);
@@ -80,7 +77,7 @@ class ExamAnswerController extends Controller
      */
     public function edit($id)
     {
-        //
+        return ExamQuestion::find($id);
     }
 
     /**
@@ -94,24 +91,19 @@ class ExamAnswerController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'id_exam_question' => 'required',
-            'answer' => 'required',
-            'status' => 'required',
-            'is_correct' => 'required'
+            'question' => 'required',
+            'id_scheme' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        ExamAnswer::where('id',$id)->update([
-            'id_exam_question' => $request->id_exam_question,
-            'answer' => $request->answer,
-            'status' => $request->status,
-            'is_correct' => $request->is_correct
-
+        ExamQuestion::where('id',$id)->update([
+            'question' => $request->question,
+            'id_scheme' => $request->id_scheme
         ]);
         
         //response
         $response = [
-            'message' => 'Update Exam Answer success'
+            'message' => 'Update Exam Question success'
         ];
 
         return response()->json($response,200);
@@ -125,11 +117,13 @@ class ExamAnswerController extends Controller
      */
     public function destroy($id)
     {
-        ExamAnswer::destroy($id);
+        ExamQuestion::find($id)->update([
+            'status' => 0
+        ]);
 
         //response
         $response = [
-            'message' => 'Delete Exam Answer success'
+            'message' => 'Delete Exam Question success'
         ];
 
         return response()->json($response,200);

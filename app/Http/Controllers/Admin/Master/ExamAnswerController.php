@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
-use App\UnitScheme;
+use App\ExamAnswer;
 use Illuminate\Http\Request;
 
-class UnitSchemeController extends Controller
+class ExamAnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,25 +38,22 @@ class UnitSchemeController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'code' => 'required',
-            'name' => 'required',
-            'pub_year' => 'required',
-            'id_scheme' => 'required',
-            'status' => 'required'
+            'id_exam_question' => 'required',
+            'answer' => 'required',
+            'is_correct' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitScheme::create([
-            'code' => $request->code,
-            'name' => $request->name,
-            'pub_year' => $request->pub_year,
-            'id_scheme' => $request->id_scheme,
-            'status' => $request->status
+        ExamAnswer::create([
+            'id_exam_question' => $request->id_exam_question,
+            'answer' => $request->answer,
+            'status' => 1,
+            'is_correct' => $request->is_correct
         ]);
 
         //response
         $response = [
-            'message' => 'Insert Unit Scheme success'
+            'message' => 'Insert Exam Answer success'
         ];
 
         return response()->json($response,201);
@@ -70,7 +67,10 @@ class UnitSchemeController extends Controller
      */
     public function show($id)
     {
-        //
+        return ExamAnswer::select('id', 'answer', 'is_correct')->where([
+            ['id_exam_question', $id],
+            ['status', 1]
+        ])->get();
     }
 
     /**
@@ -93,27 +93,26 @@ class UnitSchemeController extends Controller
      */
     public function update(Request $request, $id)
     {
-         // validasi data yang diinput user
-         $this->validate($request,[
-            'code' => 'required',
-            'name' => 'required',
-            'pub_year' => 'required',
-            'id_scheme' => 'required',
-            'status' => 'required'
+        // validasi data yang diinput user
+        $this->validate($request,[
+            'id_exam_question' => 'required',
+            'answer' => 'required',
+            'status' => 'required',
+            'is_correct' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitScheme::where('id',$id)->update([
-            'code' => $request->code,
-            'name' => $request->name,
-            'pub_year' => $request->pub_year,
-            'id_scheme' => $request->id_scheme,
-            'status' => $request->status
+        ExamAnswer::where('id',$id)->update([
+            'id_exam_question' => $request->id_exam_question,
+            'answer' => $request->answer,
+            'status' => $request->status,
+            'is_correct' => $request->is_correct
+
         ]);
         
         //response
         $response = [
-            'message' => 'Update Unit Scheme success'
+            'message' => 'Update Exam Answer success'
         ];
 
         return response()->json($response,200);
@@ -127,11 +126,11 @@ class UnitSchemeController extends Controller
      */
     public function destroy($id)
     {
-        UnitScheme::destroy($id);
+        ExamAnswer::destroy($id);
 
         //response
         $response = [
-            'message' => 'Delete Unit Scheme success'
+            'message' => 'Delete Exam Answer success'
         ];
 
         return response()->json($response,200);

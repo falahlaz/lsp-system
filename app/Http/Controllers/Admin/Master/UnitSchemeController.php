@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
-use App\UnitQuestion;
+use App\UnitScheme;
 use Illuminate\Http\Request;
 
-class UnitQuestionController extends Controller
+class UnitSchemeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,21 +38,25 @@ class UnitQuestionController extends Controller
     {
         // validasi data yang diinput user
         $this->validate($request,[
-            'question' => 'required',
-            'id_unit' => 'required',
-            'status' => 'required',
+            'code' => 'required',
+            'name' => 'required',
+            'pub_year' => 'required',
+            'id_scheme' => 'required',
+            'status' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitQuestion::create([
-            'question' => $request->question,
-            'id_unit' => $request->id_unit,
-            'status' => $request->status,
+        UnitScheme::create([
+            'code' => $request->code,
+            'name' => $request->name,
+            'pub_year' => $request->pub_year,
+            'id_scheme' => $request->id_scheme,
+            'status' => $request->status
         ]);
 
         //response
         $response = [
-            'message' => 'Insert Unit Question success'
+            'message' => 'Insert Unit Scheme success'
         ];
 
         return response()->json($response,201);
@@ -89,23 +93,27 @@ class UnitQuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // validasi data yang diinput user
-        $this->validate($request,[
-            'question' => 'required',
-            'id_unit' => 'required',
-            'status' => 'required',
+         // validasi data yang diinput user
+         $this->validate($request,[
+            'code' => 'required',
+            'name' => 'required',
+            'pub_year' => 'required',
+            'id_scheme' => 'required',
+            'status' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitQuestion::where('id',$id)->update([
-            'question' => $request->question,
-            'id_unit' => $request->id_unit,
-            'status' => $request->status,
+        UnitScheme::where('id',$id)->update([
+            'code' => $request->code,
+            'name' => $request->name,
+            'pub_year' => $request->pub_year,
+            'id_scheme' => $request->id_scheme,
+            'status' => $request->status
         ]);
         
         //response
         $response = [
-            'message' => 'Update Unit Question success'
+            'message' => 'Update Unit Scheme success'
         ];
 
         return response()->json($response,200);
@@ -119,11 +127,11 @@ class UnitQuestionController extends Controller
      */
     public function destroy($id)
     {
-        UnitQuestion::destroy($id);
+        UnitScheme::destroy($id);
 
         //response
         $response = [
-            'message' => 'Delete Unit Question success'
+            'message' => 'Delete Unit Scheme success'
         ];
 
         return response()->json($response,200);

@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
- 
+use Illuminate\Http\Request;
+
+use App\User;
+use App\Assessor;
+use App\AssessorScheme;
 
 class AssessorController extends Controller
 {
@@ -14,7 +18,7 @@ class AssessorController extends Controller
      */
     public function index()
     {
-        $data = \DB::table('m_asesor')->select('id','name','reg_num','phone')->get();
+        $data = \DB::table('m_asesor')->select('id','name','reg_num','phone')->where('status', 1)->get();
         return response()->json($data,200);
     }
 
@@ -43,7 +47,6 @@ class AssessorController extends Controller
             'gender' => 'required',
             'address' => 'required',
             'phone' => 'required',
-            'status' => 'required',
             'id_tuk' => 'required',
             'id_scheme' => 'required',
             'username' => 'required',
@@ -67,12 +70,13 @@ class AssessorController extends Controller
             'gender' => $request->gender,
             'address' => $request->address,
             'phone' => $request->phone,
-            'status' => $request->status,
+            'status' => 1,
             'id_tuk' => $request->id_tuk
         ]);
         
         $all_scheme = $request->id_scheme;
 
+        // add assessor scheme to database
         foreach($all_scheme as $scheme){
             AssessorScheme::create([
                 'id_asesor' => $asesor->id,
@@ -97,7 +101,8 @@ class AssessorController extends Controller
      */
     public function show($id)
     {
-        $data = \DB::table('vw_assessor')->where('id',$id)->get();
+        $data = \DB::table('vw_assessor')->select('id_assessor', 'assessor_name', 'reg_num', 'gender', 'address', 'phone', 'id_tuk', 'tuk_name')->where('id_assessor',$id)->first();
+
         return response()->json($data,200);
     }
 
@@ -128,7 +133,6 @@ class AssessorController extends Controller
             'gender' => 'required',
             'address' => 'required',
             'phone' => 'required',
-            'status' => 'required',
             'id_tuk' => 'required'
         ]);
 
@@ -139,7 +143,6 @@ class AssessorController extends Controller
             'gender' => $request->gender,
             'address' => $request->address,
             'phone' => $request->phone,
-            'status' => $request->status,
             'id_tuk' => $request->id_tuk
         ]);
         
@@ -159,7 +162,9 @@ class AssessorController extends Controller
      */
     public function destroy($id)
     {
-        Assessor::destroy($id);
+        Assessor::find($id)->update([
+            'status' => 0
+        ]);
 
         //response
         $response = [
