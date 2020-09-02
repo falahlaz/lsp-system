@@ -19,7 +19,8 @@ class AssessorController extends Controller
     public function index()
     {
         $data = \DB::table('m_asesor')->select('id','name','reg_num','phone')->where('status', 1)->get();
-        return response()->json($data,200);
+        // return response()->json($data,200);
+        return view('participant.form01',compact('data'));
     }
 
     /**
@@ -41,7 +42,7 @@ class AssessorController extends Controller
     public function store(Request $request)
     {
          // validasi data yang diinput user
-         $this->validate($request,[
+        $this->validate($request,[
             'name' => 'required',
             'reg_num' => 'required',
             'gender' => 'required',

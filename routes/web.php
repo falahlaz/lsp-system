@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::resource('/tuk','Admin\Master\TukController');
+Route::resource('/scheme','Admin\Master\SchemeController');
+Route::resource('/scheme/unit','Admin\Master\UnitSchemeController');
+Route::resource('/assessor','Admin\Master\AssessorController'); 
+Route::resource('/exam/question','Admin\Master\ExamQuestionController');
+Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
+Route::resource('/unit/question','Admin\Master\UnitQuestionController');

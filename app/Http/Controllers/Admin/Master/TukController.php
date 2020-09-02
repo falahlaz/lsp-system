@@ -16,7 +16,8 @@ class TukController extends Controller
     public function index()
     {
         $data = \DB::table('m_tuk')->select('id', 'code', 'name', 'type')->where('status', 1)->get();
-        return response()->json($data,200);
+        // return response()->json($data,200);
+        return view('master.tuk',\compact('data'));
     }
 
     /**

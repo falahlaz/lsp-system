@@ -13,6 +13,7 @@ class Form01Controller extends Controller
     public function index()
     {
         $data = \DB::table('t_form01')->select('id', 'name', 'gender', 'nationality', 'email', 'phone', 'status')->get();
+
     }
 
     public function store(Request $request)

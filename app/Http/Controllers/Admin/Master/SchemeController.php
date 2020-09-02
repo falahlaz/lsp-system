@@ -16,7 +16,9 @@ class SchemeController extends Controller
     public function index()
     {
         $data = \DB::table('m_scheme')->where('status', 1)->select('id', 'code', 'name')->get();
-        return response()->json($data,200);
+        // return response()->json($data,200);
+
+        return view('master.skema',\compact('data'));
     }
 
     /**
