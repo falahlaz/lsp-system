@@ -1,4 +1,5 @@
-@extends('template.index')
+@extends('admin.app')
+@section('title','TUK')
 @section('sub-judul', 'TUK')
 @section('content')
    <div class="col-12 col-md-5 col-lg-5">

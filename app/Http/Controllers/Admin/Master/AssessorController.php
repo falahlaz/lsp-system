@@ -20,7 +20,7 @@ class AssessorController extends Controller
     {
         $data = \DB::table('m_asesor')->select('id','name','reg_num','phone')->where('status', 1)->get();
         // return response()->json($data,200);
-        return view('participant.form01',compact('data'));
+        return view('admin.assessor.index',compact('data'));
     }
 
     /**
@@ -115,7 +115,7 @@ class AssessorController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.assessor.detail');
     }
 
     /**

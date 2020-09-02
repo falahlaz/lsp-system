@@ -13,12 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/tes', function(){
+   return view('admin.app');
+});
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
+   Route::get('/', 'Admin\Master\DashboardController@index')->name('dashboard');
+   Route::resource('/tuk','Admin\Master\TukController');
+   Route::resource('/scheme','Admin\Master\SchemeController');
+   Route::resource('/scheme/unit','Admin\Master\UnitSchemeController');
+   Route::resource('/assessor','Admin\Master\AssessorController'); 
+   Route::resource('/element', 'Admin\Master\ElementController');
+   Route::resource('/exam/question','Admin\Master\ExamQuestionController');
+   Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
+   Route::resource('/unit/question','Admin\Master\UnitQuestionController');
+});
 
 
-Route::resource('/tuk','Admin\Master\TukController');
-Route::resource('/scheme','Admin\Master\SchemeController');
-Route::resource('/scheme/unit','Admin\Master\UnitSchemeController');
-Route::resource('/assessor','Admin\Master\AssessorController'); 
-Route::resource('/exam/question','Admin\Master\ExamQuestionController');
-Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
-Route::resource('/unit/question','Admin\Master\UnitQuestionController');

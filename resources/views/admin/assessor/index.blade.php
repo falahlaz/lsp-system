@@ -1,4 +1,5 @@
-@extends('template.index')
+@extends('admin.app')
+@section('title', 'Assessor')
 @section('sub-judul', 'Assessor')
 @section('content')
    <div class="col-12 col-md-5 col-lg-5">
@@ -103,7 +104,7 @@
                   <td>alfalahlazuardi@gmail.com</td>
                   <td>088977392521</td>
                   <td>
-                  <a href="asesor-detail.html" class="btn btn-icon btn-info"><i class="fas fa-info-circle"></i></a>
+                  <a href="#" class="btn btn-icon btn-info"><i class="fas fa-info-circle"></i></a>
                   <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
                   </td>
                </tr>

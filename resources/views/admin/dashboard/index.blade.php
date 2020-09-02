@@ -1,5 +1,6 @@
-@extends('template.index')
-@section('sub-judul', 'Dashboard')
+@extends('admin.app')
+@section('title','Dashboard')
+@section('sub-judul','Dashboard')
 @section('content')
    <div class="col-lg-4 col-md-4 col-sm-12">
       <div class="card card-statistic-2">
@@ -46,8 +47,8 @@
          </div>
       </div>
    </div>
-</div>
-<div class="row">
+   </div>
+   <div class="row">
    <div class="col-lg-8">
       <div class="card">
          <div class="card-header">
