@@ -74,7 +74,7 @@
                 <a href="{{ route('admin.scheme.index') }}" class="nav-link"><i class="fas fa-file-alt"></i> <span>Skema</span></a>
               </li>
               <li class="nav-item {{ request()->is('admin/element') ? 'active' : '' }}">
-                <a href="{{ route('admin.element.index') }}" class="nav-link"><i class="fas fa-file-alt"></i> <span>Skema</span></a>
+                <a href="{{ route('admin.element.index') }}" class="nav-link"><i class="fas fa-file-alt"></i> <span>Elemen</span></a>
               </li>
               <li class="nav-item {{ request()->is('admin/question') ? 'active' : '' }}">
                 <a href="{{ route('admin.question.index') }}" class="nav-link"><i class="fas fa-pen"></i> <span>Ujian Tertulis</span></a>
@@ -90,8 +90,8 @@
                 <a href="hasil-ujian.html" class="nav-link"><i class="fas fa-archive"></i> <span>Rekap Hasil Ujian</span></a>
               </li>
               <li class="menu-header">Users</li>
-              <li class="nav-item">
-                <a href="user.html" class="nav-link"><i class="far fa-user"></i> <span>Users</span></a>
+              <li class="nav-item {{ request()->is('admin/user') ? 'active' : '' }}">
+                <a href="{{ route('admin.user.index') }}" class="nav-link"><i class="far fa-user"></i> <span>Users</span></a>
               </li>
             </ul>
         </aside>
@@ -139,7 +139,7 @@
   <script src="../node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
   <script src="../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
   <script src="../node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js"></script>
- 
+
   <!-- Template JS File -->
   <script src="{{ asset('../assets/js/scripts.js')}}"></script>
   <script src="{{ asset('../assets/js/custom.js')}}"></script>
