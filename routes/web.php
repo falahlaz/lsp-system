@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/',function(){
+    return view('user.form02');
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('/', 'Admin\Master\DashboardController@index')->name('dashboard');
@@ -26,5 +29,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/unit/question','Admin\Master\UnitQuestionController');
     Route::resource('/user','Admin\Master\UserController');
 });
+
+
+Route::get('/login',function(){
+    return view('user.login');
+});
+Route::get('/logout','Admin\AuthController@logout');
+Route::get('/register','Admin\AuthController@register');
+Route::get('/register/apl/02');
+Route::get('/register/confirm','Admin\AuthController@confirmRegister');
 
 

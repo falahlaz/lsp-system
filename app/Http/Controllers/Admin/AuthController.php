@@ -26,11 +26,13 @@ class AuthController extends Controller
             $token = $this->generateToken($id_user);
 
             // send response
-            return response()->json([
-                'message' => 'Login success',
-                'token' => $token,
-                'id_user' => $id_user
-            ], 200);
+            // return response()->json([
+            //     'message' => 'Login success',
+            //     'token' => $token,
+            //     'id_user' => $id_user
+            // ], 200);
+
+            return view('user.login');
         }
 
         // if user login with email
@@ -89,5 +91,16 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Logout success'
         ], 200);
+    }
+
+    public function register()
+    {
+
+        return view('user.form01');
+    }
+
+    public function ConfirmRegister()
+    {
+        return view('user.confirmRegister');
     }
 }
