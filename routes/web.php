@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('user.login');
-});
+// Route::get('/', function () {
+//     return redirect()->route('user.login');
+// });
 
 Route::get('/',function(){
-    return view('user.form02');
+    return view('admin.tuk.edit');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
