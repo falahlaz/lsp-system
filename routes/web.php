@@ -34,6 +34,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 Route::get('/login',function(){
     return view('user.login');
 });
+
 Route::get('/logout','Admin\AuthController@logout');
 Route::get('/register','Admin\AuthController@register');
 Route::get('/register/apl/02');
