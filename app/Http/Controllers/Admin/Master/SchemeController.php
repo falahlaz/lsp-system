@@ -17,7 +17,6 @@ class SchemeController extends Controller
     {
         $data = \DB::table('m_scheme')->where('status', 1)->select('id', 'code', 'name')->get();
         // return response()->json($data,200);
-
         return view('admin.scheme.index',\compact('data'));
     }
 
@@ -59,11 +58,8 @@ class SchemeController extends Controller
         ]);
 
         //response
-        $response = [
-            'message' => 'Insert Scheme success'
-        ];
+        return \redirect()->route('admin.scheme.index');
 
-        return response()->json($response,201);
     }
 
     /**
@@ -83,9 +79,10 @@ class SchemeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Scheme $scheme)
     {
-        return Scheme::find($id);
+        $data['scheme'] = \DB::table('m_scheme')->where('id',$scheme->id)->first();
+        return view('admin.scheme.edit',\compact('data'));
     }
 
     /**
@@ -114,13 +111,9 @@ class SchemeController extends Controller
             'field' => $request->field,
             'mea_status' => $request->mea_status
         ]);
-        
-        //response
-        $response = [
-            'message' => 'Update Scheme success'
-        ];
 
-        return response()->json($response,200);
+        //response
+        return \redirect()->route('admin.scheme.index');
     }
 
     /**
@@ -136,9 +129,7 @@ class SchemeController extends Controller
         ]);
 
         //response
-        $response = [
-            'message' => 'Delete Scheme success'
-        ];
-        return response()->json($response,200);
+        return \redirect()->route('admin.scheme.index');
+
     }
 }

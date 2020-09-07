@@ -18,8 +18,11 @@ class AssessorController extends Controller
      */
     public function index()
     {
+
+
         $data = \DB::table('m_asesor')->select('id','name','reg_num','phone')->where('status', 1)->get();
-        // return response()->json($data,200);
+        $data['tuk'] = \DB::table('m_tuk')->select('id','name')->get();
+        $data['scheme'] = \DB::table('m_scheme')->select('id','name')->get();
         return view('admin.assessor.index',compact('data'));
     }
 
@@ -53,7 +56,10 @@ class AssessorController extends Controller
             'username' => 'required',
             'email' => 'required|email',
             'password' => 'required',
+            'confirm_password' => 'required|confirmed'
         ]);
+        dd($request->all());
+
         // menambah data ke tabel user
         $user = User::create([
             'username' => $request->username,
@@ -74,7 +80,7 @@ class AssessorController extends Controller
             'status' => 1,
             'id_tuk' => $request->id_tuk
         ]);
-        
+
         $all_scheme = $request->id_scheme;
 
         // add assessor scheme to database
@@ -85,13 +91,7 @@ class AssessorController extends Controller
                 'status' => 1
             ]);
         }
-        
-        //response
-        $response = [
-            'message' => 'Insert Assessor success'
-        ];
-
-        return response()->json($response,201);
+        return redirect()->route('admin.assessor.index');
     }
 
     /**
@@ -146,7 +146,7 @@ class AssessorController extends Controller
             'phone' => $request->phone,
             'id_tuk' => $request->id_tuk
         ]);
-        
+
         //response
         $response = [
             'message' => 'Update Assessor success'

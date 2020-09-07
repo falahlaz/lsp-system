@@ -55,12 +55,8 @@ class TukController extends Controller
             'status' => 1
         ]);
 
-        //response
-        $response = [
-            'message' => 'Insert TUK success'
-        ];
+        return \redirect()->route('admin.tuk.index');
 
-        return response()->json($response,201);
     }
 
     /**
@@ -82,7 +78,10 @@ class TukController extends Controller
      */
     public function edit(Tuk $tuk)
     {
-        return $tuk;
+        $data['tuk'] = \DB::table('m_tuk')->where('id',$tuk->id)->first();
+        $data['type'] = ['Sementara','Mandiri','Tempata Kerja'];
+
+        return view('admin.tuk.edit',\compact('data'));
     }
 
     /**
@@ -109,13 +108,10 @@ class TukController extends Controller
             'name' => $request->name,
             'address' => $request->address
         ]);
-        
-        //response
-        $response = [
-            'message' => 'Update TUK success'
-        ];
 
-        return response()->json($response,200);
+        //response
+        return \redirect()->route('admin.tuk.index');
+
     }
 
     /**
@@ -130,11 +126,6 @@ class TukController extends Controller
             'status' => 0
         ]);
 
-        //response
-        $response = [
-            'message' => 'Delete TUK success'
-        ];
-
-        return response()->json($response,200);
+        return \redirect()->route('admin.tuk.index');
     }
 }

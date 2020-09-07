@@ -8,18 +8,19 @@
 	<!-- General CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
 	<!-- CSS Libraries -->
-	<link rel="stylesheet" href="../node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-	<link rel="stylesheet" href="../node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css">
-	<link rel="stylesheet" href="{{ url('../../../../node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
-	<link rel="stylesheet" href="{{ url('../../../../node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
-
+	{{-- <link rel="stylesheet" href="../node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css"> --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.bootstrap4.min.css">
+    <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+	{{-- <link rel="stylesheet" href="{{ url('../../../../node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ url('../../../../node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}"> --}}
 
 
 	<!-- Template CSS -->
 	<link rel="stylesheet" href="{{ url('../assets/css/style.css') }}">
-	<link rel="stylesheet" href="{{ url('../assets/css/components.css') }}">
+	{{-- <link rel="stylesheet" href="{{ url('../assets/css/all.css') }}"> --}}
 </head>
 
 <body>
@@ -61,61 +62,46 @@
 					<ul class="sidebar-menu">
 						<li class="menu-header">Dashboard</li>
 						<li class="nav-item">
-								<a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+                            <a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
 						</li>
 						<li class="menu-header">Master</li>
-						<li class="nav-item {{ request()->is('admin/assessor') ? 'active' : '' }}">
-								<a href="{{ route('admin.assessor.index') }}" class="nav-link "><i class="fas fa-users"></i> <span>Asesor</span></a>
+						<li class="nav-item @yield('activeassessor')">
+                            <a href="{{ route('admin.assessor.index') }}" class="nav-link "><i class="fas fa-users"></i> <span>Asesor</span></a>
 						</li>
-						<li class="nav-item {{ request()->is('admin/tuk') ? 'active' : '' }}">
-								<a href="{{ route('admin.tuk.index') }}" class="nav-link"><i class="fas fa-map-marker-alt"></i> <span>TUK</span></a>
+						<li class="nav-item @yield('activetuk')">
+                            <a href="{{ route('admin.tuk.index') }}" class="nav-link"><i class="fas fa-map-marker-alt"></i> <span>TUK</span></a>
 						</li>
-						<li class="nav-item {{ request()->is('admin/scheme') ? 'active' : '' }}">
-								<a href="{{ route('admin.scheme.index') }}" class="nav-link"><i class="fas fa-file-alt"></i> <span>Skema</span></a>
+						<li class="nav-item @yield('activescheme')">
+                            <a href="{{ route('admin.scheme.index') }}" class="nav-link"><i class="fas fa-file-alt"></i> <span>Skema</span></a>
 						</li>
-						<li class="nav-item {{ request()->is('admin/element') ? 'active' : '' }}">
-								<a href="{{ route('admin.element.index') }}" class="nav-link"><i class="fas fa-file-alt"></i> <span>Elemen</span></a>
+						<li class="nav-item @yield('activelement')">
+                            <a href="{{ route('admin.element.index') }}" class="nav-link"><i class="fas fa-file-alt"></i> <span>Elemen</span></a>
 						</li>
-						<li class="nav-item {{ request()->is('admin/question') ? 'active' : '' }}">
-								<a href="{{ route('admin.question.index') }}" class="nav-link"><i class="fas fa-pen"></i> <span>Ujian Tertulis</span></a>
-						</li>
+						<li class="nav-item @yield('activequestion')d">
+                            <a href="{{ route('admin.question.index') }}" class="nav-link"><i class="fas fa-pen"></i> <span>Ujian Tertulis</span></a>
+                        </li>
 						<li class="menu-header">Peserta</li>
 						<li class="nav-item">
-								<a href="form-01.html" class="nav-link"><i class="fas fa-file"></i> <span>Form APL-01</span></a>
+                            <a href="form-01.html" class="nav-link"><i class="fas fa-file"></i> <span>Form APL-01</span></a>
 						</li>
 						<li class="nav-item">
-								<a href="form-02.html" class="nav-link"><i class="fas fa-copy"></i> <span>Form APL-02</span></a>
+                            <a href="form-02.html" class="nav-link"><i class="fas fa-copy"></i> <span>Form APL-02</span></a>
 						</li>
 						<li class="nav-item">
-								<a href="hasil-ujian.html" class="nav-link"><i class="fas fa-archive"></i> <span>Rekap Hasil Ujian</span></a>
+                            <a href="hasil-ujian.html" class="nav-link"><i class="fas fa-archive"></i> <span>Rekap Hasil Ujian</span></a>
 						</li>
 						<li class="menu-header">Users</li>
 						<li class="nav-item {{ request()->is('admin/user') ? 'active' : '' }}">
-								<a href="{{ route('admin.user.index') }}" class="nav-link"><i class="far fa-user"></i> <span>Users</span></a>
+                            <a href="{{ route('admin.user.index') }}" class="nav-link"><i class="far fa-user"></i> <span>Users</span></a>
 						</li>
 					</ul>
 				</aside>
 			</div>
 
 			<!-- Main Content -->
-			<div class="main-content">
-				<section class="section">
-					<div class="section-header">
-						<h1>@yield('sub-judul')</h1>
-						<div class="section-header-breadcrumb">
-						<div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-						<div class="breadcrumb-item active"><a href="{{ route('admin.assessor.index') }}">@yield('section')</a></div>
-						</div>
-					</div>
-
-					<div class="section-body">
-						<div class="row">
-							@yield('content')
-						</div>
-					</div>
-				</section>
-			</div>
-
+            <div class="main-content">
+                @yield('content')
+            </div>
 			<footer class="main-footer">
 				<div class="footer-left">
 					Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
@@ -132,19 +118,22 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
 	<script src="{{ asset('../assets/js/stisla.js')}}"></script>
 
 	<!-- JS Libraies -->
-	<script src="{{ url('../../../node_modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+	{{-- <script src="{{ url('../../../node_modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{ url('../../../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-	<script src="{{ url('../../../node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}"></script>
+	<script src="{{ url('../../../node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}"></script> --}}
 
 	<!-- Template JS File -->
-	<script src="{{ asset('../assets/js/scripts.js')}}"></script>
+	{{-- <script src="{{ asset('../assets/js/all.js')}}"></script> --}}
 	<script src="{{ asset('../assets/js/custom.js')}}"></script>
 
 	<!-- Page Specific JS File -->
-<script src="{{ asset('..//assets/js/page/modules-datatables.js')}}"></script>
+<script src="{{ asset('../assets/js/page/modules-datatables.js')}}"></script>
 </body>
 </html>

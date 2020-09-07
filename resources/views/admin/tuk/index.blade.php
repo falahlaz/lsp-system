@@ -1,99 +1,110 @@
 @extends('admin.app')
-@section('title','TUK')
-@section('sub-judul', 'TUK')
+@section('title', 'TUK')
+@section('activetuk','active')
 @section('content')
-   <div class="col-12 col-md-5 col-lg-5">
-      <div class="card">
-      <div class="card-header">
-         <h4>Add New TUK</h4>
-      </div>
-      <div class="card-body">
-         <div class="form-group">
-            <label>Kode TUK</label>
-            <input type="text" class="form-control">
-         </div>
-         <div class="form-group">
-            <label>Jenis TUK</label>
-            <input type="text" class="form-control">
-         </div>
-         <div class="form-group">
-            <label>Nama TUK</label>
-            <input type="text" class="form-control">
-         </div>
-         <div class="form-group">
-            <label>Alamat</label>
-            <textarea class="form-control"></textarea>
-         </div>
-      </div>
-      <div class="card-footer text-right">
-         <button class="btn btn-primary mr-1" type="submit">Submit</button>
-      </div>
-      </div>
-   </div>
-   <div class="col-12 col-md-7 col-lg-7">
-      <div class="card">
-         <div class="card-header">
-            <h4>List of TUK</h4>
-         </div>
-         <div class="card-body">
-            <div class="table-responsive">
-               <table class="table table-striped" id="table-1">
-                  <thead>
-                     <tr>
-                        <th class="text-center">
-                        #
-                        </th>
-                        <th>Kode</th>
-                        <th>Nama</th>
-                        <th>Jenis</th>
-                        <th>Action</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td>1</td>
-                        <td>070-TUKS-LSPABI</td>
-                        <td>Sewaktu</td>
-                        <td>PT Pamapersada Nusantara Cileungsi</td>
-                        <td>
-                        <a href="#" class="btn btn-icon btn-primary"><i class="fas fa-edit"></i></a>
-                        <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>2</td>
-                        <td>070-TUKS-LSPABI</td>
-                        <td>Sewaktu</td>
-                        <td>PT Pamapersada Nusantara Cileungsi</td>
-                        <td>
-                        <a href="#" class="btn btn-icon btn-primary"><i class="fas fa-edit"></i></a>
-                        <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>3</td>
-                        <td>070-TUKS-LSPABI</td>
-                        <td>Sewaktu</td>
-                        <td>PT Pamapersada Nusantara Cileungsi</td>
-                        <td>
-                        <a href="#" class="btn btn-icon btn-primary"><i class="fas fa-edit"></i></a>
-                        <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>4</td>
-                        <td>070-TUKS-LSPABI</td>
-                        <td>Sewaktu</td>
-                        <td>PT Pamapersada Nusantara Cileungsi</td>
-                        <td>
-                        <a href="#" class="btn btn-icon btn-primary"><i class="fas fa-edit"></i></a>
-                        <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
+	<section class="section">
+		<div class="section-header">
+			<h1>TUK</h1>
+			<div class="section-header-breadcrumb">
+				<div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+				<div class="breadcrumb-item"><a href="#"></a>TUK</div>
+			</div>
+        </div>
+
+		<div class="section-body">
+			<div class="row">
+				<div class="col-12 col-md-5 col-lg-5">
+					<div class="card">
+						<div class="card-header">
+							<h4>Add New TUK</h4>
+						</div>
+						<div class="card-body">
+							<form action="{{route('admin.tuk.store')}}" method="post">
+                            @csrf
+                                <div class="form-group">
+                                    <label>Kode TUK</label>
+                                    <input type="text" class="form-control" name="code" value="{{old('code')}}">
+                                @error('code')
+                                    <div class="customalert">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Jenis TUK</label>
+                                    <select class="form-control" name="type" value="{{old('type')}}">
+                                        <option>Sementara</option>
+                                        <option>Mandiri</option>
+                                        <option>Tempat Kerja</option>
+                                    </select>
+                                @error('type')
+                                    <div class="customalert">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama TUK</label>
+                                    <input type="text" class="form-control" name="name" value="{{old('name')}}">
+                                @error('name')
+                                    <div class="customalert">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Alamat</label>
+                                    <textarea class="form-control" name="address" value="{{old('address')}}" style="height: 100%;" rows="4">{{old('address')}}</textarea>
+                                @error('address')
+                                    <div class="customalert">{{ $message }}</div>
+                                @enderror
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-7 col-lg-7">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>List of TUK</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="table-1">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">
+                                            #
+                                            </th>
+                                            <th>Kode</th>
+                                            <th>Nama</th>
+                                            <th>Jenis</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($data as $tuk)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $tuk->code}}</td>
+                                                <td>{{ $tuk->name }}</td>
+                                                <td>{{ $tuk->type }}</td>
+                                                <td>
+                                                    <a href="{{ route('admin.tuk.edit',$tuk->id) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
+                                                    <form action="{{ route('admin.tuk.destroy',$tuk->id) }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+
+                                                        <button class="btn btn-icon btn-danger"><i class="fas fa-times"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </section>
 @endsection
