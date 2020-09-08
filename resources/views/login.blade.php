@@ -26,13 +26,19 @@
 					<div class="p-4 m-3">
 							<img src="../assets/img/stisla-fill.svg" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
 							<h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">LSP System</span></h4>
-							<p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p>
-							<form method="POST" action="#" class="needs-validation" novalidate="">
+							<p class="text-muted">Before you get started, you must login.</p>
+							<form method="POST" action="{{ route('login.store') }}" class="needs-validation" novalidate="">
+							@csrf
+							@if(Session::has('error'))
+							<div class="alert alert-danger">
+								{{ Session::get('error') }}
+							</div>
+							@endif
 							<div class="form-group">
-								<label for="email">Email</label>
-								<input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+								<label for="email">Username</label>
+								<input id="email" type="text" class="form-control" name="username" tabindex="1" required autofocus value="{{ old('username') }}">
 								<div class="invalid-feedback">
-									Please fill in your email
+									Please fill in your username
 								</div>
 							</div>
 
@@ -46,13 +52,6 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<div class="custom-control custom-checkbox">
-									<input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-									<label class="custom-control-label" for="remember-me">Remember Me</label>
-								</div>
-							</div>
-
 							<div class="form-group text-right">
 								<a href="auth-forgot-password.html" class="float-left mt-3">
 									Forgot Password?
@@ -61,19 +60,10 @@
 									Login
 								</button>
 							</div>
-
-							<div class="mt-5 text-center">
-								Don't have an account? <a href="auth-register.html">Create new one</a>
-							</div>
 						</form>
 
 						<div class="text-center mt-5 text-small">
-							Copyright &copy; Your Company. Made with 💙 by Stisla
-							<div class="mt-2">
-								<a href="#">Privacy Policy</a>
-								<div class="bullet"></div>
-								<a href="#">Terms of Service</a>
-							</div>
+							Copyright &copy; LSP TO 2020. Made with 💙 by Stisla
 						</div>
 					</div>
 				</div>

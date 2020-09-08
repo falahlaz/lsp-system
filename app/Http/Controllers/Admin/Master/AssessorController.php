@@ -18,7 +18,7 @@ class AssessorController extends Controller
      */
     public function index()
     {
-
+        if(!\Session::has('id_user')) return redirect()->route('login');
 
         $data = \DB::table('m_asesor')->select('id','name','reg_num','phone')->where('status', 1)->get();
         $data['tuk'] = \DB::table('m_tuk')->select('id','name')->get();
@@ -105,6 +105,7 @@ class AssessorController extends Controller
      */
     public function show($id)
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
         $data = \DB::table('vw_assessor')->select('id_assessor', 'assessor_name', 'reg_num', 'gender', 'address', 'phone', 'id_tuk', 'tuk_name')->where('id_assessor',$id)->first();
 
         return response()->json($data,200);
@@ -118,6 +119,7 @@ class AssessorController extends Controller
      */
     public function edit($id)
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
         return view('admin.assessor.detail');
     }
 

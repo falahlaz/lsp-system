@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>LSP SYSTEM &mdash; @yield('title')</title>
 
 	<!-- General CSS Files -->
@@ -47,7 +48,7 @@
 								<i class="far fa-user"></i> Profile
 							</a>
 							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item has-icon text-danger">
+							<a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger">
 								<i class="fas fa-sign-out-alt"></i> Logout
 							</a>
 						</div>

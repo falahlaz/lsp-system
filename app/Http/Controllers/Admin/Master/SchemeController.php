@@ -15,6 +15,7 @@ class SchemeController extends Controller
      */
     public function index()
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
         $data = \DB::table('m_scheme')->where('status', 1)->select('id', 'code', 'name')->get();
         // return response()->json($data,200);
         return view('admin.scheme.index',\compact('data'));
@@ -81,6 +82,7 @@ class SchemeController extends Controller
      */
     public function edit(Scheme $scheme)
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
         $data['scheme'] = \DB::table('m_scheme')->where('id',$scheme->id)->first();
         return view('admin.scheme.edit',\compact('data'));
     }

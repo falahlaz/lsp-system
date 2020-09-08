@@ -10,6 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
         return view('admin.dashboard.index');
     }
 
