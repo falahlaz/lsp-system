@@ -15,6 +15,7 @@ class TukController extends Controller
      */
     public function index()
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
         $data = \DB::table('m_tuk')->select('id', 'code', 'name', 'type')->where('status', 1)->get();
         // return response()->json($data,200);
         return view('admin.tuk.index',\compact('data'));
@@ -78,6 +79,7 @@ class TukController extends Controller
      */
     public function edit(Tuk $tuk)
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
         $data['tuk'] = \DB::table('m_tuk')->where('id',$tuk->id)->first();
         $data['type'] = ['Sementara','Mandiri','Tempata Kerja'];
 

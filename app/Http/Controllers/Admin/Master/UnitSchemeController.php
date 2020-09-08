@@ -15,7 +15,7 @@ class UnitSchemeController extends Controller
      */
     public function index()
     {
-        //
+        if(!\Session::has('id_user')) return redirect()->route('login');
     }
 
     /**
@@ -81,7 +81,7 @@ class UnitSchemeController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!\Session::has('id_user')) return redirect()->route('login');
     }
 
     /**

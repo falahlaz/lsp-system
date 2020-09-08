@@ -15,6 +15,7 @@ class UnitQuestionController extends Controller
      */
 	public function index()
 	{
+        if(!\Session::has('id_user')) return redirect()->route('login');
         return view('admin.question.index');
 	}
 
@@ -77,7 +78,7 @@ class UnitQuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!\Session::has('id_user')) return redirect()->route('login');
     }
 
     /**

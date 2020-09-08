@@ -14,6 +14,7 @@ class ElementController extends Controller
      */
     public function index()
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
         return view('admin.element.index');
     }
 
@@ -46,7 +47,7 @@ class ElementController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!\Session::has('id_user')) return redirect()->route('login');
     }
 
     /**
@@ -57,7 +58,7 @@ class ElementController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!\Session::has('id_user')) return redirect()->route('login');
     }
 
     /**

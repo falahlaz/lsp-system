@@ -10,8 +10,15 @@ use App\User;
 
 class AuthController extends Controller
 {
-    // method login
-    public function login(Request $request)
+    public function login()
+    {
+        if(\Session::has('id_user')) return redirect()->route('admin.dashboard');
+
+        return view('login');
+    }
+
+    // method login store
+    public function loginStore(Request $request)
     {
         $username = $request->username;
         $password = $request->password;
@@ -19,43 +26,15 @@ class AuthController extends Controller
         // if user login with username
         if(Auth::attempt(['username' => $username, 'password' => $password])) {
             // get user
-            $user    = \DB::table('m_users')->where('username', $username);
-            $id_user = $user->first()->id;
+            $user    = User::where('username', $username)->first();
 
-            // generate login token
-            $token = $this->generateToken($id_user);
+            \Session::put('id_user', $user->id);
+            \Session::put('id_position', $user->id_position);
 
-            // send response
-            // return response()->json([
-            //     'message' => 'Login success',
-            //     'token' => $token,
-            //     'id_user' => $id_user
-            // ], 200);
-
-            return view('user.login');
+            return redirect()->route('admin.dashboard');
         }
 
-        // if user login with email
-        if(Auth::attempt(['email' => $username, 'password' => $password])) {
-            // get user
-            $user    = \DB::table('m_users')->where('email', $username);
-            $id_user = $user->first()->id;
-
-            // generate login token
-            $token = $this->generateToken($id_user);
-
-            // send response
-            return response()->json([
-                'message' => 'Login success',
-                'token' => $token,
-                'id_user' => $id_user
-            ], 200);
-        }
-
-        // return response if all credentials false
-        return response()->json([
-            'message' => 'Login failed. Please check your credentials',
-        ], 401);
+        return redirect()->route('login')->with('error', 'Username / Password Invalid!')->withInput();
     }
 
     // method generate token
@@ -77,20 +56,11 @@ class AuthController extends Controller
     }
 
     // method logout
-    public function logout(Request $request)
+    public function logout()
     {
-        // get login token
-        $token = $request->bearerToken();
+        \Session::flush();
 
-        // update token to null
-        User::where('token', $token)->update([
-            'token' => null
-        ]);
-
-        // return response
-        return response()->json([
-            'message' => 'Logout success'
-        ], 200);
+        return redirect()->route('login');
     }
 
     public function register()
