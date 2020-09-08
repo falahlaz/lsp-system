@@ -8,36 +8,36 @@ use Illuminate\Http\Request;
 
 class UnitQuestionController extends Controller
 {
-    /**
+	/**
      * Display a listing of the resource.
-     *
+    	 *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+	public function index()
+	{
+        return view('admin.question.index');
+	}
 
-    /**
+	/**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+	public function create()
+	{
 
-    /**
+	}
+
+	/**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+	public function store(Request $request)
+	{
         // validasi data yang diinput user
-        $this->validate($request,[
+		$this->validate($request,[
             'question' => 'required',
             'id_unit' => 'required',
             'status' => 'required',
@@ -102,7 +102,7 @@ class UnitQuestionController extends Controller
             'id_unit' => $request->id_unit,
             'status' => $request->status,
         ]);
-        
+
         //response
         $response = [
             'message' => 'Update Unit Question success'

@@ -14,12 +14,15 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.bootstrap4.min.css">
     <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> --}}
+
+	<link rel="stylesheet" href="{{ asset('/assets/modules/select2/dist/css/select2.min.css') }}">
 	{{-- <link rel="stylesheet" href="{{ url('../../../../node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 	<link rel="stylesheet" href="{{ url('../../../../node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}"> --}}
 
 
 	<!-- Template CSS -->
-	<link rel="stylesheet" href="{{ url('../assets/css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
 	{{-- <link rel="stylesheet" href="{{ url('../assets/css/all.css') }}"> --}}
 </head>
 
@@ -74,10 +77,10 @@
 						<li class="nav-item @yield('activescheme')">
                             <a href="{{ route('admin.scheme.index') }}" class="nav-link"><i class="fas fa-file-alt"></i> <span>Skema</span></a>
 						</li>
-						<li class="nav-item @yield('activelement')">
+						<li class="nav-item @yield('activeelement')">
                             <a href="{{ route('admin.element.index') }}" class="nav-link"><i class="fas fa-file-alt"></i> <span>Elemen</span></a>
 						</li>
-						<li class="nav-item @yield('activequestion')d">
+						<li class="nav-item @yield('activequestion')">
                             <a href="{{ route('admin.question.index') }}" class="nav-link"><i class="fas fa-pen"></i> <span>Ujian Tertulis</span></a>
                         </li>
 						<li class="menu-header">Peserta</li>
@@ -87,11 +90,11 @@
 						<li class="nav-item">
                             <a href="form-02.html" class="nav-link"><i class="fas fa-copy"></i> <span>Form APL-02</span></a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item @yield('activeujian')">
                             <a href="hasil-ujian.html" class="nav-link"><i class="fas fa-archive"></i> <span>Rekap Hasil Ujian</span></a>
 						</li>
 						<li class="menu-header">Users</li>
-						<li class="nav-item {{ request()->is('admin/user') ? 'active' : '' }}">
+						<li class="nav-item @yield('activeusers')">
                             <a href="{{ route('admin.user.index') }}" class="nav-link"><i class="far fa-user"></i> <span>Users</span></a>
 						</li>
 					</ul>
@@ -122,7 +125,12 @@
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
-	<script src="{{ asset('../assets/js/stisla.js')}}"></script>
+	 {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.main.js"></script> --}}
+  {{-- <script src="../node_modules/select2/dist/js/select2.full.min.js"></script> --}}
+
+  <script src="{{ asset('/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+
+	<script src="{{ asset('/assets/js/stisla.js')}}"></script>
 
 	<!-- JS Libraies -->
 	{{-- <script src="{{ url('../../../node_modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
@@ -131,9 +139,9 @@
 
 	<!-- Template JS File -->
 	{{-- <script src="{{ asset('../assets/js/all.js')}}"></script> --}}
-	<script src="{{ asset('../assets/js/custom.js')}}"></script>
+	<script src="{{ asset('/assets/js/custom.js')}}"></script>
 
 	<!-- Page Specific JS File -->
-<script src="{{ asset('../assets/js/page/modules-datatables.js')}}"></script>
+<script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
 </body>
 </html>

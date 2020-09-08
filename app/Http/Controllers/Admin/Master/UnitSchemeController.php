@@ -110,7 +110,7 @@ class UnitSchemeController extends Controller
             'id_scheme' => $request->id_scheme,
             'status' => $request->status
         ]);
-        
+
         //response
         $response = [
             'message' => 'Update Unit Scheme success'

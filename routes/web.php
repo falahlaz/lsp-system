@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/',function(){
-    return view('admin.tuk.edit');
+    return view('admin.unitScheme.index');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
@@ -30,7 +30,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/element', 'Admin\Master\ElementController');
     Route::resource('/exam/question','Admin\Master\ExamQuestionController');
     Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
-    Route::resource('/unit/question','Admin\Master\UnitQuestionController');
+    Route::resource('/question','Admin\Master\UnitQuestionController');
     Route::resource('/user','Admin\Master\UserController');
 });
 

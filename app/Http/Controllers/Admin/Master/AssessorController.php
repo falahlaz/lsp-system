@@ -44,21 +44,21 @@ class AssessorController extends Controller
      */
     public function store(Request $request)
     {
-         // validasi data yang diinput user
-        $this->validate($request,[
-            'name' => 'required',
-            'reg_num' => 'required',
-            'gender' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'id_tuk' => 'required',
-            'id_scheme' => 'required',
-            'username' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'confirm_password' => 'required|confirmed'
-        ]);
-        dd($request->all());
+        // dd($request->all());
+        // validasi data yang diinput user
+        // $this->validate($request,[
+        //     'name' => 'required',
+        //     'reg_num' => 'required',
+        //     'gender' => 'required',
+        //     'address' => 'required',
+        //     'phone' => 'required',
+        //     'id_tuk' => 'required',
+        //     'id_scheme' => 'required',
+        //     'username' => 'required',
+        //     'email' => 'required|email',
+        //     'password' => 'required',
+        //     'confirm_password' => 'required|confirmed'
+        // ]);
 
         // menambah data ke tabel user
         $user = User::create([
@@ -81,17 +81,20 @@ class AssessorController extends Controller
             'id_tuk' => $request->id_tuk
         ]);
 
-        $all_scheme = $request->id_scheme;
+        // $all_scheme = $request->id_scheme;
+
 
         // add assessor scheme to database
-        foreach($all_scheme as $scheme){
+        // foreach($all_scheme as $scheme){
             AssessorScheme::create([
                 'id_asesor' => $asesor->id,
-                'id_scheme' => $scheme,
+                // 'id_scheme' => $scheme,
+                'id_scheme' => $request->id_scheme,
                 'status' => 1
             ]);
-        }
+        // }
         return redirect()->route('admin.assessor.index');
+        
     }
 
     /**

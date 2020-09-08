@@ -23,21 +23,28 @@
                         <div class="form-group">
                             <label>Kode</label>
                             <input type="text" name="code" class="form-control" value="{{ $data['scheme']->code }}">
-                            @error('name')
+                            @error('code')
                                 <div class="customalert">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Nama</label>
                             <input type="text" name="name" class="form-control" value="{{ $data['scheme']->name }}">
-                            @error('code')
+                            @error('name')
+                                <div class="customalert">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Kategori</label>
+                            <input type="text" name="category" class="form-control" value="{{ $data['scheme']->category }}">
+                            @error('category')
                                 <div class="customalert">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Bidang</label>
                             <input type="text" name="field" class="form-control" value="{{ $data['scheme']->field }}">
-                            @error('code')
+                            @error('field')
                                 <div class="customalert">{{ $message }}</div>
                             @enderror
                         </div>

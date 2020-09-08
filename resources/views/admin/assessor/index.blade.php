@@ -30,8 +30,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>No Registrasi</label>
-                                    <input type="text" class="form-control" name="num_reg" value="{{ old('reg_num') }}">
-                                @error('num_reg')
+                                    <input type="text" class="form-control" name="reg_num" value="{{ old('reg_num') }}">
+                                @error('reg_num')
                                     <div class="customalert">{{ $message }}</div>
                                 @enderror
                                 </div>
@@ -69,18 +69,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Skema</label>
-                                    <select class="form-control" multiple="" data-height="100%" name="id_scheme" value="{{ old('id_scheme') }}">
+                                    <select class="form-control select2" multiple="" data-height="100%" name="id_scheme[]" value="{{ old('id_scheme') }}">
                                         @foreach($data['scheme'] as $scheme)
                                         <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
                                         @endforeach
                                     </select>
-                                @error('id_scheme')
+                                @error('id_scheme[]')
                                     <div class="customalert">{{ $message }}</div>
                                 @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <textarea class="form-control" style="height: 100%;" rows="4" name="address"></textarea>
+                                    <textarea class="form-control" style="height: 100%;" rows="4" name="address" value="{{ old('address') }}"></textarea>
                                 @error('address')
                                     <div class="customalert">{{ $message }}</div>
                                 @enderror
@@ -88,13 +88,13 @@
                                 <div class="form-group">
                                     <label class="d-block">Jenis Kelamin</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios1">
+                                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Laki-Laki" value="{{ old('gender') }}">
                                         <label class="form-check-label" for="exampleRadios1">
                                                 Pria
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios2">
+                                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Perempuan" value="{{ old('gender') }}">
                                         <label class="form-check-label" for="exampleRadios2">
                                                 Wanita
                                         </label>
@@ -106,10 +106,16 @@
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input type="password" class="form-control" name="password" value="{{ old('password') }}">
+                                    @error('password')
+                                    <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Konfirmasi Password</label>
-                                    <input type="password" class="form-control">
+                                    <input type="password" class="form-control" name="confirm_password" value="{{ old('confirm_password') }}">
+                                    @error('confirm_password')
+                                    <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="card-footer text-right">
                                         <button class="btn btn-primary mr-1" type="submit">Submit</button>
@@ -135,13 +141,12 @@
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th>No Telp</th>
-                                                <th width="135">Action</th>
+                                            <th width="135">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($data as $assessor)
                                         <tr>
-                                            dd($assessr)
                                             <td>{{ $loop->iteration }}</td>
                                             <td>hello</td>
                                             <td>hello</td>
