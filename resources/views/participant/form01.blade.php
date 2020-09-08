@@ -3,12 +3,12 @@
 	<head>
 	<meta charset="UTF-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-	<title>Ecommerce Dashboard &mdash; Stisla</title>
+	<title>Form APL 01 &mdash; Stisla</title>
 
 	<!-- General CSS Files -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    
+
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
@@ -31,25 +31,31 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="card">
-						<div class="card-header">
-							<h4>A. Data Pribadi</h4>
-						</div>
+
 						<form action="">
-						<div class="card-body">
+                            <div class="card-body">
+                                <h4 style="color:#6777EF;" class="card-title">Bagian 1 :  Rincian Data Pemohon Sertifikasi </h4>
+                                <h5 class="card-text">Pada bagian ini,  cantumkan data pribadi, data pendidikan formal serta data pekerjaan anda pada saat ini.</h5>
+                                <br>
+                                <h5 style="color:black;" class="card-title">A. Data Pribadi</h5>
 							<div class="form-group">
 								<label for="InputName">Nama Lengkap</label>
 								<input type="text" class="form-control" id="InputName" placeholder="Nama Lengkap">
-                     </div>
-                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                           <label for="InputKtp">No KTP/NIK/PASSPORT</label>
-                           <input type="text" id="InputKtp" class="form-control">
-                        </div>
-                        <div class="form-group col-md-6">
-                           <label for="KtpPhoto">Foto KTP</label>
-                           <input type="file"  id="KtpPhoto" class="form-control">
-                        </div>
-                     </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="InputKtp">No KTP/NIK/PASSPORT</label>
+                                    <input type="text" id="InputKtp" class="form-control">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="KtpPhoto">Foto KTP</label>
+                                    <input type="file"  id="KtpPhoto" class="form-control">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="KtpPhoto">Pas Foto</label>
+                                    <input type="file"  id="KtpPhoto" class="form-control">
+                                </div>
+                            </div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label>Tempat Lahir</label>
@@ -60,7 +66,7 @@
 									<input type="date" class="form-control">
 								</div>
 							</div>
-							<div class="form-group">		
+							<div class="form-group">
 								<label>Jenis Kelamin</label>
 								<select class="form-control" id="exampleFormControlSelect1">
 									<option selected>--Pilih Jenis Kelamin--</option>
@@ -110,11 +116,8 @@
 								<input type="text" class="form-control">
 							</div>
 						</div>
-						</form>
-						<div class="card-header">
-							<h4>Data Pribadi</h4>
-						</div>
 						<div class="card-body">
+                            <h5 style="color:black;" class="card-title">A. Data Pekerjaan Sekarang</h5>
 							<div class="form-group">
 								<label>Perusahaan/Lembaga</label>
 								<input type="text" class="form-control">
@@ -175,7 +178,7 @@
 	<script src="../../node_modules/datatables/media/js/jquery.dataTables.min.js"></script>
 	<script src="../../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 	<script src="../../node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js"></script>
-	
+
 	<!-- Template JS File -->
 	<script src="../../assets/js/scripts.js"></script>
 	<script src="../../assets/js/custom.js"></script>
