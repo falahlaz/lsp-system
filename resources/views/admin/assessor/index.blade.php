@@ -58,10 +58,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>TUK</label>
-                                    <select class="form-control" name="id_tuk" value="{{ old('id_tuk') }}" >
-                                    @foreach($data['tuk'] as $tuk)
+                                    <select class="form-control" name="id_tuk" value="{{ old('id_tuk') }}">
+                                        <option value="">-- Pilih TUK --</option>
+                                        @foreach($data['tuk'] as $tuk)
                                         <option value="{{ $tuk->id }}">{{ $tuk->name }}</option>
-                                    @endforeach
+                                        @endforeach
                                     </select>
                                 @error('id_tuk')
                                     <div class="customalert">{{ $message }}</div>
@@ -69,10 +70,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Skema</label>
-                                    <select class="form-control select2">
-                                        <option>Option 1</option>
+                                    <select name="id_scheme[]" class="form-control select2" multiple="">
+                                        <option value="">-- Pilih Skema --</option>
+                                        @foreach ($data['scheme'] as $scheme)
+                                        <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
+                                        @endforeach
                                     </select>
-                                @error('id_scheme[]')
+                                @error('id_scheme')
                                     <div class="customalert">{{ $message }}</div>
                                 @enderror
                                 </div>
@@ -103,20 +107,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control" name="password" value="{{ old('password') }}">
+                                    <input type="password" class="form-control" name="password">
                                     @error('password')
                                     <div class="customalert">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Konfirmasi Password</label>
-                                    <input type="password" class="form-control" name="confirm_password" value="{{ old('confirm_password') }}">
-                                    @error('confirm_password')
+                                    <input type="password" class="form-control" name="password_confirmation">
+                                    @error('password_confirmation')
                                     <div class="customalert">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="card-footer text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                    <button class="btn btn-primary" type="submit">Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -139,7 +143,7 @@
                                             <th>Reg Num</th>
                                             <th>Nama</th>
                                             <th>Phone</th>
-                                            <th width="135">Action</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -151,7 +155,11 @@
                                             <td>{{ $asesor->phone }}</td>
                                             <td>
                                                 <a href="#" class="btn btn-icon btn-info"><i class="fas fa-info-circle"></i></a>
-                                                <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
+                                                <form action="{{ route('admin.assessor.destroy', ['assessor' => $asesor->id]) }}" method="post" style="display: inline-block">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button class="btn btn-icon btn-danger"><i class="fas fa-times"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach
