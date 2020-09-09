@@ -69,10 +69,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Skema</label>
-                                    <select class="form-control select2" multiple="" data-height="100%" name="id_scheme[]" value="{{ old('id_scheme') }}">
-                                        @foreach($data['scheme'] as $scheme)
-                                        <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
-                                        @endforeach
+                                    <select class="form-control select2">
+                                        <option>Option 1</option>
                                     </select>
                                 @error('id_scheme[]')
                                     <div class="customalert">{{ $message }}</div>
@@ -138,19 +136,19 @@
                                             <th class="text-center">
                                             #
                                             </th>
+                                            <th>Reg Num</th>
                                             <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>No Telp</th>
+                                            <th>Phone</th>
                                             <th width="135">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($data as $assessor)
+                                        @foreach($data['asesor'] as $asesor)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>hello</td>
-                                            <td>hello</td>
-                                            <td>hello</td>
+                                            <td>{{ $asesor->reg_num }}</td>
+                                            <td>{{ $asesor->name }}</td>
+                                            <td>{{ $asesor->phone }}</td>
                                             <td>
                                                 <a href="#" class="btn btn-icon btn-info"><i class="fas fa-info-circle"></i></a>
                                                 <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
@@ -166,4 +164,19 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('script')
+    <script src="{{ asset('/assets/modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+	<script src="{{ asset('/assets/modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('/assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
+    
+    <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
+  	<script src="{{ asset('/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+@endsection
+
+@section('style')
+    <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/modules/select2/dist/css/select2.min.css') }}">
 @endsection

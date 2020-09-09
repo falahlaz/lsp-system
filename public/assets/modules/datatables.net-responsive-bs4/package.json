@@ -1,16 +1,14 @@
 {
-    "name": "datatables.net-bs4",
-    "version": "1.10.19",
-    "description": "DataTables for jQuery with styling for [Bootstrap 4](http://getbootstrap.com/)",
+    "name": "datatables.net-responsive-bs4",
+    "version": "2.2.3",
+    "description": "Responsive for DataTables with styling for [Bootstrap 4](http://getbootstrap.com/)",
     "files": [
         "css/**/*.css",
         "js/**/*.js"
     ],
-    "main": "./js/dataTables.bootstrap4.js",
-    "style": "./css/dataTables.bootstrap4.css",
+    "main": "js/responsive.bootstrap4.js",
     "keywords": [
-        "filter",
-        "sort",
+        "responsive",
         "DataTables",
         "jQuery",
         "table",
@@ -25,6 +23,8 @@
     },
     "dependencies": {
         "jquery": ">=1.7",
-        "datatables.net": "1.10.19"
-    }
+        "datatables.net-bs4": "^1.10.15",
+        "datatables.net-responsive": "2.2.3"
+    },
+    "style": "css/responsive.bootstrap4.css"
 }

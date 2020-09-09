@@ -20,9 +20,10 @@ class AssessorController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
 
-        $data = \DB::table('m_asesor')->select('id','name','reg_num','phone')->where('status', 1)->get();
-        $data['tuk'] = \DB::table('m_tuk')->select('id','name')->get();
-        $data['scheme'] = \DB::table('m_scheme')->select('id','name')->get();
+        $data['asesor'] = \DB::table('m_asesor')->select('id','name','reg_num','phone')->where('status', 1)->get();
+        $data['tuk']    = \DB::table('m_tuk')->select('id','name')->where('status', 1)->get();
+        $data['scheme'] = \DB::table('m_scheme')->select('id','name')->where('status', 1)->get();
+
         return view('admin.assessor.index',compact('data'));
     }
 
