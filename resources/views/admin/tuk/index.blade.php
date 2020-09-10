@@ -31,6 +31,7 @@
                                 <div class="form-group">
                                     <label>Jenis TUK</label>
                                     <select class="form-control" name="type" value="{{old('type')}}">
+                                        <option value="">-- Pilih Jenis TUK --</option>
                                         <option>Sementara</option>
                                         <option>Mandiri</option>
                                         <option>Tempat Kerja</option>
@@ -89,7 +90,7 @@
                                                 <td>{{ $tuk->type }}</td>
                                                 <td>
                                                     <a href="{{ route('admin.tuk.edit',$tuk->id) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
-                                                    <form action="{{ route('admin.tuk.destroy',$tuk->id) }}" method="post">
+                                                    <form action="{{ route('admin.tuk.destroy',$tuk->id) }}" method="post" style="display: inline-block">
                                                         @csrf
                                                         @method('delete')
 
@@ -107,4 +108,17 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('script')
+    <script src="{{ asset('/assets/modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+	<script src="{{ asset('/assets/modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('/assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
+    
+    <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
+@endsection
+
+@section('style')
+    <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
 @endsection

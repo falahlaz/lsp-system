@@ -57,7 +57,6 @@ class TukController extends Controller
         ]);
 
         return \redirect()->route('admin.tuk.index');
-
     }
 
     /**
