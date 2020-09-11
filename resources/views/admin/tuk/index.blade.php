@@ -32,7 +32,7 @@
                                     <label>Jenis TUK</label>
                                     <select class="form-control" name="type" value="{{old('type')}}">
                                         <option value="">-- Pilih Jenis TUK --</option>
-                                        <option>Sementara</option>
+                                        <option>Sewaktu</option>
                                         <option>Mandiri</option>
                                         <option>Tempat Kerja</option>
                                     </select>

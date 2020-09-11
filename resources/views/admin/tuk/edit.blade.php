@@ -37,11 +37,9 @@
                         <div class="form-group">
                             <label>Jenis TUK</label>
                             <select name="type" class="form-control">
-                                <option  value="{{ $data['tuk']->type }}">{{ $data['tuk']->type }}</option>
-                                @foreach($data['tuk'] as $type)
-                                    @if($data['tuk']->type != $type)
-                                        <option value="{{ $type }}">{{ $type }}</option>
-                                    @endif
+                                <option  value="">-- Pilih Jenis TUK --</option>
+                                @foreach($data['type'] as $type)
+                                    <option value="{{ $type }}" @if($data['tuk']->type == $type) selected @endif>{{ $type }}</option>
                                 @endforeach
                             </select>
                             @error('type')
@@ -59,7 +57,7 @@
                     </div>
                     <div class="card-footer text-right">
                         <a href="{{ route('admin.tuk.index') }}" class="btn btn-outline-danger">Back</a>
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary" type="submit">Update</button>
                     </div>
                 </form>
             </div>
