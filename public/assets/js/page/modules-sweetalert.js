@@ -8,55 +8,18 @@ $("#swal-2").click(function() {
 	swal('Good Job', 'You clicked the button!', 'success');
 });
 
-$("#swal-3").click(function() {
-	swal('Good Job', 'You clicked the button!', 'warning');
-});
+function deleteData(el) {
+  let btnId   = $(el).data('btn-id');
+  let formId  = $(el).parent().data('form-id');
 
-$("#swal-4").click(function() {
-	swal('Good Job', 'You clicked the button!', 'info');
-});
-
-$("#swal-5").click(function() {
-	swal('Good Job', 'You clicked the button!', 'error');
-});
-
-$("#swal-6").click(function() {
   swal({
       title: 'Are you sure?',
-      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      text: 'Once deleted, you will not be able to recover this data!',
       icon: 'warning',
       buttons: true,
       dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-      swal('Poof! Your imaginary file has been deleted!', {
-        icon: 'success',
-      });
-      } else {
-      swal('Your imaginary file is safe!');
-      }
-    });
-});
-
-$("#swal-7").click(function() {
-  swal({
-    title: 'What is your name?',
-    content: {
-    element: 'input',
-    attributes: {
-      placeholder: 'Type your name',
-      type: 'text',
-    },
-    },
-  }).then((data) => {
-    swal('Hello, ' + data + '!');
+  })
+  .then((willDelete) => {
+      if (willDelete && (btnId === formId)) $(el).parent().submit();
   });
-});
-
-$("#swal-8").click(function() {
-  swal('This modal will disappear soon!', {
-    buttons: false,
-    timer: 3000,
-  });
-});
+}

@@ -56,7 +56,7 @@ class TukController extends Controller
             'status' => 1
         ]);
 
-        return \redirect()->route('admin.tuk.index');
+        return \redirect()->route('admin.tuk.index')->with('success', 'Data successfully added!');
     }
 
     /**
@@ -127,6 +127,6 @@ class TukController extends Controller
             'status' => 0
         ]);
 
-        return \redirect()->route('admin.tuk.index');
+        return \redirect()->route('admin.tuk.index')->with('success', 'Data successfully deleted!');
     }
 }
