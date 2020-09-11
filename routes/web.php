@@ -36,5 +36,3 @@ Route::get('/logout','Admin\AuthController@logout')->name('logout');
 Route::get('/register','Admin\AuthController@register');
 Route::get('/register/apl/02');
 Route::get('/register/confirm','Admin\AuthController@confirmRegister');
-
-
