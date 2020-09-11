@@ -83,7 +83,9 @@ class SchemeController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['scheme'] = \DB::table('m_scheme')->where('id',$scheme->id)->first();
-        return view('admin.scheme.edit',\compact('data'));
+        $data['unit']   = \DB::table('m_unit')->select('id', 'code', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
+
+        return view('admin.scheme.edit', compact('data'));
     }
 
     /**
