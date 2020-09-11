@@ -1,82 +1,38 @@
 @extends('admin.app')
-@section('title','Edit Elemen')
+@section('title','Edit Pertanyaan')
 @section('activeelement', 'active')
 @section('content')
     <section class="section">
 		<div class="section-header">
-			<h1>Edit  Elemen</h1>
+			<h1>Edit Pertanyaan</h1>
 			<div class="section-header-breadcrumb">
 				<div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
 				<div class="breadcrumb-item active"><a href="{{ route('admin.element.index') }}">Elemen</a></div>
-				<div class="breadcrumb-item"><a href="#"></a>Edit Elemen</div>
+				<div class="breadcrumb-item"><a href="#"></a>Edit Pertanyaan</div>
 			</div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-12 col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                    <h4>Edit Elemen</h4>
-                    </div>
-                    <form action="{{ route('admin.element.update', ['element' => $data['element']->id]) }}" method="post">
-                        @csrf
-                        @method('patch')
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Unit</label>
-                                <select class="form-control select2" name="id_unit">
-                                    <option value="">-- Pilih Unit --</option>
-                                    @foreach ($data['unit'] as $unit)
-                                    <option value="{{ $unit->id }}" @if($data['element']->id_unit == $unit->id) selected @endif>{{ $unit->name }}</option>
-                                    @endforeach
-                                </select>
-                            @error('id_unit')
-                                <div class="customalert">{{ $message }}</div>
-                            @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Nama</label>
-                                <input type="text" name="name" class="form-control" value="{{ $data['element']->name }}">
-                                @error('name')
-                                    <div class="customalert">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="card-footer text-right">
-                            <a href="{{ route('admin.element.index') }}" class="btn btn-outline-danger">Back</a>
-                            <button class="btn btn-primary" type="submit">Update</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
         <div class="row">
             <div class="col-12 col-md-5 col-lg-5">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Add New Question</h4>
+                        <h4>Edit Question</h4>
                     </div>
 
-                    <form action="{{ route('admin.question.store') }}" method="POST">
+                    <form action="{{ route('admin.question.update', ['question' => $data['edit']->id]) }}" method="POST">
+                        @method('put')
                         @csrf
-                        <input type="hidden" name="id_element" value="{{ $data['element']->id }}">
+                        <input type="hidden" name="id_element" value="{{ $data['edit']->id_element }}">
                         <div class="card-body">
-                            <div class="form-group form-add-input">
+                            <div class="form-group">
                                 <label>Pertanyaan</label>
-                                <input type="text" class="form-control" name="name[]" value="{{ old('name') }}">
-                            @error('name')
+                                <input type="text" class="form-control" name="question" value="{{ $data['edit']->question }}">
+                            @error('question')
                                 <div class="customalert">{{ $message }}</div>
                             @enderror
                             </div>
-                            <div class="text-right">
-                                <style>
-                                    button.add-input, .add-input i {
-                                        font-size: 10px !important;
-                                    }
-                                </style>
-                                <button class="btn-sm btn btn-info add-input" type="button"><i class="fas fa-plus"></i> New Input</button>
-                            </div>
                             <div class="card-footer text-right">
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <a href="{{ route('admin.element.edit', ['element' => $data['edit']->id_element]) }}" class="btn btn-outline-danger">Back</a>
+                                <button class="btn btn-primary" type="submit">Update</button>
                             </div>
                         </form>
                     </div>
@@ -135,7 +91,6 @@
     
     <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
     <script src="{{ asset('/assets/js/page/modules-sweetalert.js')}}"></script>
-    <script src="{{ asset('/assets/js/page/add-input.js')}}"></script>
     <script>
         @if(Session::has('success'))
             swal('Success', "{{ Session::get('success') }}", 'success');

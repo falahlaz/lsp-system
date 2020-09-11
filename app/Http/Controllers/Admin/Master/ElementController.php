@@ -78,6 +78,7 @@ class ElementController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['unit']       = \DB::table('m_unit')->select('id', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
+        $data['question']   = \DB::table('m_element_question')->select('id', 'question', 'status')->orderBy('question', 'asc')->get();
         $data['element']    = Element::find($id);
 
         return view('admin.element.edit', compact('data'));

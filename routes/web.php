@@ -22,7 +22,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/element', 'Admin\Master\ElementController');
     Route::resource('/exam/question','Admin\Master\ExamQuestionController');
     Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
-    Route::resource('/question','Admin\Master\UnitQuestionController');
+    Route::resource('/question','Admin\Master\ElementQuestionController');
     Route::resource('/user','Admin\Master\UserController');
 });
 

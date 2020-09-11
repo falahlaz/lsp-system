@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
-use App\UnitQuestion;
+use App\ElementQuestion;
 use Illuminate\Http\Request;
 
-class UnitQuestionController extends Controller
+class ElementQuestionController extends Controller
 {
 	/**
      * Display a listing of the resource.
@@ -39,24 +39,20 @@ class UnitQuestionController extends Controller
 	{
         // validasi data yang diinput user
 		$this->validate($request,[
-            'question' => 'required',
-            'id_unit' => 'required',
-            'status' => 'required',
+            'name' => 'required',
+            'id_element' => 'required',
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitQuestion::create([
-            'question' => $request->question,
-            'id_unit' => $request->id_unit,
-            'status' => $request->status,
-        ]);
+        foreach($request->name as $name) {
+            ElementQuestion::create([
+                'question' => $name,
+                'id_element' => $request->id_element,
+                'status' => 1,
+            ]);
+        }
 
-        //response
-        $response = [
-            'message' => 'Insert Unit Question success'
-        ];
-
-        return response()->json($response,201);
+        return redirect()->route('admin.element.edit', ['element' => $request->id_element])->with('success', 'Data successfully added!');
     }
 
     /**
@@ -79,6 +75,10 @@ class UnitQuestionController extends Controller
     public function edit($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['question']   = \DB::table('m_element_question')->select('id', 'question', 'status')->orderBy('question', 'asc')->get();
+        $data['edit']       = ElementQuestion::find($id);
+
+        return view('admin.question.edit', compact('data'));
     }
 
     /**
@@ -93,23 +93,15 @@ class UnitQuestionController extends Controller
         // validasi data yang diinput user
         $this->validate($request,[
             'question' => 'required',
-            'id_unit' => 'required',
-            'status' => 'required',
+            'id_element' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitQuestion::where('id',$id)->update([
+        ElementQuestion::find($id)->update([
             'question' => $request->question,
-            'id_unit' => $request->id_unit,
-            'status' => $request->status,
         ]);
 
-        //response
-        $response = [
-            'message' => 'Update Unit Question success'
-        ];
-
-        return response()->json($response,200);
+        return redirect()->route('admin.element.edit', ['element' => $request->id_element])->with('success', 'Data successfully updated!');
     }
 
     /**
@@ -120,13 +112,9 @@ class UnitQuestionController extends Controller
      */
     public function destroy($id)
     {
-        UnitQuestion::destroy($id);
+        $question = ElementQuestion::find($id);
+        $question->delete();
 
-        //response
-        $response = [
-            'message' => 'Delete Unit Question success'
-        ];
-
-        return response()->json($response,200);
+        return redirect()->route('admin.element.edit', ['element' => $question->id_element])->with('success', 'Data successfully deleted!');
     }
 }
