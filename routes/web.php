@@ -20,7 +20,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/scheme/unit','Admin\Master\UnitSchemeController');
     Route::resource('/assessor','Admin\Master\AssessorController');
     Route::resource('/element', 'Admin\Master\ElementController');
-    Route::resource('/exam/question','Admin\Master\ExamQuestionController');
+    Route::resource('/exam/question','Admin\Master\ExamQuestionController', ['as' => 'exam']);
     Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
     Route::resource('/question','Admin\Master\ElementQuestionController');
     Route::resource('/user','Admin\Master\UserController');
