@@ -20,9 +20,10 @@ class AssessorController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
 
-        $data = \DB::table('m_asesor')->select('id','name','reg_num','phone')->where('status', 1)->get();
-        $data['tuk'] = \DB::table('m_tuk')->select('id','name')->get();
-        $data['scheme'] = \DB::table('m_scheme')->select('id','name')->get();
+        $data['asesor'] = \DB::table('m_asesor')->select('id','name','reg_num','phone')->where('status', 1)->get();
+        $data['tuk']    = \DB::table('m_tuk')->select('id','name')->where('status', 1)->get();
+        $data['scheme'] = \DB::table('m_scheme')->select('id','name')->where('status', 1)->get();
+
         return view('admin.assessor.index',compact('data'));
     }
 
@@ -44,21 +45,19 @@ class AssessorController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         // validasi data yang diinput user
-        // $this->validate($request,[
-        //     'name' => 'required',
-        //     'reg_num' => 'required',
-        //     'gender' => 'required',
-        //     'address' => 'required',
-        //     'phone' => 'required',
-        //     'id_tuk' => 'required',
-        //     'id_scheme' => 'required',
-        //     'username' => 'required',
-        //     'email' => 'required|email',
-        //     'password' => 'required',
-        //     'confirm_password' => 'required|confirmed'
-        // ]);
+        $this->validate($request,[
+            'name' => 'required',
+            'reg_num' => 'required',
+            'gender' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'id_tuk' => 'required',
+            'id_scheme' => 'required',
+            'username' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed',
+        ]);
 
         // menambah data ke tabel user
         $user = User::create([
@@ -81,20 +80,16 @@ class AssessorController extends Controller
             'id_tuk' => $request->id_tuk
         ]);
 
-        // $all_scheme = $request->id_scheme;
-
-
         // add assessor scheme to database
-        // foreach($all_scheme as $scheme){
+        foreach($request->id_scheme as $scheme){
             AssessorScheme::create([
                 'id_asesor' => $asesor->id,
-                // 'id_scheme' => $scheme,
-                'id_scheme' => $request->id_scheme,
+                'id_scheme' => $scheme,
                 'status' => 1
             ]);
-        // }
-        return redirect()->route('admin.assessor.index');
-        
+        }
+
+        return redirect()->route('admin.assessor.index')->with('success', 'Data successfully added!');
     }
 
     /**
@@ -168,15 +163,11 @@ class AssessorController extends Controller
      */
     public function destroy($id)
     {
-        Assessor::find($id)->update([
-            'status' => 0
-        ]);
+        $asesor = Assessor::find($id);
+        $asesor->delete();
 
-        //response
-        $response = [
-            'message' => 'Delete Assessor success'
-        ];
+        User::find($asesor->id_users)->delete();
 
-        return response()->json($response,200);
+        return redirect()->route('admin.assessor.index')->with('success', 'Data successfully deleted!');
     }
 }

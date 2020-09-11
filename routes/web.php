@@ -13,14 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return redirect()->route('user.login');
-// });
-
-Route::get('/',function(){
-    return view('admin.unitScheme.index');
-});
-
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('/', 'Admin\Master\DashboardController@index')->name('dashboard');
     Route::resource('/tuk','Admin\Master\TukController');
@@ -32,8 +24,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
     Route::resource('/question','Admin\Master\UnitQuestionController');
     Route::resource('/user','Admin\Master\UserController');
-}); 
+});
 
+Route::get('/',function(){
+    return redirect()->route('admin.dashboard');
+});
 
 Route::get('/login', 'Admin\AuthController@login')->name('login');
 Route::post('/login', 'Admin\AuthController@loginStore')->name('login.store');

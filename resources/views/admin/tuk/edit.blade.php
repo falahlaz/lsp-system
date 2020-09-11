@@ -58,7 +58,8 @@
                         </div>
                     </div>
                     <div class="card-footer text-right">
-                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                        <a href="{{ route('admin.tuk.index') }}" class="btn btn-outline-danger">Back</a>
+                        <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>
             </div>
