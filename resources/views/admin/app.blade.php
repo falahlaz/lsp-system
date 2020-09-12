@@ -72,7 +72,7 @@
                             <a href="{{ route('admin.element.index') }}" class="nav-link"><i class="fas fa-file-alt"></i> <span>Elemen</span></a>
 						</li>
 						<li class="nav-item @yield('activequestion')">
-                            <a href="{{ route('admin.question.index') }}" class="nav-link"><i class="fas fa-pen"></i> <span>Ujian Tertulis</span></a>
+                            <a href="{{ route('admin.exam.question.index') }}" class="nav-link"><i class="fas fa-pen"></i> <span>Ujian Tertulis</span></a>
                         </li>
 						<li class="menu-header">Peserta</li>
 						<li class="nav-item">
