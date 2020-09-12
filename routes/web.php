@@ -24,6 +24,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
     Route::resource('/question','Admin\Master\ElementQuestionController');
     Route::resource('/user','Admin\Master\UserController');
+    Route::post('/exam/answer/correct', 'Admin\Master\ExamAnswerController@correctAnswer')->name('answer.correct');
 });
 
 Route::get('/',function(){

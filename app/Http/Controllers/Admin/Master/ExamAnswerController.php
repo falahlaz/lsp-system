@@ -39,8 +39,7 @@ class ExamAnswerController extends Controller
         // validasi data yang diinput user
         $this->validate($request,[
             'id_exam_question' => 'required',
-            'answer' => 'required',
-            'is_correct' => 'required'
+            'answer' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
@@ -48,15 +47,29 @@ class ExamAnswerController extends Controller
             'id_exam_question' => $request->id_exam_question,
             'answer' => $request->answer,
             'status' => 1,
-            'is_correct' => $request->is_correct
+            'is_correct' => 0
         ]);
 
-        //response
-        $response = [
-            'message' => 'Insert Exam Answer success'
-        ];
+        return redirect()->route('admin.exam.question.edit', ['question' => $request->id_exam_question])->with('success', 'Data successfully added!');
+    }
 
-        return response()->json($response,201);
+    public function correctAnswer(Request $request)
+    {
+        $this->validate($request, [
+            'is_correct' => 'required',
+            'old_correct' => 'required',
+            'id_exam_question' => 'required'
+        ]);
+
+        ExamAnswer::find($request->old_correct)->update([
+            'is_correct' => 0
+        ]);
+
+        ExamAnswer::find($request->is_correct)->update([
+            'is_correct' => 1
+        ]);
+
+        return redirect()->route('admin.exam.question.edit', ['question' => $request->id_exam_question])->with('success', 'Data successfully added!');
     }
 
     /**
@@ -126,13 +139,9 @@ class ExamAnswerController extends Controller
      */
     public function destroy($id)
     {
-        ExamAnswer::destroy($id);
+        $answer = ExamAnswer::find($id);
+        $answer->delete();
 
-        //response
-        $response = [
-            'message' => 'Delete Exam Answer success'
-        ];
-
-        return response()->json($response,200);
+        return redirect()->route('admin.exam.question.edit', ['question' => $answer->id_exam_question])->with('success', 'Data successfully deleted!');
     }
 }

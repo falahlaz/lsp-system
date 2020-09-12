@@ -41,50 +41,50 @@
         <div class="row">
             <div class="col-12 col-md-5 col-lg-5">
                 <div class="card">
-                    <form action="{{ route('admin.exam.question.store') }}" method="post">
+                    <form action="{{ route('admin.answer.store') }}" method="post">
                         @csrf
                         <div class="card-header">
-                        <h4>Add New Question</h4>
+                        <h4>Add New Answer</h4>
                         </div>
+                        <input type="hidden" name="id_exam_question" value="{{ $data['edit']->id }}">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Skema</label>
-                                <select class="form-control select2" name="id_scheme">
-                                    <option value="">-- Pilih Skema --</option>
-                                    @foreach ($data['scheme'] as $scheme)
-                                    <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
+                                <label>Jawaban</label>
+                                <input type="text" class="form-control" name="answer">
+                                @error('answer')
+                                    <div class="customalert">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="card-footer text-right">
+                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card">
+                    <form action="{{ route('admin.answer.correct') }}" method="post">
+                        @csrf
+                        <div class="card-header">
+                        <h4>Ubah Jawaban Benar</h4>
+                        </div>
+                        <input type="hidden" name="id_exam_question" value="{{ $data['edit']->id }}">
+                        @foreach ($data['answer'] as $answer)
+                            @if($answer->is_correct === 1)
+                                <input type="hidden" name="old_correct" value="{{ $answer->id }}">
+                            @endif
+                        @endforeach
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Jawaban</label>
+                                <select name="is_correct" class="form-control">
+                                    <option value="">-- Pilih Jawaban Benar --</option>
+                                    @foreach ($data['answer'] as $answer)
+                                        <option value="{{ $answer->id }}" @if($answer->is_correct === 1) selected @endif>{{ $answer->answer }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Pertanyaan</label>
-                                <input type="text" class="form-control" name="question">
-                            </div>
-                            <div class="form-group">
-                                <label>Jawaban A</label>
-                                <input type="text" name="answer[]" class="form-control question-a">
-                            </div>
-                            <div class="form-group">
-                                <label>Jawaban B</label>
-                                <input type="text" name="answer[]" class="form-control question-b">
-                            </div>
-                            <div class="form-group">
-                                <label>Jawaban C</label>
-                                <input type="text" name="answer[]" class="form-control question-c">
-                            </div>
-                            <div class="form-group">
-                                <label>Jawaban D</label>
-                                <input type="text" name="answer[]" class="form-control question-d">
-                            </div>
-                            <div class="form-group">
-                                <label>Jawaban E</label>
-                                <input type="text" name="answer[]" class="form-control question-e">
-                            </div>
-                            <div class="form-group">
-                                <label>Jawaban Benar</label>
-                                <select class="form-control correct" name="is_correct">
-                                    <option value="">-- Pilih Jawaban Benar --</option>
-                                </select>
+                                @error('is_correct')
+                                    <div class="customalert">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="card-footer text-right">
@@ -96,7 +96,7 @@
             <div class="col-12 col-md-7 col-lg-7">
                 <div class="card">
                     <div class="card-header">
-                        <h4>List of Question</h4>
+                        <h4>List of Answer</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -106,23 +106,28 @@
                                         <th class="text-center">
                                             #
                                         </th>
-                                        <th>Skema</th>
                                         <th>Pertanyaan</th>
-                                        <th width="20%">Action</th>
+                                        <th>Status</th>
+                                        <th width="15%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data['question'] as $question)
+                                    @foreach ($data['answer'] as $answer)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $question->scheme_name }}</td>
-                                            <td>{{ $question->question }}</td>
+                                            <td>{{ $answer->answer }}</td>
                                             <td>
-                                                <a href="{{ route('admin.exam.question.edit',$question->id_e_question) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
-                                                <form data-form-id="{{ $question->id_e_question }}" action="{{ route('admin.exam.question.destroy',$question->id_e_question) }}" method="post" style="display: inline-block">
+                                                @if($answer->is_correct == 1)
+                                                    Benar
+                                                @else
+                                                    Salah
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form data-form-id="{{ $answer->id }}" action="{{ route('admin.answer.destroy',$answer->id) }}" method="post" style="display: inline-block">
                                                     @csrf
                                                     @method('delete')
-                                                    <button data-btn-id="{{ $question->id_e_question }}" onclick="deleteData(this)" class="btn btn-icon btn-danger delete" type="button"><i class="fas fa-times"></i></button>
+                                                    <button data-btn-id="{{ $answer->id }}" onclick="deleteData(this)" class="btn btn-icon btn-danger delete" type="button"><i class="fas fa-times"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

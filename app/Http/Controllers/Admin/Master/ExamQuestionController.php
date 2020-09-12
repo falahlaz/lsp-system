@@ -95,7 +95,10 @@ class ExamQuestionController extends Controller
     public function edit($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
-        $data['question']   = \DB::table('vw_exam_question')->select('id_e_question', 'question', 'scheme_name')->where('status', 1)->get();
+        $data['answer']     = \DB::table('m_exam_answer')->select('id', 'answer', 'status', 'is_correct')->where([
+            ['status', 1],
+            ['id_exam_question', $id]
+        ])->get();
         $data['scheme']     = \DB::table('m_scheme')->select('id', 'name')->where('status', 1)->get();
         $data['edit']       = ExamQuestion::find($id);
 
