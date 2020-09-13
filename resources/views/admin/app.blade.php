@@ -75,14 +75,14 @@
                             <a href="{{ route('admin.exam.question.index') }}" class="nav-link"><i class="fas fa-pen"></i> <span>Ujian Tertulis</span></a>
                         </li>
 						<li class="menu-header">Peserta</li>
-						<li class="nav-item">
-                            <a href="form-01.html" class="nav-link"><i class="fas fa-file"></i> <span>Form APL-01</span></a>
+						<li class="nav-item @yield('activeapl01')">
+                            <a href="{{ route('admin.form.apl01') }}" class="nav-link"><i class="fas fa-file"></i> <span>Form APL-01</span></a>
 						</li>
-						<li class="nav-item">
-                            <a href="form-02.html" class="nav-link"><i class="fas fa-copy"></i> <span>Form APL-02</span></a>
+						<li class="nav-item @yield('activeapl02')">
+                            <a href="{{ route('admin.form.apl02') }}" class="nav-link"><i class="fas fa-copy"></i> <span>Form APL-02</span></a>
 						</li>
 						<li class="nav-item @yield('activeujian')">
-                            <a href="hasil-ujian.html" class="nav-link"><i class="fas fa-archive"></i> <span>Rekap Hasil Ujian</span></a>
+                            <a href="{{ route('admin.form.recap') }}" class="nav-link"><i class="fas fa-archive"></i> <span>Rekap Hasil Ujian</span></a>
 						</li>
 						<li class="menu-header">Users</li>
 						<li class="nav-item @yield('activeusers')">

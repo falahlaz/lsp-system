@@ -25,6 +25,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/question','Admin\Master\ElementQuestionController');
     Route::resource('/user','Admin\Master\UserController');
     Route::post('/exam/answer/correct', 'Admin\Master\ExamAnswerController@correctAnswer')->name('answer.correct');
+
+    // Participant route
+    Route::group(['prefix' => '/form', 'as' => 'form.'], function() {
+        Route::get('apl/01', 'Admin\Master\ParticipantController@indexApl01')->name('apl01');
+        Route::get('apl/02', 'Admin\Master\ParticipantController@indexApl02')->name('apl02');
+        Route::get('recap', 'Admin\Master\ParticipantController@indexRecap')->name('recap');
+    });
 });
 
 Route::get('/',function(){
