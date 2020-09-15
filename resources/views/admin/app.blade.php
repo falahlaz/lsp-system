@@ -43,7 +43,7 @@
 						<div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
 						<div class="dropdown-menu dropdown-menu-right">
 							<div class="dropdown-title">Logged in 5 min ago</div>
-							<a href="features-profile.html" class="dropdown-item has-icon">
+							<a href="{{ route('admin.profile.show',$name) }}" class="dropdown-item has-icon">
 								<i class="far fa-user"></i> Profile
 							</a>
 							<div class="dropdown-divider"></div>
@@ -64,7 +64,7 @@
 					</div>
 					<ul class="sidebar-menu">
 						<li class="menu-header">Dashboard</li>
-						<li class="nav-item">
+						<li class="nav-item @yield('activedashboard')">
                             <a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
 						</li>
 						<li class="menu-header">Master</li>
@@ -140,7 +140,8 @@
 	<!-- Template JS File -->
 	{{-- <script src="{{ asset('../assets/js/all.js')}}"></script> --}}
     <script src="{{ asset('/assets/js/custom.js')}}"></script>
-    
+    <script src="{{ asset('/assets/js/scripts.js') }}"></script>
+
 
 	<!-- Page Specific JS File -->
 <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
