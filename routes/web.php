@@ -32,6 +32,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
     Route::resource('/question','Admin\Master\UnitQuestionController');
     Route::resource('/user','Admin\Master\UserController');
+    Route::get('register/scheme','Admin\Master\Form01Controller@showScheme')->name('scheme');
+    Route::get('/profile/{name}','Admin\Master\ProfileController@show')->name('profile.show');
+    Route::post('/profile/update','Admin\Master\ProfileController@update')->name('profile.update');
 });
 
 
@@ -40,8 +43,7 @@ Route::get('/login',function(){
 });
 
 Route::get('/logout','Admin\AuthController@logout');
-Route::get('/register','Admin\AuthController@register');
+Route::get('/register','Admin\Master\Form01Controller@index');
+Route::post('/register/store','Admin\Master\Form01Controller@store')->name('register.store');
 Route::get('/register/apl/02');
 Route::get('/register/confirm','Admin\AuthController@confirmRegister');
-
-
