@@ -32,6 +32,6 @@ Route::group(['prefix'=>'/lsp/be', 'middleware' => ['token']],function(){
     Route::resource('/assessor','Admin\Master\AssessorController');
     Route::resource('/exam/question','Admin\Master\ExamQuestionController');
     Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
-    Route::resource('/unit/question','Admin\Master\UnitQuestionController');
+    Route::resource('/unit/question','Admin\Master\ElementQuestionController');
 
 });

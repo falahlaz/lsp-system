@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Master;
+
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 use App\ExamQuestion;
-use Illuminate\Http\Request;
+use App\ExamAnswer;
 
 class ExamQuestionController extends Controller
 {
@@ -16,8 +18,10 @@ class ExamQuestionController extends Controller
     public function index()
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
-        $data = \DB::table('vw_exam_question')->select('id_e_question', 'question', 'scheme_name')->where('status', 1)->get();
-        return response()->json($data, 200);
+        $data['question']   = \DB::table('vw_exam_question')->select('id_e_question', 'question', 'scheme_name')->where('status', 1)->get();
+        $data['scheme']     = \DB::table('m_scheme')->select('id', 'name')->where('status', 1)->get();
+
+        return view('admin.examQuestion.index', compact('data'));
     }
 
     /**
@@ -41,22 +45,34 @@ class ExamQuestionController extends Controller
         // validasi data yang diinput user
         $this->validate($request,[
             'question' => 'required',
-            'id_scheme' => 'required'
+            'id_scheme' => 'required',
+            'answer' => 'required',
+            'is_correct' => 'required',
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        ExamQuestion::create([
+        $id_question = ExamQuestion::create([
             'question' => $request->question,
             'id_scheme' => $request->id_scheme,
             'status' => 1
+        ])->id;
+
+        foreach($request->answer as $answer) {
+            if(!is_null($answer)) {
+                ExamAnswer::create([
+                    'id_exam_question' => $id_question,
+                    'answer' => $answer,
+                    'status' => 1,
+                    'is_correct' => 0
+                ]);
+            }
+        }
+
+        ExamAnswer::where('answer', $request->is_correct)->update([
+            'is_correct' => 1
         ]);
 
-        //response
-        $response = [
-            'message' => 'Insert Exam Question success'
-        ];
-
-        return response()->json($response,201);
+        return redirect()->route('admin.exam.question.index')->with('success', 'Data successfully added!');
     }
 
     /**
@@ -79,7 +95,14 @@ class ExamQuestionController extends Controller
     public function edit($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
-        return ExamQuestion::find($id);
+        $data['answer']     = \DB::table('m_exam_answer')->select('id', 'answer', 'status', 'is_correct')->where([
+            ['status', 1],
+            ['id_exam_question', $id]
+        ])->get();
+        $data['scheme']     = \DB::table('m_scheme')->select('id', 'name')->where('status', 1)->get();
+        $data['edit']       = ExamQuestion::find($id);
+
+        return view('admin.examQuestion.edit', compact('data'));
     }
 
     /**
@@ -98,17 +121,12 @@ class ExamQuestionController extends Controller
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        ExamQuestion::where('id',$id)->update([
+        ExamQuestion::find($id)->update([
             'question' => $request->question,
             'id_scheme' => $request->id_scheme
         ]);
-        
-        //response
-        $response = [
-            'message' => 'Update Exam Question success'
-        ];
 
-        return response()->json($response,200);
+        return redirect()->route('admin.exam.question.index')->with('success', 'Data successfully updated!');
     }
 
     /**
@@ -119,15 +137,8 @@ class ExamQuestionController extends Controller
      */
     public function destroy($id)
     {
-        ExamQuestion::find($id)->update([
-            'status' => 0
-        ]);
+        ExamQuestion::destroy($id);
 
-        //response
-        $response = [
-            'message' => 'Delete Exam Question success'
-        ];
-
-        return response()->json($response,200);
+        return redirect()->route('admin.exam.question.index')->with('success', 'Data successfully deleted!');
     }
 }

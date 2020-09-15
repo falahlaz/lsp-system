@@ -56,8 +56,7 @@ class TukController extends Controller
             'status' => 1
         ]);
 
-        return \redirect()->route('admin.tuk.index');
-
+        return \redirect()->route('admin.tuk.index')->with('success', 'Data successfully added!');
     }
 
     /**
@@ -81,7 +80,7 @@ class TukController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['tuk'] = \DB::table('m_tuk')->where('id',$tuk->id)->first();
-        $data['type'] = ['Sementara','Mandiri','Tempata Kerja'];
+        $data['type'] = ['Sewaktu','Mandiri','Tempat Kerja'];
 
         return view('admin.tuk.edit',\compact('data'));
     }
@@ -112,8 +111,7 @@ class TukController extends Controller
         ]);
 
         //response
-        return \redirect()->route('admin.tuk.index');
-
+        return \redirect()->route('admin.tuk.index')->with('success', 'Data successfully updated!');
     }
 
     /**
@@ -128,6 +126,6 @@ class TukController extends Controller
             'status' => 0
         ]);
 
-        return \redirect()->route('admin.tuk.index');
+        return \redirect()->route('admin.tuk.index')->with('success', 'Data successfully deleted!');
     }
 }

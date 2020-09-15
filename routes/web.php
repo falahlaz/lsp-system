@@ -13,14 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return redirect()->route('user.login');
-// });
-
-Route::get('/',function(){
-    return view('admin.unitScheme.index');
-});
-
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::get('/', 'Admin\Master\DashboardController@index')->name('dashboard');
     Route::resource('/tuk','Admin\Master\TukController');
@@ -28,12 +20,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/scheme/unit','Admin\Master\UnitSchemeController');
     Route::resource('/assessor','Admin\Master\AssessorController');
     Route::resource('/element', 'Admin\Master\ElementController');
-    Route::resource('/exam/question','Admin\Master\ExamQuestionController');
+    Route::resource('/exam/question','Admin\Master\ExamQuestionController', ['as' => 'exam']);
     Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
-    Route::resource('/question','Admin\Master\UnitQuestionController');
+    Route::resource('/question','Admin\Master\ElementQuestionController');
     Route::resource('/user','Admin\Master\UserController');
-}); 
+    Route::post('/exam/answer/correct', 'Admin\Master\ExamAnswerController@correctAnswer')->name('answer.correct');
 
+    // Participant route
+    Route::group(['prefix' => '/form', 'as' => 'form.'], function() {
+        Route::get('apl/01', 'Admin\Master\ParticipantController@indexApl01')->name('apl01');
+        Route::get('apl/02', 'Admin\Master\ParticipantController@indexApl02')->name('apl02');
+        Route::get('recap', 'Admin\Master\ParticipantController@indexRecap')->name('recap');
+    });
+});
+
+Route::get('/',function(){
+    return redirect()->route('admin.dashboard');
+});
 
 Route::get('/login', 'Admin\AuthController@login')->name('login');
 Route::post('/login', 'Admin\AuthController@loginStore')->name('login.store');
@@ -41,5 +44,3 @@ Route::get('/logout','Admin\AuthController@logout')->name('logout');
 Route::get('/register','Admin\AuthController@register');
 Route::get('/register/apl/02');
 Route::get('/register/confirm','Admin\AuthController@confirmRegister');
-
-

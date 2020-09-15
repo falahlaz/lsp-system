@@ -27,7 +27,7 @@
 							<img src="../assets/img/stisla-fill.svg" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
 							<h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">LSP System</span></h4>
 							<p class="text-muted">Before you get started, you must login.</p>
-							<form method="POST" action="{{ route('login.store') }}" class="needs-validation" novalidate="">
+							<form method="POST" action="{{ route('login.store') }}">
 							@csrf
 							@if(Session::has('error'))
 							<div class="alert alert-danger">
