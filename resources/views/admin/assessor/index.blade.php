@@ -58,10 +58,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>TUK</label>
-                                    <select class="form-control" name="id_tuk" value="{{ old('id_tuk') }}" >
-                                    @foreach($data['tuk'] as $tuk)
+                                    <select class="form-control" name="id_tuk" value="{{ old('id_tuk') }}">
+                                        <option value="">-- Pilih TUK --</option>
+                                        @foreach($data['tuk'] as $tuk)
                                         <option value="{{ $tuk->id }}">{{ $tuk->name }}</option>
-                                    @endforeach
+                                        @endforeach
                                     </select>
                                 @error('id_tuk')
                                     <div class="customalert">{{ $message }}</div>
@@ -69,12 +70,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Skema</label>
-                                    <select class="form-control select2" multiple="" data-height="100%" name="id_scheme[]" value="{{ old('id_scheme') }}">
-                                        @foreach($data['scheme'] as $scheme)
+                                    <select name="id_scheme[]" class="form-control select2" multiple="">
+                                        <option value="">-- Pilih Skema --</option>
+                                        @foreach ($data['scheme'] as $scheme)
                                         <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
                                         @endforeach
                                     </select>
-                                @error('id_scheme[]')
+                                @error('id_scheme')
                                     <div class="customalert">{{ $message }}</div>
                                 @enderror
                                 </div>
@@ -105,20 +107,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" class="form-control" name="password" value="{{ old('password') }}">
+                                    <input type="password" class="form-control" name="password">
                                     @error('password')
                                     <div class="customalert">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Konfirmasi Password</label>
-                                    <input type="password" class="form-control" name="confirm_password" value="{{ old('confirm_password') }}">
-                                    @error('confirm_password')
+                                    <input type="password" class="form-control" name="password_confirmation">
+                                    @error('password_confirmation')
                                     <div class="customalert">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="card-footer text-right">
-                                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                    <button class="btn btn-primary" type="submit">Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -138,22 +140,26 @@
                                             <th class="text-center">
                                             #
                                             </th>
+                                            <th>Reg Num</th>
                                             <th>Nama</th>
-                                            <th>Email</th>
-                                            <th>No Telp</th>
-                                            <th width="135">Action</th>
+                                            <th>Phone</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($data as $assessor)
+                                        @foreach($data['asesor'] as $asesor)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>hello</td>
-                                            <td>hello</td>
-                                            <td>hello</td>
+                                            <td>{{ $asesor->reg_num }}</td>
+                                            <td>{{ $asesor->name }}</td>
+                                            <td>{{ $asesor->phone }}</td>
                                             <td>
                                                 <a href="#" class="btn btn-icon btn-info"><i class="fas fa-info-circle"></i></a>
-                                                <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
+                                                <form action="{{ route('admin.assessor.destroy', ['assessor' => $asesor->id]) }}" method="post" style="display: inline-block">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button class="btn btn-icon btn-danger"><i class="fas fa-times"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -166,4 +172,19 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('script')
+    <script src="{{ asset('/assets/modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+	<script src="{{ asset('/assets/modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('/assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
+    
+    <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
+  	<script src="{{ asset('/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+@endsection
+
+@section('style')
+    <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/modules/select2/dist/css/select2.min.css') }}">
 @endsection
