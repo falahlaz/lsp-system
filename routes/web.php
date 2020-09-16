@@ -26,7 +26,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/user','Admin\Master\UserController');
   
     // Register Route
-    Route::get('register/scheme','Admin\Master\Form01Controller@showScheme')->name('scheme');
     Route::get('/profile/{name}','Admin\Master\ProfileController@show')->name('profile.show');
     Route::post('/profile/update','Admin\Master\ProfileController@update')->name('profile.update');
     Route::post('/exam/answer/correct', 'Admin\Master\ExamAnswerController@correctAnswer')->name('answer.correct');
@@ -46,7 +45,8 @@ Route::get('/',function(){
 Route::get('/login', 'Admin\AuthController@login')->name('login');
 Route::post('/login', 'Admin\AuthController@loginStore')->name('login.store');
 Route::get('/logout','Admin\AuthController@logout')->name('logout');
-Route::get('/register','Admin\Master\Form01Controller@index');
+Route::get('/register','Admin\Master\Form01Controller@index')->name('register');
 Route::post('/register/store','Admin\Master\Form01Controller@store')->name('register.store');
+Route::get('/register/unit/{id}', 'Admin\Master\Form01Controller@getUnit')->name('register.unit');
 Route::get('/register/apl/02');
 Route::get('/register/confirm','Admin\AuthController@confirmRegister');

@@ -15,6 +15,7 @@ class Form01Controller extends Controller
     {
         $data = \DB::table('t_form01')->select('id', 'name', 'gender', 'nationality', 'private_email', 'phone', 'status')->get();
         $data['skema'] = \DB::table('m_scheme')->select('id','name')->get();
+
         return view('participant.form01',\compact('data'));
     }
 
@@ -83,13 +84,10 @@ class Form01Controller extends Controller
         return \redirect()->route('admin.profile');
     }
 
-    public function showScheme($id)
+    public function getUnit($id)
     {
-        // $data = \DB::table('m_scheme')->where('id',$id)->get();
-        // $data = Scheme::where('id',$id)->get();
+        $data['unit'] = \DB::table('m_unit')->select('id','code','name', 'pub_year')->where('id_scheme', $id)->get();
 
-        $data = \DB::table('m_scheme')->select('id','code','name')->where('id',$id)->get();
-        dd($data);
-        return view('participant.form01',\compact('data'));
+        return view('participant.unit', compact('data'));
     }
 }
