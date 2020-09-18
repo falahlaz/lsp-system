@@ -93,14 +93,8 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function register()
-    {
-
-        return view('user.form01');
-    }
-
     public function ConfirmRegister()
     {
-        return view('user.confirmRegister');
+        return view('participant.confirmRegister');
     }
 }

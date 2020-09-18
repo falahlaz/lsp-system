@@ -44,7 +44,7 @@ class Form01Controller extends Controller
             'company_email' => ['required'],
             'company_post_code' => ['required']
             // 'schemes' => ['required']
-        ]);
+            ]);
 
         $participant = Form01::create([
             'name' => $request->name,
@@ -72,7 +72,6 @@ class Form01Controller extends Controller
             'status' => 1,
         ]);
 
-        dd($participant);
         // foreach($request->schemes as $scheme) {
         //     Form01Scheme::create([
         //         'id_form01' => $participant->id,

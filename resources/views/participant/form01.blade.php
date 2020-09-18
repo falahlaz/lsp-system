@@ -237,9 +237,6 @@
                                         <button class="btn btn-icon icon-left btn-primary mr-4" type="submit">Submit</button>
                                     </div>
                                 </div>
-                                <script>
-                                    console.log
-                                </script>
                             </form>
                         </div>
                     </div>
