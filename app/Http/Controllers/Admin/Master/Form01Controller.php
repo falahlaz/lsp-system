@@ -15,11 +15,13 @@ class Form01Controller extends Controller
     {
         $data = \DB::table('t_form01')->select('id', 'name', 'gender', 'nationality', 'private_email', 'phone', 'status')->get();
         $data['skema'] = \DB::table('m_scheme')->select('id','name')->get();
+
         return view('participant.form01',\compact('data'));
     }
 
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'name' => ['required'],
             'nik' => ['required'],
@@ -42,8 +44,10 @@ class Form01Controller extends Controller
             'company_phone' => ['required'],
             'company_fax' => ['required'],
             'company_email' => ['required'],
-            'company_post_code' => ['required']
-            // 'schemes' => ['required']
+            'company_post_code' => ['required'],
+            'skema_sertifikasi' => ['required'],
+            'tujuan_asesmen' => ['required'],
+            'schemes' => ['required']
         ]);
 
         $participant = Form01::create([
@@ -69,27 +73,27 @@ class Form01Controller extends Controller
             'company_fax' => $request->company_fax,
             'company_email' => $request->company_email,
             'company_post_code' => $request->company_post_code,
-            'status' => 1,
+            'status' => 1
         ]);
 
-        dd($participant);
-        // foreach($request->schemes as $scheme) {
-        //     Form01Scheme::create([
-        //         'id_form01' => $participant->id,
-        //         'id_scheme' => $scheme,
-        //         'status' => 1
-        //     ]);
-        // }
-        return \redirect()->route('admin.profile');
+                foreach($request->schemes as $scheme){
+                    if($schemes != null){
+                        Form01Scheme::create([
+                            'id_form01' => $participant->id,
+                            'id_scheme' => $scheme,
+                            'status' => 1
+                        ]);
+                    }
+                }
+
+
+        return \redirect()->route('participant.form01')->with('success', true)->withInput($request->all());
     }
 
-    public function showScheme($id)
+    public function getUnit($id)
     {
-        // $data = \DB::table('m_scheme')->where('id',$id)->get();
-        // $data = Scheme::where('id',$id)->get();
+        $data['unit'] = \DB::table('m_unit')->select('id','code','name', 'pub_year')->where('id_scheme', $id)->get();
 
-        $data = \DB::table('m_scheme')->select('id','code','name')->where('id',$id)->get();
-        dd($data);
-        return view('participant.form01',\compact('data'));
+        return view('participant.unit', compact('data'));
     }
 }

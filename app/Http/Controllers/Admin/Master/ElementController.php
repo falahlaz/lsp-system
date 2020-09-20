@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use App\Element;
+
 class ElementController extends Controller
 {
     /**
@@ -14,7 +16,11 @@ class ElementController extends Controller
      */
     public function index()
     {
-        return view('admin.element.index');
+        if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['unit']       = \DB::table('m_unit')->select('id', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
+        $data['element']    = \DB::table('vw_element')->select('id', 'name', 'unit')->where('status', 1)->orderBy('name', 'asc')->get();
+
+        return view('admin.element.index', compact('data'));
     }
 
     /**
@@ -35,7 +41,20 @@ class ElementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'id_unit' => 'required',
+            'name' => 'required'
+        ]);
+
+        foreach($request->name as $name) {
+            Element::create([
+                'id_unit' => $request->id_unit,
+                'name' => $name,
+                'status' => 1,
+            ]);
+        }
+
+        return redirect()->route('admin.element.index')->with('success', 'Data successfully added!')->withInput(['id_unit' => $request->id_unit]);
     }
 
     /**
@@ -46,7 +65,7 @@ class ElementController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!\Session::has('id_user')) return redirect()->route('login');
     }
 
     /**
@@ -57,7 +76,12 @@ class ElementController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['unit']       = \DB::table('m_unit')->select('id', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
+        $data['question']   = \DB::table('m_element_question')->select('id', 'question', 'status')->orderBy('question', 'asc')->get();
+        $data['element']    = Element::find($id);
+
+        return view('admin.element.edit', compact('data'));
     }
 
     /**
@@ -69,7 +93,17 @@ class ElementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'id_unit' => 'required',
+            'name' => 'required'
+        ]);
+
+        Element::find($id)->update([
+            'id_unit' => $request->id_unit,
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('admin.element.index')->with('success', 'Data successfully updated!');
     }
 
     /**
@@ -80,6 +114,8 @@ class ElementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Element::find($id)->delete();
+
+        return redirect()->route('admin.element.index')->with('success', 'Data successfully deleted!');
     }
 }

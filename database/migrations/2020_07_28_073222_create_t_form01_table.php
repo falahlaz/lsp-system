@@ -16,6 +16,7 @@ class CreateTForm01Table extends Migration
         Schema::create('t_form01', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nik');
             $table->string('birth_place');
             $table->string('birth_date');
             $table->string('gender');

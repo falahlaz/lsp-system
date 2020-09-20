@@ -8,5 +8,5 @@ class Form01 extends Model
 {
     protected $table = 't_form01';
 
-    protected $guarder = [];
+    protected $guarded = [];
 }

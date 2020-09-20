@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Master;
+
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 use App\UnitScheme;
-use Illuminate\Http\Request;
+use App\Scheme;
 
 class UnitSchemeController extends Controller
 {
@@ -15,7 +17,7 @@ class UnitSchemeController extends Controller
      */
     public function index()
     {
-        //
+        if(!\Session::has('id_user')) return redirect()->route('login');
     }
 
     /**
@@ -42,7 +44,6 @@ class UnitSchemeController extends Controller
             'name' => 'required',
             'pub_year' => 'required',
             'id_scheme' => 'required',
-            'status' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
@@ -51,15 +52,10 @@ class UnitSchemeController extends Controller
             'name' => $request->name,
             'pub_year' => $request->pub_year,
             'id_scheme' => $request->id_scheme,
-            'status' => $request->status
+            'status' => 1
         ]);
 
-        //response
-        $response = [
-            'message' => 'Insert Unit Scheme success'
-        ];
-
-        return response()->json($response,201);
+        return redirect()->route('admin.scheme.edit', ['scheme' => $request->id_scheme])->with('success', 'Data successfully added!');
     }
 
     /**
@@ -81,7 +77,11 @@ class UnitSchemeController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['edit']   = UnitScheme::find($id);
+        $data['unit']   = \DB::table('m_unit')->select('id', 'code', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
+        
+        return view('admin.unitScheme.edit', compact('data'));
     }
 
     /**
@@ -98,25 +98,17 @@ class UnitSchemeController extends Controller
             'code' => 'required',
             'name' => 'required',
             'pub_year' => 'required',
-            'id_scheme' => 'required',
-            'status' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        UnitScheme::where('id',$id)->update([
+        $unit = UnitScheme::find($id);
+        $unit->update([
             'code' => $request->code,
             'name' => $request->name,
             'pub_year' => $request->pub_year,
-            'id_scheme' => $request->id_scheme,
-            'status' => $request->status
         ]);
 
-        //response
-        $response = [
-            'message' => 'Update Unit Scheme success'
-        ];
-
-        return response()->json($response,200);
+        return redirect()->route('admin.scheme.edit', ['scheme' => $unit->id_scheme])->with('success', 'Data successfully updated');
     }
 
     /**
@@ -127,13 +119,9 @@ class UnitSchemeController extends Controller
      */
     public function destroy($id)
     {
-        UnitScheme::destroy($id);
+        $unit = UnitScheme::find($id);
+        $unit->delete();
 
-        //response
-        $response = [
-            'message' => 'Delete Unit Scheme success'
-        ];
-
-        return response()->json($response,200);
+        return redirect()->route('admin.scheme.edit', ['scheme' => $unit->id_scheme])->with('success', 'Data successfully deleted!');
     }
 }

@@ -90,11 +90,10 @@
                                             <td>{{ $scheme->name }}</td>
                                             <td>
                                             <a href="{{ route('admin.scheme.edit',$scheme->id) }}" class="btn btn-icon btn-info"><i class="fas fa-info-circle"></i></a>
-                                            <form action="{{ route('admin.scheme.destroy',$scheme->id) }}" method="post">
+                                            <form data-form-id="{{ $scheme->id }}" action="{{ route('admin.scheme.destroy',$scheme->id) }}" method="post" style="display: inline-block">
                                                 @csrf
                                                 @method('delete')
-
-                                                <button class="btn btn-danger btn-icon"><i class="fas fa-times"></i></button>
+                                                <button data-btn-id="{{ $scheme->id }}" onclick="deleteData(this)" type="button" class="btn btn-danger btn-icon"><i class="fas fa-times"></i></button>
                                             </form>
                                             </td>
                                         </tr>
@@ -108,4 +107,24 @@
                 </div>
             </div>
     </section>
+@endsection
+
+@section('script')
+    <script src="{{ asset('/assets/modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+	<script src="{{ asset('/assets/modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('/assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('/assets/modules/sweetalert/dist/sweetalert.min.js')}}"></script>
+    
+    <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
+    <script src="{{ asset('/assets/js/page/modules-sweetalert.js')}}"></script>
+    <script>
+        @if(Session::has('success'))
+            swal('Success', "{{ Session::get('success') }}", 'success');
+        @endif
+    </script>
+@endsection
+
+@section('style')
+    <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
 @endsection

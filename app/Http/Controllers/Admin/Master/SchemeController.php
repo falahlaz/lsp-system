@@ -15,8 +15,9 @@ class SchemeController extends Controller
      */
     public function index()
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
         $data = \DB::table('m_scheme')->where('status', 1)->select('id', 'code', 'name')->get();
-        // return response()->json($data,200);
+
         return view('admin.scheme.index',\compact('data'));
     }
 
@@ -58,8 +59,7 @@ class SchemeController extends Controller
         ]);
 
         //response
-        return \redirect()->route('admin.scheme.index');
-
+        return \redirect()->route('admin.scheme.index')->with('success', 'Data successfully added!');
     }
 
     /**
@@ -81,8 +81,11 @@ class SchemeController extends Controller
      */
     public function edit(Scheme $scheme)
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
         $data['scheme'] = \DB::table('m_scheme')->where('id',$scheme->id)->first();
-        return view('admin.scheme.edit',\compact('data'));
+        $data['unit']   = \DB::table('m_unit')->select('id', 'code', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
+
+        return view('admin.scheme.edit', compact('data'));
     }
 
     /**
@@ -113,7 +116,7 @@ class SchemeController extends Controller
         ]);
 
         //response
-        return \redirect()->route('admin.scheme.index');
+        return redirect()->route('admin.scheme.index')->with('success', 'Data successfully updated!');
     }
 
     /**
@@ -129,7 +132,7 @@ class SchemeController extends Controller
         ]);
 
         //response
-        return \redirect()->route('admin.scheme.index');
+        return \redirect()->route('admin.scheme.index')->with('success', 'Data successfully deleted!');
 
     }
 }
