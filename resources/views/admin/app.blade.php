@@ -34,11 +34,9 @@
 						<div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
 						<div class="dropdown-menu dropdown-menu-right">
 							<div class="dropdown-title">Logged in 5 min ago</div>
-<<<<<<< HEAD
-							<a href="ujang maman" class="dropdown-item has-icon">
-=
 							<a href="" class="dropdown-item has-icon">
->>>>>>> e15dd628578c8983f9c239430c71a2c38a51bd57
+
+							<a href="" class="dropdown-item has-icon">
 								<i class="far fa-user"></i> Profile
 							</a>
 							<div class="dropdown-divider"></div>

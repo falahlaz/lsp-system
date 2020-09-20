@@ -24,7 +24,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
     Route::resource('/question','Admin\Master\ElementQuestionController');
     Route::resource('/user','Admin\Master\UserController');
-  
+
     // Register Route
     Route::get('/profile/{name}','Admin\Master\ProfileController@show')->name('profile.show');
     Route::post('/profile/update','Admin\Master\ProfileController@update')->name('profile.update');
