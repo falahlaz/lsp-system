@@ -266,14 +266,22 @@
 	<script src="{{ asset('assets/js/custom.js') }}"></script>
 
     <script>
+    const loader = `<div class="d-flex justify-content-center spinner">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>`;
+
     function getScheme(e){
         let id = $(e).val();
         let url = "{{ route('register') }}/unit/"+id;
 
+        $('#table_unit').html(loader);
         $("#table_unit").load(url, function(response, status, xhr ) {
             if(status == "error") {
                 $('#table_unit label').remove();
                 $('#table_unit .table').remove();
+                $('#table_unit .spinner').remove();
             }
         });
     }
