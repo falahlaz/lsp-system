@@ -58,6 +58,7 @@
                 </div>
             </div>
         </div>
+        @if($data['user']->id_position === 1)
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -138,6 +139,7 @@
                 </div>
             </div> --}}
         </div>
+        @endif
     </div>
 </section>
 @endsection
