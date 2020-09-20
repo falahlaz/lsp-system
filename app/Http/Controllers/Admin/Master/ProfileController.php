@@ -21,7 +21,7 @@ class ProfileController extends Controller
         return view('admin.profile.index',\compact('data'));
     }
 
-
+    
     public function update(Request $request, $id)
     {
         $this->validate($request,[

@@ -21,7 +21,6 @@ class Form01Controller extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'name' => ['required'],
             'nik' => ['required'],
