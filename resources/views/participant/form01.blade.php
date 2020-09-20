@@ -45,7 +45,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
                                                 <label for="InputKtp">No KTP/NIK/PASSPORT</label>
-                                                <input type="text" id="InputKtp" class="form-control" placeholder="Misal : 31352629000243">
+                                            <input type="text" id="InputKtp" class="form-control" placeholder="Misal : 31352629000243">
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="KtpPhoto">Foto KTP</label>
