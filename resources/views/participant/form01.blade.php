@@ -238,7 +238,7 @@
                                             <input type="file" class="form-control-file" id="buktiKompetensi4"  name="buktiKompetensi4">
                                         </div>
                                     </div>
-                                    <div class="card-footer text-left">
+                                    <div class="card-footer text-right">
                                         <button class="btn btn-icon icon-left btn-primary mr-4" type="submit">Submit</button>
                                     </div>
                                 </div>
