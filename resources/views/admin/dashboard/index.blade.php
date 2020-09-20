@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Skema Dengan Uji Terbanyak</h4>
@@ -79,7 +79,7 @@
                                 @foreach ($data['scheme'] as $scheme)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="font-weight-600"><a href="#">{{ $scheme->code }}</a></td>
+                                    <td class="font-weight-600"><a href="{{ route('admin.scheme.edit', ['scheme' => $scheme->id_scheme]) }}">{{ $scheme->code }}</a></td>
                                     <td>{{ $scheme->name }}</td>
                                     <td>{{ $scheme->total }}</td>
                                 </tr>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="card card-hero">
                     <div class="card-header">
                         <div class="card-icon">
@@ -136,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </section>
