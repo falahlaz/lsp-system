@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\UnitScheme;
 use App\Scheme;
+use App\User;
 
 class UnitSchemeController extends Controller
 {
@@ -78,6 +79,7 @@ class UnitSchemeController extends Controller
     public function edit($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
         $data['edit']   = UnitScheme::find($id);
         $data['unit']   = \DB::table('m_unit')->select('id', 'code', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
         
