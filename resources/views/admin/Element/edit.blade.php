@@ -41,7 +41,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="card-footer text-right">
+                        <div class="text-right">
                             <a href="{{ route('admin.element.index') }}" class="btn btn-outline-danger">Back</a>
                             <button class="btn btn-primary" type="submit">Update</button>
                         </div>
@@ -75,7 +75,7 @@
                                 </style>
                                 <button class="btn-sm btn btn-info add-input" type="button"><i class="fas fa-plus"></i> New Input</button>
                             </div>
-                            <div class="card-footer text-right">
+                            <div class="text-right">
                                 <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>
