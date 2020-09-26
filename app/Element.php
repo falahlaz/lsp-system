@@ -13,4 +13,12 @@ class Element extends Model
         'name',
         'status'
     ];
+
+    public function unit(){
+        return $this->belongsTo('App\UnitScheme','id_unit');
+    }
+
+    public function question(){
+        return $this->hasMany('App\ElementQuestion','id_element');
+    }
 }

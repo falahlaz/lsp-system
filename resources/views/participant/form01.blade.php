@@ -70,9 +70,9 @@
                                         <div class="form-group">
                                             <label for="gender">Jenis Kelamin</label>
                                             <select class="form-control" name="gender" id="gender">
-                                                <option selected>--Pilih Jenis Kelamin--</option>
-                                                <option>Laki-Laki</option>
-                                                <option>Perempuan</option>
+                                                <option selected hidden>--Pilih Jenis Kelamin--</option>
+                                                <option value="laki-laki">Laki-Laki</option>
+                                                <option value="perempuan">Perempuan</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -114,7 +114,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="education">Kualifikasi/Pendidikan</label>
-                                            <input type="text" name="last_educ" class="form-control" id="last_educ" placeholder="Misal : S1" value="{{ old('last_educ') }}">
+                                            <select class="form-control" name="last_educ" id="last_educ">
+                                                <option selected hidden>--Pilih Kualifikasi Pendidikan--</option>
+                                                <option value="SD">SD / Sederajat</option>
+                                                <option value="SMP">SMP / Sederajat</option>
+                                                <option value="SMA">SMA / Sederajat</option>
+                                                <option value="SMK">SMK / Sederajat</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -147,7 +153,7 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="company_fax">Fax</label>
-                                                <input type="text" class="form-control" name="company_fax" id="company_fax" placeholder="Misal : 03134325" value="{{ old('company_fax') }}">
+                                                <input type="number" class="form-control" name="company_fax" id="company_fax" placeholder="Misal : 03134325" value="{{ old('company_fax') }}">
                                             </div>
                                         </div>
                                             <div class="form-group">

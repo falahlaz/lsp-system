@@ -25,7 +25,7 @@
                                         <tr>
                                             <th class="text-center">
                                                 #
-                                            </th>
+                                            </th>z
                                             <th>Nama</th>
                                             <th>Telepon</th>
                                             <th>Email</th>
@@ -69,7 +69,7 @@
     <script src="{{ asset('/assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('/assets/modules/sweetalert/dist/sweetalert.min.js')}}"></script>
-    
+
     <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
     <script src="{{ asset('/assets/js/page/modules-sweetalert.js')}}"></script>
     <script src="{{ asset('/assets/js/page/correct-answer.js')}}"></script>
