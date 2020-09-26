@@ -63,14 +63,8 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
-    public function register()
-    {
-
-        return view('user.form01');
-    }
-
     public function ConfirmRegister()
     {
-        return view('user.confirmRegister');
+        return view('participant.confirmRegister');
     }
 }

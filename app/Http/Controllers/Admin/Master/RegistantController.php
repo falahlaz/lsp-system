@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Master;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\User;
-
-class UserController extends Controller
+class RegistantController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(!\Session::has('id_user')) return redirect()->route('login');
-        $data['user'] = User::find(\Session::get('id_user'));
-        return view('admin.user.index');
+        
     }
 
     /**
@@ -61,7 +57,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        if(!\Session::has('id_user')) return redirect()->route('login');
+        //
     }
 
     /**
@@ -86,4 +82,6 @@ class UserController extends Controller
     {
         //
     }
+
+
 }

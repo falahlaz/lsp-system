@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
+use App\User;
 use App\ElementQuestion;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ class ElementQuestionController extends Controller
 	public function index()
 	{
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
         return view('admin.question.index');
 	}
 
@@ -75,6 +77,7 @@ class ElementQuestionController extends Controller
     public function edit($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
         $data['question']   = \DB::table('m_element_question')->select('id', 'question', 'status')->orderBy('question', 'asc')->get();
         $data['edit']       = ElementQuestion::find($id);
 

@@ -1,20 +1,22 @@
-<label>Daftar Skema</label>
-<table class="table">
+<label>Daftar Unit</label>
+<table class="table table-bordered">
     <thead class="thead-dark">
         <tr>
             <th scope="col">No</th>
             <th scope="col">Kode Unit</th>
             <th scope="col">Nama</th>
+            <th scope="col">Tahun</th>
         </tr>
     </thead>
     <tr></tr>
     <tbody>
-        @foreach($data as $skema)
+        @foreach($data['unit'] as $unit)
         <tr>
             <td>{{ $loop->iteration }}</td>
-            <td>{{ $skema->code }}</td>
-            <td>{{ $skema->name }}</td>
+            <td>{{ $unit->code }}</td>
+            <td>{{ $unit->name }}</td>
+            <td>{{ $unit->pub_year }}</td>
         </tr>
-    @endforeach
+        @endforeach
     </tbody>
 </table>    
