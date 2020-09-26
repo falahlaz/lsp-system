@@ -30,7 +30,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="card-footer text-right">
+                        <div class="text-right">
                             <a href="{{ route('admin.exam.question.index') }}" class="btn btn-outline-danger">Back</a>
                             <button class="btn btn-primary" type="submit">Update</button>
                         </div>
@@ -56,7 +56,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="card-footer text-right">
+                        <div class="text-right">
                         <button class="btn btn-primary mr-1" type="submit">Submit</button>
                         </div>
                     </form>
@@ -87,7 +87,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="card-footer text-right">
+                        <div class="text-right">
                         <button class="btn btn-primary mr-1" type="submit">Submit</button>
                         </div>
                     </form>

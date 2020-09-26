@@ -57,7 +57,7 @@
                             @enderror
                             </div>
                         </div>
-                        <div class="card-footer text-right">
+                        <div class="text-right">
                             <a href="{{ route('admin.scheme.index') }}" class="btn btn-outline-danger">Back</a>
                             <button class="btn btn-primary" type="submit">Update</button>
                         </div>
@@ -97,7 +97,7 @@
                                 <div class="customalert">{{ $message }}</div>
                             @enderror
                             </div>
-                            <div class="card-footer text-right">
+                            <div class="text-right">
                                 <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>

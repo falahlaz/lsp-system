@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Form01;
 use App\Form01Scheme;
 use App\Scheme;
+use App\Requirement;
 
 class Form01Controller extends Controller
 {
@@ -47,14 +48,20 @@ class Form01Controller extends Controller
             'company_post_code' => ['required'],
             'skema_sertifikasi' => ['required'],
             'tujuan_asesmen' => ['required'],
-            'schemes' => ['required']
+            'id_schemes' => ['required'],
         ]);
+
+        $ktp_file_name = time().'.'.$request->photo_ktp->extension();
+        $request->photo_ktp->move(public_path('images/ktp'), $ktp_file_name);
+
+        $pass_file_name = time().'.'.$request->pass_photo->extension();
+        $request->pass_photo->move(public_path('images/pass_foto'), $pass_file_name);
 
         $participant = Form01::create([
             'name' => $request->name,
             'nik' => $request->nik,
-            'photo_ktp' => $request->photo_ktp,
-            'pass_photo' => $request->pass_photo,
+            'photo_ktp' => $ktp_file_name,
+            'pass_photo' => $pass_file_name,
             'birth_place' => $request->birth_place,
             'birth_date' => $request->birth_date,
             'gender' => $request->gender,
@@ -76,23 +83,51 @@ class Form01Controller extends Controller
             'status' => 1
         ]);
 
-                foreach($request->schemes as $scheme){
-                    if($schemes != null){
-                        Form01Scheme::create([
-                            'id_form01' => $participant->id,
-                            'id_scheme' => $scheme,
-                            'status' => 1
-                        ]);
-                    }
-                }
+        foreach($request->id_schemes as $scheme){
+            if($scheme != null){
+                Form01Scheme::create([
+                    'id_form01' => $participant->id,
+                    'id_scheme' => $scheme,
+                    'status' => 1
+                ]);
+            }
+        }
 
+        if($request->has('buktiKelengkapan1')) $this->upload($request->buktiKelengkapan1, 'kelengkapan1', $participant->id, 'Bukti Lulusan SMK Jurusan Teknik Otomotif');
+        if($request->has('buktiKelengkapan2')) $this->upload($request->buktiKelengkapan2, 'kelengkapan2', $participant->id, 'Bukti Min Lulusan SMP/SLTP & memiliki Sertifikat Pelatihan Kerja Yang Relevan');
+        if($request->has('buktiKelengkapan3')) $this->upload($request->buktiKelengkapan3, 'kelengkapan3', $participant->id, 'Bukti Pengalaman Kerja yang relevan di Bengkel Otomotif');
+        if($request->has('buktiKompetensi1')) $this->upload($request->buktiKompetensi1, 'kompetensi1', $participant->id, 'Bukti Kompetensi 1');
+        if($request->has('buktiKompetensi2')) $this->upload($request->buktiKompetensi2, 'kompetensi2', $participant->id, 'Bukti Kompetensi 2');
+        if($request->has('buktiKompetensi3')) $this->upload($request->buktiKompetensi3, 'kompetensi3', $participant->id, 'Bukti Kompetensi 3');
+        if($request->has('buktiKompetensi4')) $this->upload($request->buktiKompetensi4, 'kompetensi4', $participant->id, 'Bukti Kompetensi 4');
 
-        return \redirect()->route('participant.form01')->with('success', true)->withInput($request->all());
+        return redirect()->route('register')->with('success', 'Form APL 01 berhasil dikirim, tunggu konfirmasi admin melalu WA atau SMS!')->withInput($request->all());
+    }
+
+    public function upload($image, $path, $form_id, $file_name)
+    {
+        $image_name = time().'.'.$image->extension();
+        $image->move(public_path('images/'.$path), $image_name);
+
+        Requirement::create([
+            'id_form01' => $form_id,
+            'file_name' => $image_name,
+            'name' => $file_name,
+            'status' => 1,
+        ]);
     }
 
     public function getUnit($id)
     {
-        $data['unit'] = \DB::table('m_unit')->select('id','code','name', 'pub_year')->where('id_scheme', $id)->get();
+        $param = explode(',', $id);
+        $data['unit'] = [];
+
+        foreach($param as $param) {
+            $unit = \DB::table('m_unit')->select('id','code','name', 'pub_year')->where('id_scheme', $param)->get();
+            foreach($unit as $unit) {
+                array_push($data['unit'], $unit);
+            }
+        }
 
         return view('participant.unit', compact('data'));
     }

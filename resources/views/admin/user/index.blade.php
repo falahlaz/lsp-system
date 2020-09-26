@@ -33,7 +33,7 @@
                 </select>
             </div>
             </div>
-            <div class="card-footer text-right">
+            <div class="text-right">
             <button class="btn btn-primary mr-1" type="submit">Submit</button>
             </div>
         </div>

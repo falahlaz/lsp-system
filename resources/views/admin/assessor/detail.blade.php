@@ -42,7 +42,7 @@
                <input type="text" class="form-control"/>
             </div>
          </div>
-         <div class="card-footer text-right">
+         <div class="text-right">
             <button class="btn btn-icon icon-left btn-primary mr-1" type="submit"><i class="fas fa-save"></i> Save</button>
             <Link to="/asesor" class="btn btn-icon icon-left btn-outline-danger mr-1" type="submit"><i class="fas fa-arrow-left"></i> Back</Link>
          </div>
@@ -66,7 +66,7 @@
                </select>
             </div>
          </div>
-         <div class="card-footer text-right">
+         <div class="text-right">
             <button class="btn btn-primary mr-1" type="submit">Submit</button>
          </div>
       </div>

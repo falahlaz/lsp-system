@@ -55,7 +55,7 @@
                                 @enderror
                                 </div>
                             </div>
-                            <div class="card-footer text-right">
+                            <div class="text-right">
                                 <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>
@@ -82,7 +82,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($data as $tuk)
+                                        @foreach($data['tuk'] as $tuk)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $tuk->code}}</td>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\ExamQuestion;
 use App\ExamAnswer;
+use App\User;
 
 class ExamQuestionController extends Controller
 {
@@ -18,6 +19,7 @@ class ExamQuestionController extends Controller
     public function index()
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
         $data['question']   = \DB::table('vw_exam_question')->select('id_e_question', 'question', 'scheme_name')->where('status', 1)->get();
         $data['scheme']     = \DB::table('m_scheme')->select('id', 'name')->where('status', 1)->get();
 
@@ -95,6 +97,7 @@ class ExamQuestionController extends Controller
     public function edit($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
         $data['answer']     = \DB::table('m_exam_answer')->select('id', 'answer', 'status', 'is_correct')->where([
             ['status', 1],
             ['id_exam_question', $id]
