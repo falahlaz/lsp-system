@@ -33,6 +33,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     // Participant route
     Route::group(['prefix' => '/form', 'as' => 'form.'], function() {
         Route::get('apl/01', 'Admin\Master\ParticipantController@indexApl01')->name('apl01');
+        Route::get('apl/01/{id}','Admin\Master\ParticipantController@showApl01')->name('apl01.detail');
+        Route::get('apl/01/pass_photo/{id}','Admin\Master\ParticipantController@showPassPhoto')->name('apl01.passPhoto');
+        Route::get('apl/01/photo_ktp/{id}','Admin\Master\ParticipantController@showPhotoKtp')->name('apl01.photoKtp');
+        Route::get('apl/01/kelengkapan/{index}/{id}','Admin\Master\ParticipantController@showKelengkapan')->name('apl01.kelengkapan');
+        Route::get('apl/01/kompetensi/{index}/{id}','Admin\Master\ParticipantController@showKompetensi')->name('apl01.kompetensi');
+        Route::post('apl/01/store','Admin\Master\ParticipantController@store')->name('apl01.store');
         Route::get('apl/02', 'Admin\Master\ParticipantController@indexApl02')->name('apl02');
         Route::get('recap', 'Admin\Master\ParticipantController@indexRecap')->name('recap');
     });
@@ -42,11 +48,21 @@ Route::get('/',function(){
     return redirect()->route('admin.dashboard');
 });
 
+Route::get('/s',function(){
+    return view('participant.form02');
+});
+
+Route::get('/d',function(){
+    return view('tes');
+});
+
+Route::get('/a','Admin\Master\ParticipantController@showPassPhoto');
+
 Route::get('/login', 'Admin\AuthController@login')->name('login');
 Route::post('/login', 'Admin\AuthController@loginStore')->name('login.store');
 Route::get('/logout','Admin\AuthController@logout')->name('logout');
 Route::get('/register','Admin\Master\Form01Controller@index')->name('register');
 Route::post('/register/store','Admin\Master\Form01Controller@store')->name('register.store');
 Route::get('/register/unit/{id}', 'Admin\Master\Form01Controller@getUnit')->name('register.unit');
-Route::get('/register/apl/02');
+Route::get('/register/apl/02/{id}','Admin\Master\Form02Controller@index')->name('register.apl02');
 Route::get('/register/confirm','Admin\AuthController@confirmRegister');

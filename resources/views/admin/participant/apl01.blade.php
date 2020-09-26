@@ -48,7 +48,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
+                                                    <a href="{{ route('admin.form.apl01.detail',$apl01->id) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -69,7 +69,7 @@
     <script src="{{ asset('/assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('/assets/modules/sweetalert/dist/sweetalert.min.js')}}"></script>
-    
+
     <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
     <script src="{{ asset('/assets/js/page/modules-sweetalert.js')}}"></script>
     <script src="{{ asset('/assets/js/page/correct-answer.js')}}"></script>
