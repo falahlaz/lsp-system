@@ -30,7 +30,7 @@
                                 <div class="customalert">{{ $message }}</div>
                             @enderror
                             </div>
-                            <div class="card-footer text-right">
+                            <div class="text-right">
                                 <a href="{{ route('admin.element.edit', ['element' => $data['edit']->id_element]) }}" class="btn btn-outline-danger">Back</a>
                                 <button class="btn btn-primary" type="submit">Update</button>
                             </div>

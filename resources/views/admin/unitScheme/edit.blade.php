@@ -42,7 +42,7 @@
                                 <div class="customalert">{{ $message }}</div>
                             @enderror
                             </div>
-                            <div class="card-footer text-right">
+                            <div class="text-right">
                                 <a href="{{ route('admin.scheme.edit', ['scheme' => $data['edit']->id_scheme]) }}" class="btn btn-outline-danger">Cancel</a>
                             <button class="btn btn-primary" type="submit">Update</button>
                             </div>

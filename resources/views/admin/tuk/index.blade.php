@@ -55,7 +55,7 @@
                                 @enderror
                                 </div>
                             </div>
-                            <div class="card-footer text-right">
+                            <div class="text-right">
                                 <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>

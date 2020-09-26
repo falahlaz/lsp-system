@@ -5,11 +5,8 @@ namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-<<<<<<< HEAD
 use App\Form02;
-=======
 use App\User;
->>>>>>> 980a2d7b30699fbf472312f85a5b70127a66177f
 
 class ParticipantController extends Controller
 {
@@ -124,7 +121,7 @@ class ParticipantController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user'] = User::find(\Session::get('id_user'));
-        
+
         return view('admin.participant.examRecap', compact('data'));
     }
 }

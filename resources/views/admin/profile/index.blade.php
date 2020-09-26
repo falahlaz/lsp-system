@@ -65,7 +65,7 @@
                                     <label for="img">Foto Profil</label>
                                     <input type="file" name="img_profile" id="img" class="form-control">
                                 </div>
-                                <div class="card-footer text-right">
+                                <div class="text-right">
                                     <button class="btn btn-primary mr-1" type="submit">Submit</button>
                                 </div>
                             </div>
