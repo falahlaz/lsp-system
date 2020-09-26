@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
 use App\Scheme;
+use App\User;
 use Illuminate\Http\Request;
 
 class SchemeController extends Controller
@@ -16,7 +17,8 @@ class SchemeController extends Controller
     public function index()
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
-        $data = \DB::table('m_scheme')->where('status', 1)->select('id', 'code', 'name')->get();
+        $data['user'] = User::find(\Session::get('id_user'));
+        $data['scheme'] = \DB::table('m_scheme')->where('status', 1)->select('id', 'code', 'name')->get();
 
         return view('admin.scheme.index',\compact('data'));
     }
@@ -82,6 +84,7 @@ class SchemeController extends Controller
     public function edit(Scheme $scheme)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
         $data['scheme'] = \DB::table('m_scheme')->where('id',$scheme->id)->first();
         $data['unit']   = \DB::table('m_unit')->select('id', 'code', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
 

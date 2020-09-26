@@ -19,7 +19,7 @@ class AssessorController extends Controller
     public function index()
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
-
+        $data['user'] = User::find(\Session::get('id_user'));
         $data['asesor'] = \DB::table('m_asesor')->select('id','name','reg_num','phone')->where('status', 1)->get();
         $data['tuk']    = \DB::table('m_tuk')->select('id','name')->where('status', 1)->get();
         $data['scheme'] = \DB::table('m_scheme')->select('id','name')->where('status', 1)->get();
@@ -115,6 +115,8 @@ class AssessorController extends Controller
     public function edit($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
+
         return view('admin.assessor.detail');
     }
 

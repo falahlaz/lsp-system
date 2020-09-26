@@ -83,7 +83,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($data as $scheme)
+                                        @foreach($data['scheme'] as $scheme)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $scheme->code }}</td>

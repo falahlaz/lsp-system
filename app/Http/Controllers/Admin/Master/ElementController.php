@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Element;
+use App\User;
 
 class ElementController extends Controller
 {
@@ -17,6 +18,7 @@ class ElementController extends Controller
     public function index()
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
         $data['unit']       = \DB::table('m_unit')->select('id', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
         $data['element']    = \DB::table('vw_element')->select('id', 'name', 'unit')->where('status', 1)->orderBy('name', 'asc')->get();
 
@@ -77,6 +79,7 @@ class ElementController extends Controller
     public function edit($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
         $data['unit']       = \DB::table('m_unit')->select('id', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
         $data['question']   = \DB::table('m_element_question')->select('id', 'question', 'status')->orderBy('question', 'asc')->get();
         $data['element']    = Element::find($id);

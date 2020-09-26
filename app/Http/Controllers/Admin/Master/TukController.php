@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
 use App\Tuk;
+use App\User;
 use Illuminate\Http\Request;
 
 class TukController extends Controller
@@ -16,7 +17,8 @@ class TukController extends Controller
     public function index()
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
-        $data = \DB::table('m_tuk')->select('id', 'code', 'name', 'type')->where('status', 1)->get();
+        $data['user'] = User::find(\Session::get('id_user'));
+        $data['tuk'] = \DB::table('m_tuk')->select('id', 'code', 'name', 'type')->where('status', 1)->get();
         // return response()->json($data,200);
         return view('admin.tuk.index',\compact('data'));
     }
@@ -79,6 +81,7 @@ class TukController extends Controller
     public function edit(Tuk $tuk)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
         $data['tuk'] = \DB::table('m_tuk')->where('id',$tuk->id)->first();
         $data['type'] = ['Sewaktu','Mandiri','Tempat Kerja'];
 

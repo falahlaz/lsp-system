@@ -82,7 +82,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($data as $tuk)
+                                        @foreach($data['tuk'] as $tuk)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $tuk->code}}</td>

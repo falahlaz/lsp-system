@@ -114,6 +114,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="education">Kualifikasi/Pendidikan</label>
+<<<<<<< HEAD
                                             <select class="form-control" name="last_educ" id="last_educ">
                                                 <option selected hidden>--Pilih Kualifikasi Pendidikan--</option>
                                                 <option value="SD">SD / Sederajat</option>
@@ -121,6 +122,9 @@
                                                 <option value="SMA">SMA / Sederajat</option>
                                                 <option value="SMK">SMK / Sederajat</option>
                                             </select>
+=======
+                                            <input type="text" name="last_educ" class="form-control" id="last_educ" placeholder="Misal : S1" value="{{ old('last_educ') }}">
+>>>>>>> 980a2d7b30699fbf472312f85a5b70127a66177f
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -153,7 +157,11 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="company_fax">Fax</label>
+<<<<<<< HEAD
                                                 <input type="number" class="form-control" name="company_fax" id="company_fax" placeholder="Misal : 03134325" value="{{ old('company_fax') }}">
+=======
+                                                <input type="text" class="form-control" name="company_fax" id="company_fax" placeholder="Misal : 03134325" value="{{ old('company_fax') }}">
+>>>>>>> 980a2d7b30699fbf472312f85a5b70127a66177f
                                             </div>
                                         </div>
                                             <div class="form-group">
@@ -277,9 +285,17 @@
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>`;
+<<<<<<< HEAD
     function getScheme(e){
         let id = $(e).val();
         let url = "{{ route('register') }}/unit/"+id;
+=======
+
+    function getScheme(e){
+        let id = $(e).val();
+        let url = "{{ route('register') }}/unit/"+id;
+
+>>>>>>> 980a2d7b30699fbf472312f85a5b70127a66177f
         $('#table_unit').html(loader);
         $("#table_unit").load(url, function(response, status, xhr ) {
             if(status == "error") {
@@ -289,6 +305,10 @@
             }
         });
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 980a2d7b30699fbf472312f85a5b70127a66177f
     @if(Session::has('success'))
         swal('Success', "{{ Session::get('success') }}", 'success');
     @endif
