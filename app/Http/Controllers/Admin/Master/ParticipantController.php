@@ -22,58 +22,22 @@ class ParticipantController extends Controller
     public function showApl01($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
-        $data['user'] = User::find(\Session::get('id_user'));
-        $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
-        $data['asesor'] = \DB::table('m_asesor')->get();
+        $data['user']           = User::find(\Session::get('id_user'));
+        $data['apl01']          = \DB::table('t_form01')->where('id',$id)->first();
+        $data['asesor']         = \DB::table('m_asesor')->get();
+        $data['requirement']    = \DB::table('t_requirement')->where('id_form01', $id)->get();
+
+        foreach($data['requirement'] as $requirement) {
+            if($requirement->name === 'Bukti Lulusan SMK Jurusan Teknik Otomotif') $data['kelengkapan1'] = $requirement;
+            if($requirement->name === 'Bukti Min Lulusan SMP/SLTP & memiliki Sertifikat Pelatihan Kerja Yang Relevan') $data['kelengkapan2'] = $requirement;
+            if($requirement->name === 'Bukti Pengalaman Kerja yang relevan di Bengkel Otomotif') $data['kelengkapan3'] = $requirement;
+            if($requirement->name === 'Bukti Kompetensi 1') $data['kompetensi1'] = $requirement;
+            if($requirement->name === 'Bukti Kompetensi 2') $data['kompetensi2'] = $requirement;
+            if($requirement->name === 'Bukti Kompetensi 3') $data['kompetensi3'] = $requirement;
+            if($requirement->name === 'Bukti Kompetensi 4') $data['kompetensi4'] = $requirement;
+        }
+
         return view('admin.participant.detailForm01',\compact('data'));
-
-    }
-
-    public function showPassPhoto($id)
-    {
-        $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
-        return view('admin.participant.detail.passPhoto',compact('data'));
-    }
-
-    public function showPhotoKtp($id)
-    {
-        $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
-
-        return view('admin.participant.detail.photoKtp',compact('data'));
-    }
-
-    public function showKelengkapan($index,$id)
-    {
-        $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
-
-        if($index == 1){
-            $data['kelengkapan'] = $data['apl01']->bukti_kelengkapan_1;
-        } elseif($index == 2) {
-            $data['kelengkapan'] = $data['apl01']->bukti_kelengkapan_2;
-        } else {
-            $data['kelengkapan'] = $data['apl01']->bukti_kelengkapan_3;
-        }
-
-        $data['index'] = $index;
-
-        return view('admin.participant.detail.kelengkapan',\compact('data'));
-    }
-
-    public function showKompetensi($index,$id)
-    {
-        $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
-
-        if($index == 1){
-            $data['kompetensi'] = $data['apl01']->bukti_kompetensi_1;
-        } elseif($index == 2){
-            $data['kompetensi'] = $data['apl01']->bukti_kompetensi_2;
-        } else {
-            $data['kompetensi'] = $data['apl01']->bukti_kompetensi_3;
-        }
-
-        $data['index'] = $index;
-
-        return view('admin.participant.detail.kompetensi',\compact('data'));
     }
 
     public function store(Request $request)

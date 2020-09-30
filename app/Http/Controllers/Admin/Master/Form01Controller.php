@@ -22,7 +22,6 @@ class Form01Controller extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'name' => ['required'],
             'nik' => ['required'],
@@ -80,14 +79,8 @@ class Form01Controller extends Controller
             'company_fax' => $request->company_fax,
             'company_email' => $request->company_email,
             'company_post_code' => $request->company_post_code,
-            'skema_sertifikasi' => $request->skema_sertifikasi,
-            'tujuan_asesmen' => $request->tujuan_asesmen,
-            'bukti_kelengkapan_1' => $bukti_kelengkapan_1,
-            'bukti_kelengkapan_2' => $bukti_kelengkapan_2,
-            'bukti_kelengkapan_3' => $bukti_kelengkapan_3,
-            'bukti_kompetensi_1' => $bukti_kompetensi_1,
-            'bukti_kompetensi_2' => $bukti_kompetensi_2,
-            'bukti_kompetensi_3' => $bukti_kompetensi_3,
+            'scheme_certification' => $request->skema_sertifikasi,
+            'assessment_purpose' => $request->tujuan_asesmen,
             'status' => 1
         ]);
 

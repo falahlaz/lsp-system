@@ -31,16 +31,15 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="KtpPhoto">Foto KTP</label><br>
-                                    <a href="{{ route('admin.form.apl01.photoKtp',$data['apl01']->id) }}" target="_blank" class="btn btn-primary">
+                                    <a href="{{ asset('images/ktp/'.$data['apl01']->photo_ktp) }}" target="_blank" class="btn btn-primary">
                                         Lihat Foto
                                     </a>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="PassPhoto">Pas Foto</label> <br>
-                                    <a href="{{ route('admin.form.apl01.passPhoto',$data['apl01']->id) }}" target="_blank" class="btn btn-primary">
+                                    <a href="{{ asset('images/pass_foto/'.$data['apl01']->pass_photo) }}" target="_blank" class="btn btn-primary">
                                         Lihat Foto
                                     </a>
-                                    {{-- <img src="{{ asset('upload/pass_photo/'.$data['apl01']->pass_photo) }}" alt=""> --}}
                                 </div>
                             </div>
                             <div class="form-row">
@@ -149,68 +148,30 @@
                             <br>
                             <div class="form-group">
                                 <label>Skema Sertifikasi</label>    <br>
-                                @if($data['apl01']->skema_sertifikasi == 'KKNI')
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="skema_sertifikasi" id="kkni" value="KKNI" readonly checked>
-                                        <label class="form-check-label" for="kkni">KKNI</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="skema_sertifikasi" id="okupasi" value="Okupasi" readonly disabled>
-                                        <label class="form-check-label" for="okupasi">Okupasi</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="skema_sertifikasi" id="klaster" value="Klaster" readonly disabled>
-                                        <label class="form-check-label" for="klaster">Klaster</label>
-                                    </div>
-                                @elseif($data['apl01']->skema_sertifikasi == 'Okupasi')
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="skema_sertifikasi" id="kkni" value="KKNI" readonly disabled>
-                                        <label class="form-check-label" for="kkni">KKNI</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="skema_sertifikasi" id="okupasi" value="Okupasi" readonly checked>
-                                        <label class="form-check-label" for="okupasi">Okupasi</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="skema_sertifikasi" id="klaster" value="Klaster" readonly disabled>
-                                        <label class="form-check-label" for="klaster">Klaster</label>
-                                    </div>
-                                @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="skema_sertifikasi" id="kkni" value="KKNI" readonly disabled>
-                                        <label class="form-check-label" for="kkni">KKNI</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="skema_sertifikasi" id="okupasi" value="Okupasi" readonly disabled>
-                                        <label class="form-check-label" for="okupasi">Okupasi</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="skema_sertifikasi" id="klaster" value="Klaster" readonly checked>
-                                        <label class="form-check-label" for="klaster">Klaster</label>
-                                    </div>
-                                @endif
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="skema_sertifikasi" id="kkni" value="KKNI" readonly @if($data['apl01']->scheme_certification == 'KKNI') checked @else disabled @endif>
+                                    <label class="form-check-label" for="kkni">KKNI</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="skema_sertifikasi" id="okupasi" value="Okupasi" readonly @if($data['apl01']->scheme_certification == 'Okupasi') checked @else disabled @endif>
+                                    <label class="form-check-label" for="okupasi">Okupasi</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="skema_sertifikasi" id="klaster" value="Klaster" readonly @if($data['apl01']->scheme_certification == 'Klaster') checked @else disabled @endif>
+                                    <label class="form-check-label" for="klaster">Klaster</label>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Tujuan Asesmen</label>    <br>
-                                @if($data['apl01']->tujuan_asesmen == 'Sertifikasi')
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="tujuan_asesmen" id="sertifikasi" value="Sertifikasi" readonly checked >
-                                        <label class="form-check-label" for="sertifikasi">Sertifikasi</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="tujuan_asesmen" id="sertifikasi_ulang" value="Sertifikasi Ulang" readonly>
-                                        <label class="form-check-label" for="sertifikasi_ulang">Sertifikasi Ulang</label>
-                                    </div>
-                                @else
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="tujuan_asesmen" id="sertifikasi" value="Sertifikasi" readonly  disabled>
-                                        <label class="form-check-label" for="sertifikasi">Sertifikasi</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="tujuan_asesmen" id="sertifikasi_ulang" value="Sertifikasi Ulang" readonly checked>
-                                        <label class="form-check-label" for="sertifikasi_ulang">Sertifikasi Ulang</label>
-                                    </div>
-                                @endif
+                                
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tujuan_asesmen" id="sertifikasi" value="Sertifikasi" readonly @if($data['apl01']->assessment_purpose == 'Sertifikasi') checked @else disabled @endif>
+                                    <label class="form-check-label" for="sertifikasi">Sertifikasi</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tujuan_asesmen" id="sertifikasi_ulang" value="Sertifikasi Ulang" readonly @if($data['apl01']->assessment_purpose == 'Sertifikasi') checked @else disabled @endif>
+                                    <label class="form-check-label" for="sertifikasi_ulang">Sertifikasi Ulang</label>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="jurusan">Skema</label>
@@ -236,6 +197,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if(isset($data['kelengkapan1']))
                                     <tr>
                                         <td>1</td>
                                         <td>Bukti kelengkapan 1</td>
@@ -249,11 +211,13 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.form.apl01.kelengkapan',['index' => 1, 'id' => $data['apl01']->id ]) }}" target="_blank" class="btn btn-primary">
+                                            <a href="{{ asset('images/kelengkapan1/'.$data['kelengkapan1']->file_name) }}" target="_blank" class="btn btn-primary">
                                                 Lihat Bukti
                                             </a>
                                         </td>
                                     </tr>
+                                    @endif
+                                    @if(isset($data['kelengkapan2']))
                                     <tr>
                                         <td>2</td>
                                         <td>Bukti kelengkapan 2</td>
@@ -267,11 +231,13 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.form.apl01.kelengkapan',['index' => 2, 'id' => $data['apl01']->id ]) }}" target="_blank" class="btn btn-primary">
+                                            <a href="{{ asset('images/kelengkapan2/'.$data['kelengkapan2']->file_name) }}" target="_blank" class="btn btn-primary">
                                                 Lihat Bukti
                                             </a>
                                         </td>
                                     </tr>
+                                    @endif
+                                    @if(isset($data['kelengkapan3']))
                                     <tr>
                                         <td>3</td>
                                         <td>Bukti kelengkapan 3</td>
@@ -285,11 +251,12 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.form.apl01.kelengkapan',['index' => 3, 'id' => $data['apl01']->id ]) }}" target="_blank" class="btn btn-primary">
+                                            <a href="{{ asset('images/kelengkapan3/'.$data['kelengkapan3']->file_name) }}" target="_blank" class="btn btn-primary">
                                                 Lihat Bukti
                                             </a>
                                         </td>
                                     </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -305,6 +272,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if(isset($data['kompetensi1']))
                                     <tr>
                                         <td>1</td>
                                         <td>Bukti Kompetensi 1</td>
@@ -318,11 +286,13 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.form.apl01.kompetensi',['index' => 1, 'id' => $data['apl01']->id]) }}" target="_blank" class="btn btn-primary">
+                                            <a href="{{ asset('images/kompetensi1/'.$data['kompetensi1']->file_name) }}" target="_blank" class="btn btn-primary">
                                                 Lihat Bukti
                                             </a>
                                         </td>
                                     </tr>
+                                    @endif
+                                    @if(isset($data['kompetensi2']))
                                     <tr>
                                         <td>2</td>
                                         <td>Bukti Kompetensi 2</td>
@@ -336,11 +306,13 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.form.apl01.kompetensi',['index' => 2, 'id' => $data['apl01']->id]) }}" target="_blank" class="btn btn-primary">
+                                            <a href="{{ asset('images/kompetensi2/'.$data['kompetensi2']->file_name) }}" target="_blank" class="btn btn-primary">
                                                 Lihat Bukti
                                             </a>
                                         </td>
                                     </tr>
+                                    @endif
+                                    @if(isset($data['kompetensi3']))
                                     <tr>
                                         <td>3</td>
                                         <td>Bukti Kompetensi 3</td>
@@ -354,11 +326,32 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.form.apl01.kompetensi',['index' => 3, 'id' => $data['apl01']->id]) }}" target="_blank" class="btn btn-primary">
+                                            <a href="{{ asset('images/kompetensi3/'.$data['kompetensi3']->file_name) }}" target="_blank" class="btn btn-primary">
                                                 Lihat Bukti
                                             </a>
                                         </td>
                                     </tr>
+                                    @endif
+                                    @if(isset($data['kompetensi4']))
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Bukti Kompetensi 4</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <select class="form-control" id="bukti_kompetensi_3" required>
+                                                    <option value="" hidden>-- Pilih Status --</option>
+                                                    <option value="Ada">Ada</option>
+                                                    <option value="Tidak Ada">Tidak Ada</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="{{ asset('images/kompetensi4/'.$data['kompetensi4']->file_name) }}" target="_blank" class="btn btn-primary">
+                                                Lihat Bukti
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
 
