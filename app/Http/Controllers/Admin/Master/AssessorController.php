@@ -116,8 +116,9 @@ class AssessorController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user'] = User::find(\Session::get('id_user'));
-        $data['asesor'] = \DB::table('m_asesor')->where('id',$id)->get();
+        $data['asesor'] = \DB::table('m_asesor')->where('id',$id)->first();
         $data['tuk']    = \DB::table('m_tuk')->select('id','name')->get();
+
         return view('admin.assessor.detail',\compact('data'));
     }
 
@@ -138,9 +139,8 @@ class AssessorController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'id_tuk' => 'required'
-            ]);
+        ]);
 
-            dd($request);
         // mengambil data inputan dan tambah data ke database
         Assessor::where('id',$id)->update([
             'name' => $request->name,
