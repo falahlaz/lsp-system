@@ -404,7 +404,7 @@
                         <select class="form-control" id="asesor" name="id_asesor" required>
                             <option value="">-- Pilih Asesor --</option>
                             @foreach($data['asesor'] as $asesor)
-                            <option value="{{$asesor->id}}">{{$asesor->nama_lengkap}}</option>
+                            <option value="{{$asesor->id}}">{{$asesor->name}}</option>
                             @endforeach
                         </select>
                     </div>

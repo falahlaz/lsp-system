@@ -21,8 +21,10 @@ class ParticipantController extends Controller
 
     public function showApl01($id)
     {
+        if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user'] = User::find(\Session::get('id_user'));
         $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
-        $data['asesor'] = \DB::table('m_users')->get();
+        $data['asesor'] = \DB::table('m_asesor')->get();
         return view('admin.participant.detailForm01',\compact('data'));
 
     }
