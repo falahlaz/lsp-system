@@ -23,6 +23,7 @@ class ParticipantController extends Controller
     {
         $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
         $data['asesor'] = \DB::table('m_users')->get();
+
         return view('admin.participant.detailForm01',\compact('data'));
 
     }

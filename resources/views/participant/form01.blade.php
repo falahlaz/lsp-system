@@ -244,7 +244,7 @@
                                             <input type="file" class="form-control-file" id="buktiKompetensi4"  name="buktiKompetensi4">
                                         </div>
                                     </div>
-                                    <div class="text-right">
+                                    <div class="text-right">jksfksdfj
                                         <button class="btn btn-icon icon-left btn-primary mr-4" type="submit">Submit</button>
                                     </div>
                                 </div>

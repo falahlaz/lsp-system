@@ -154,7 +154,7 @@
                                             <td>{{ $asesor->name }}</td>
                                             <td>{{ $asesor->phone }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-icon btn-info"><i class="fas fa-info-circle"></i></a>
+                                                <a href="{{ route('admin.assessor.edit',$asesor->id) }}" class="btn btn-icon btn-info"><i class="fas fa-info-circle"></i></a>
                                                 <form action="{{ route('admin.assessor.destroy', ['assessor' => $asesor->id]) }}" method="post" style="display: inline-block">
                                                     @method('delete')
                                                     @csrf
@@ -178,7 +178,7 @@
     <script src="{{ asset('/assets/modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{ asset('/assets/modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('/assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
-    
+
     <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
   	<script src="{{ asset('/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
 @endsection
