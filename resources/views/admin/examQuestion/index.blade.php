@@ -60,9 +60,11 @@
                                         <option value="">-- Pilih Jawaban Benar --</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="text-right">
-                            <button class="btn btn-primary mr-1" type="submit">Submit</button>
+
+                                
+                                <div class="text-right">
+                                    <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                </div>
                             </div>
                         </form>
                     </div>

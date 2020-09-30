@@ -47,11 +47,12 @@
                                             font-size: 10px !important;
                                         }
                                     </style>
-                                    <button class="btn-sm btn btn-info add-input" type="button"><i class="fas fa-plus"></i> New Input</button>
+                                    <button class="btn-sm btn btn-info add-input mb-3" type="button"><i class="fas fa-plus"></i> New Input</button>
                                 </div>
-                            </div>
-                            <div class="text-right">
-                                <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                
+                                <div class="text-right">
+                                    <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                                </div>
                             </div>
                         </form>
                     </div>
