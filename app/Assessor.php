@@ -13,4 +13,8 @@ class Assessor extends Model
     public function scheme(){
         return $this->hasMany('App\Scheme','id_scheme');
     }
+
+    public function user(){
+        return $this->hasMany('App\User','id');
+    }
 }
