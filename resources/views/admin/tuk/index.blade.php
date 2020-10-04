@@ -54,9 +54,10 @@
                                     <div class="customalert">{{ $message }}</div>
                                 @enderror
                                 </div>
-                            </div>
-                            <div class="text-right">
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                
+                                <div class="text-right">
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </div>
                             </div>
                         </form>
                     </div>

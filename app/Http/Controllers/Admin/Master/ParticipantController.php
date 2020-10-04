@@ -60,19 +60,23 @@ class ParticipantController extends Controller
 
     public function showKompetensi($index,$id)
     {
-        $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
+        if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['user']           = User::find(\Session::get('id_user'));
+        $data['apl01']          = \DB::table('t_form01')->where('id',$id)->first();
+        $data['asesor']         = \DB::table('m_asesor')->get();
+        $data['requirement']    = \DB::table('t_requirement')->where('id_form01', $id)->get();
 
-        if($index == 1){
-            $data['kompetensi'] = $data['apl01']->bukti_kompetensi_1;
-        } elseif($index == 2){
-            $data['kompetensi'] = $data['apl01']->bukti_kompetensi_2;
-        } else {
-            $data['kompetensi'] = $data['apl01']->bukti_kompetensi_3;
+        foreach($data['requirement'] as $requirement) {
+            if($requirement->name === 'Bukti Lulusan SMK Jurusan Teknik Otomotif') $data['kelengkapan1'] = $requirement;
+            if($requirement->name === 'Bukti Min Lulusan SMP/SLTP & memiliki Sertifikat Pelatihan Kerja Yang Relevan') $data['kelengkapan2'] = $requirement;
+            if($requirement->name === 'Bukti Pengalaman Kerja yang relevan di Bengkel Otomotif') $data['kelengkapan3'] = $requirement;
+            if($requirement->name === 'Bukti Kompetensi 1') $data['kompetensi1'] = $requirement;
+            if($requirement->name === 'Bukti Kompetensi 2') $data['kompetensi2'] = $requirement;
+            if($requirement->name === 'Bukti Kompetensi 3') $data['kompetensi3'] = $requirement;
+            if($requirement->name === 'Bukti Kompetensi 4') $data['kompetensi4'] = $requirement;
         }
 
-        $data['index'] = $index;
-
-        return view('admin.participant.detail.kompetensi',\compact('data'));
+        return view('admin.participant.detailForm01',\compact('data'));
     }
 
     public function store(Request $request)
