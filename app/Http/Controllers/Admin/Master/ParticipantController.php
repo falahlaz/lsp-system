@@ -21,45 +21,6 @@ class ParticipantController extends Controller
 
     public function showApl01($id)
     {
-        $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
-        $data['asesor'] = \DB::table('m_users')->get();
-
-        return view('admin.participant.detailForm01',\compact('data'));
-
-    }
-
-    public function showPassPhoto($id)
-    {
-        $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
-        return view('admin.participant.detail.passPhoto',compact('data'));
-    }
-
-    public function showPhotoKtp($id)
-    {
-        $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
-
-        return view('admin.participant.detail.photoKtp',compact('data'));
-    }
-
-    public function showKelengkapan($index,$id)
-    {
-        $data['apl01'] = \DB::table('t_form01')->where('id',$id)->first();
-
-        if($index == 1){
-            $data['kelengkapan'] = $data['apl01']->bukti_kelengkapan_1;
-        } elseif($index == 2) {
-            $data['kelengkapan'] = $data['apl01']->bukti_kelengkapan_2;
-        } else {
-            $data['kelengkapan'] = $data['apl01']->bukti_kelengkapan_3;
-        }
-
-        $data['index'] = $index;
-
-        return view('admin.participant.detail.kelengkapan',\compact('data'));
-    }
-
-    public function showKompetensi($index,$id)
-    {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user']           = User::find(\Session::get('id_user'));
         $data['apl01']          = \DB::table('t_form01')->where('id',$id)->first();
