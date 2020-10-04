@@ -6,24 +6,28 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Form02;
+use App\Form01;
 use App\User;
+use App\Scheme;
 
 class ParticipantController extends Controller
 {
     public function indexApl01()
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
-        $data['user'] = User::find(\Session::get('id_user'));
-        $data['apl01'] = \DB::table('t_form01')->select('id', 'name', 'nationality', 'phone', 'private_email', 'status')->where('status', '<>', 0)->orderBy('created_at', 'desc')->get();
+        $data['user']   = User::find(\Session::get('id_user'));
+        $data['apl01']  = \DB::table('vw_form01')->select('id', 'name', 'nationality', 'phone', 'private_email', 'status', 'scheme', 'id_scheme')->where('status', '<>', 0)->orderBy('created_at', 'desc')->get();
 
         return view('admin.participant.apl01', compact('data'));
     }
 
-    public function showApl01($id)
+    public function showApl01($id, $id_scheme)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user']           = User::find(\Session::get('id_user'));
-        $data['apl01']          = \DB::table('t_form01')->where('id',$id)->first();
+        $data['apl01']          = Form01::find($id);
+        $data['scheme']         = Scheme::select('name')->find($id_scheme);
+        $data['unit']           = \DB::table('m_unit')->select('id','code','name', 'pub_year')->where('id_scheme', $id_scheme)->get();
         $data['asesor']         = \DB::table('m_asesor')->get();
         $data['requirement']    = \DB::table('t_requirement')->where('id_form01', $id)->get();
 

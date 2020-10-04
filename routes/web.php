@@ -33,7 +33,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     // Participant route
     Route::group(['prefix' => '/form', 'as' => 'form.'], function() {
         Route::get('apl/01', 'Admin\Master\ParticipantController@indexApl01')->name('apl01');
-        Route::get('apl/01/{id}','Admin\Master\ParticipantController@showApl01')->name('apl01.detail');
+        Route::get('apl/01/{id}/{scheme}','Admin\Master\ParticipantController@showApl01')->name('apl01.detail');
         Route::get('apl/01/pass_photo/{id}','Admin\Master\ParticipantController@showPassPhoto')->name('apl01.passPhoto');
         Route::get('apl/01/photo_ktp/{id}','Admin\Master\ParticipantController@showPhotoKtp')->name('apl01.photoKtp');
         Route::get('apl/01/kelengkapan/{index}/{id}','Admin\Master\ParticipantController@showKelengkapan')->name('apl01.kelengkapan');

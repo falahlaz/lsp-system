@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-12">
                             <form action="{{ route('register.store') }}" method="POST"  enctype="multipart/form-data">
-                            <div class="card">
+                                <div class="card">
                                     @csrf
                                     <div class="card-body">
                                         <h4 style="color:#6777EF;" class="card-title">Bagian 1 :  Rincian Data Pemohon Sertifikasi </h4>
@@ -243,7 +243,6 @@
                                             <label for="buktiKompetensi4">Bukti Kompetensi 4</label>
                                             <input type="file" class="form-control-file" id="buktiKompetensi4"  name="buktiKompetensi4">
                                         </div>
-                                    </div>
                                         <div class="text-right">
                                             <button class="btn btn-icon icon-left btn-primary mr-4" type="submit">Submit</button>
                                         </div>

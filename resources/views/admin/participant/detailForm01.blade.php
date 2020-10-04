@@ -169,18 +169,37 @@
                                     <label class="form-check-label" for="sertifikasi">Sertifikasi</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="tujuan_asesmen" id="sertifikasi_ulang" value="Sertifikasi Ulang" readonly @if($data['apl01']->assessment_purpose == 'Sertifikasi') checked @else disabled @endif>
+                                    <input class="form-check-input" type="radio" name="tujuan_asesmen" id="sertifikasi_ulang" value="Sertifikasi Ulang" readonly @if($data['apl01']->assessment_purpose == 'Sertifikasi Ulang') checked @else disabled @endif>
                                     <label class="form-check-label" for="sertifikasi_ulang">Sertifikasi Ulang</label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="jurusan">Skema</label>
-                                <select class="form-control" name="schemes" id="jurusan"  onchange="getScheme(this)">
-                                    <option value="">--Pilih Skema--</option>
-                                </select>
+                                <label for="scheme">Skema</label>
+                                <input type="text" name="scheme" class="form-control" id="scheme" readonly value="{{ $data['scheme']->name }}">
                             </div>
-                            <div class="form-group" id="table_unit">
-
+                            <div class="form-group">
+                                <label>Daftar Unit</label>
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Kode Unit</th>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Tahun</th>
+                                        </tr>
+                                    </thead>
+                                    <tr></tr>
+                                    <tbody>
+                                        @foreach($data['unit'] as $unit)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $unit->code }}</td>
+                                            <td>{{ $unit->name }}</td>
+                                            <td>{{ $unit->pub_year }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div class="card-body">

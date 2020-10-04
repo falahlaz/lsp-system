@@ -30,6 +30,7 @@
                                             <th>Telepon</th>
                                             <th>Email</th>
                                             <th>Warga Negara</th>
+                                            <th>Skema</th>
                                             <th>Status</th>
                                             <th width="10%">Action</th>
                                         </tr>
@@ -42,13 +43,14 @@
                                                 <td>{{ $apl01->phone }}</td>
                                                 <td>{{ $apl01->private_email }}</td>
                                                 <td>{{ $apl01->nationality }}</td>
+                                                <td>{{ $apl01->scheme }}</td>
                                                 <td>
                                                     @if ($apl01->status == 1)
                                                         <div class="badge badge-warning">Pending</div>
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('admin.form.apl01.detail',$apl01->id) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
+                                                    <a href="{{ route('admin.form.apl01.detail',['id' => $apl01->id, 'scheme' => $apl01->id_scheme]) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
