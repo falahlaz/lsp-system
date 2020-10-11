@@ -30,7 +30,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="text-right">
+                        <div class="text-right pb-4 pr-4">
                             <a href="{{ route('admin.exam.question.index') }}" class="btn btn-outline-danger">Back</a>
                             <button class="btn btn-primary" type="submit">Update</button>
                         </div>
