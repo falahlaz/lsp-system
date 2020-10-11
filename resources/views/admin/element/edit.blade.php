@@ -67,7 +67,7 @@
                                 <div class="customalert">{{ $message }}</div>
                             @enderror
                             </div>
-                            <div class="text-right">
+                            <div class="text-right mb-3">
                                 <style>
                                     button.add-input, .add-input i {
                                         font-size: 10px !important;
@@ -75,7 +75,7 @@
                                 </style>
                                 <button class="btn-sm btn btn-info add-input" type="button"><i class="fas fa-plus"></i> New Input</button>
                             </div>
-                            <div class="text-right">
+                            <div class="text-right mr-1">
                                 <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>
