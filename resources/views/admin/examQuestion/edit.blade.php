@@ -30,7 +30,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="text-right">
+                        <div class="text-right pb-4 pr-4">
                             <a href="{{ route('admin.exam.question.index') }}" class="btn btn-outline-danger">Back</a>
                             <button class="btn btn-primary" type="submit">Update</button>
                         </div>
@@ -56,8 +56,8 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="text-right">
-                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                        <div class="text-right pb-4 pr-4">
+                            <button class="btn btn-primary mr-1" type="submit">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -65,7 +65,7 @@
                     <form action="{{ route('admin.answer.correct') }}" method="post">
                         @csrf
                         <div class="card-header">
-                        <h4>Ubah Jawaban Benar</h4>
+                            <h4>Ubah Jawaban Benar</h4>
                         </div>
                         <input type="hidden" name="id_exam_question" value="{{ $data['edit']->id }}">
                         @foreach ($data['answer'] as $answer)
@@ -87,8 +87,8 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="text-right">
-                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                        <div class="text-right pb-4 pr-4">
+                            <button class="btn btn-primary mr-1" type="submit">Submit</button>
                         </div>
                     </form>
                 </div>

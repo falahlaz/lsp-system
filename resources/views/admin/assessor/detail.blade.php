@@ -33,10 +33,6 @@
                                 <input type="text" class="form-control" name="reg_num" value="{{ $data['asesor']->reg_num }}">
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" class="form-control" name="email" value="kjladfljl">
-                            </div>
-                            <div class="form-group">
                                 <label>No Telepon</label>
                                 <input type="number" class="form-control" name="phone" value="{{ $data['asesor']->phone }}">
                             </div>
