@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 
 use App\Form02;
 use App\Form01;
+use App\Form01Scheme;
 use App\User;
 use App\Scheme;
+
+use Redirect;
 
 class ParticipantController extends Controller
 {
@@ -27,6 +30,7 @@ class ParticipantController extends Controller
         $data['user']           = User::find(\Session::get('id_user'));
         $data['apl01']          = Form01::find($id);
         $data['scheme']         = Scheme::select('name')->find($id_scheme);
+        $data['schemeApl01']    = Form01Scheme::where("id_scheme", $id_scheme)->where("id_form01", $id)->first();
         $data['unit']           = \DB::table('m_unit')->select('id','code','name', 'pub_year')->where('id_scheme', $id_scheme)->get();
         $data['asesor']         = \DB::table('m_asesor')->get();
         $data['requirement']    = \DB::table('t_requirement')->where('id_form01', $id)->get();
@@ -48,6 +52,7 @@ class ParticipantController extends Controller
     {
         // mengambil data dari inputan
         $id_form01 = $request->id_form01;
+        $id_scheme_form01 = $request->id_scheme_form01;
         $id_asesor     = $request->id_asesor;
         $ket_bukti_kelengkapan_1 = $request->ket_bukti_kelengkapan_1;
         $ket_bukti_kelengkapan_2 = $request->ket_bukti_kelengkapan_2;
@@ -55,26 +60,60 @@ class ParticipantController extends Controller
         $ket_bukti_kompetensi_1  = $request->ket_bukti_kompetensi_1;
         $ket_bukti_kompetensi_2  = $request->ket_bukti_kompetensi_2;
         $ket_bukti_kompetensi_3  = $request->ket_bukti_kompetensi_3;
+        $ket_bukti_kompetensi_4  = $request->ket_bukti_kompetensi_4;
         $keterangan = $request->keterangan;
 
-        Form02::create([
-            'id_form01' => $id_form01,
-            'id_asesor' => $id_asesor,
-            // 'ket_bukti_kelengkapan_persyaratan_1' => $ket_bukti_kelengkapan_1,
-            // 'ket_bukti_kelengkapan_persyaratan_2' => $ket_bukti_kelengkapan_2,
-            // 'ket_bukti_kelengkapan_persyaratan_3' => $ket_bukti_kelengkapan_3,
-            // 'ket_bukti_kompetensi_1' => $ket_bukti_kompetensi_1,
-            // 'ket_bukti_kompetensi_2' => $ket_bukti_kompetensi_2,
-            // 'ket_bukti_kompetensi_3' => $ket_bukti_kompetensi_3,
-            'status' => 1,
-            // 'keterangan' => $keterangan
-        ]);
+        foreach(\DB::table('t_requirement')->where('id_form01', $id_form01)->get() as $requirement) {
+            if ($requirement->name === 'Bukti Lulusan SMK Jurusan Teknik Otomotif') {
+                \DB::table("t_requirement")->where("id", $requirement->id)->update([
+                    "apprv" => $ket_bukti_kelengkapan_1
+                ]);
+            }
+            if ($requirement->name === 'Bukti Min Lulusan SMP/SLTP & memiliki Sertifikat Pelatihan Kerja Yang Relevan') {
+                \DB::table("t_requirement")->where("id", $requirement->id)->update([
+                    "apprv" => $ket_bukti_kelengkapan_2
+                ]);
+            }
+            if ($requirement->name === 'Bukti Pengalaman Kerja yang relevan di Bengkel Otomotif') {
+                \DB::table("t_requirement")->where("id", $requirement->id)->update([
+                    "apprv" => $ket_bukti_kelengkapan_3
+                ]);
+            }
+            if ($requirement->name === 'Bukti Kompetensi 1') {
+                \DB::table("t_requirement")->where("id", $requirement->id)->update([
+                    "apprv" => $ket_bukti_kompetensi_1
+                ]);
+            } 
+            if ($requirement->name === 'Bukti Kompetensi 2') {
+                \DB::table("t_requirement")->where("id", $requirement->id)->update([
+                    "apprv" => $ket_bukti_kompetensi_2
+                ]);
+            } 
+            if ($requirement->name === 'Bukti Kompetensi 3') {
+                \DB::table("t_requirement")->where("id", $requirement->id)->update([
+                    "apprv" => $ket_bukti_kompetensi_3
+                ]);
+            } 
+            if ($requirement->name === 'Bukti Kompetensi 4') {
+                \DB::table("t_requirement")->where("id", $requirement->id)->update([
+                    "apprv" => $ket_bukti_kompetensi_4
+                ]);
+            } 
+        }
 
         $registrasi = \DB::table('t_form01')->where('id',$id_form01);
         $registrasi->update([
                 'status' => 2
         ]);
-        return view('admin.participant.apl02')->with('success',true);
+        
+        Form02::create([
+            'id_form01' => $id_form01,
+            'id_asesor' => $id_asesor,
+            'id_scheme_form01' => $id_scheme_form01,
+            'status' => 1,
+        ]);
+
+        return Redirect::to(route('admin.form.apl01'))->with('success',true);
 
     }
 

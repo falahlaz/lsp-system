@@ -221,12 +221,18 @@
                                         <td>1</td>
                                         <td>Bukti kelengkapan 1</td>
                                         <td>
-                                            <div class="form-group">
-                                                <select class="form-control align-items-center" id="bukti_kelengkapan_1" required>
-                                                    <option value="" hidden>-- Pilih Status --</option>
-                                                    <option value="Memenuhi Syarat">Memenuhi Syarat</option>
-                                                    <option value="Tidak Memenuhi Syarat">Tidak Memenuhi Syarat</option>
-                                                </select>
+                                            <div class="form-group my-1 mt-3">
+                                                @if ($data['kelengkapan1']->apprv)
+                                                    <p class="form-control align-items-center">
+                                                        {{ $data['kelengkapan1']->apprv }}
+                                                    </p>
+                                                @else
+                                                    <select class="form-control align-items-center" id="bukti_kelengkapan_1" required>
+                                                        <option value="" hidden>-- Pilih Status --</option>
+                                                        <option value="Memenuhi Syarat">Memenuhi Syarat</option>
+                                                        <option value="Tidak Memenuhi Syarat">Tidak Memenuhi Syarat</option>
+                                                    </select>
+                                                @endif
                                             </div>
                                         </td>
                                         <td>
@@ -241,12 +247,18 @@
                                         <td>2</td>
                                         <td>Bukti kelengkapan 2</td>
                                         <td>
-                                            <div class="form-group">
-                                                <select class="form-control" id="bukti_kelengkapan_2" required>
-                                                    <option value="" hidden>-- Pilih Status --</option>
-                                                    <option value="Memenuhi Syarat">Memenuhi Syarat</option>
-                                                    <option value="Tidak Memenuhi Syarat">Tidak Memenuhi Syarat</option>
-                                                </select>
+                                            <div class="form-group my-1 mt-3">
+                                                @if ($data['kelengkapan2']->apprv)
+                                                    <p class="form-control align-items-center">
+                                                        {{ $data['kelengkapan2']->apprv }}
+                                                    </p>
+                                                @else
+                                                    <select class="form-control" id="bukti_kelengkapan_2" required>
+                                                        <option value="" hidden>-- Pilih Status --</option>
+                                                        <option value="Memenuhi Syarat">Memenuhi Syarat</option>
+                                                        <option value="Tidak Memenuhi Syarat">Tidak Memenuhi Syarat</option>
+                                                    </select>
+                                                @endif
                                             </div>
                                         </td>
                                         <td>
@@ -261,12 +273,18 @@
                                         <td>3</td>
                                         <td>Bukti kelengkapan 3</td>
                                         <td>
-                                            <div class="form-group">
-                                                <select class="form-control" id="bukti_kelengkapan_3" required>
-                                                    <option value="" hidden>-- Pilih Status --</option>
-                                                    <option value="Memenuhi Syarat">Memenuhi Syarat</option>
-                                                    <option value="Tidak Memenuhi Syarat">Tidak Memenuhi Syarat</option>
-                                                </select>
+                                            <div class="form-group my-1 mt-3">
+                                                @if ($data['kelengkapan3']->apprv)
+                                                    <p class="form-control align-items-center">
+                                                        {{ $data['kelengkapan3']->apprv }}
+                                                    </p>
+                                                @else
+                                                    <select class="form-control" id="bukti_kelengkapan_3" required>
+                                                        <option value="" hidden>-- Pilih Status --</option>
+                                                        <option value="Memenuhi Syarat">Memenuhi Syarat</option>
+                                                        <option value="Tidak Memenuhi Syarat">Tidak Memenuhi Syarat</option>
+                                                    </select>
+                                                @endif
                                             </div>
                                         </td>
                                         <td>
@@ -296,12 +314,18 @@
                                         <td>1</td>
                                         <td>Bukti Kompetensi 1</td>
                                         <td>
-                                            <div class="form-group">
-                                                <select class="form-control" id="bukti_kompetensi_1" required>
-                                                    <option value="" hidden>-- Pilih Status --</option>
-                                                    <option value="Ada">Ada</option>
-                                                    <option value="Tidak Ada">Tidak Ada</option>
-                                                </select>
+                                            <div class="form-group my-1 mt-3">
+                                                @if ($data['kompetensi1']->apprv)
+                                                    <p class="form-control align-items-center">
+                                                        {{ $data['kompetensi1']->apprv }}
+                                                    </p>
+                                                @else
+                                                    <select class="form-control" id="bukti_kompetensi_1" required>
+                                                        <option value="" hidden>-- Pilih Status --</option>
+                                                        <option value="Ada">Ada</option>
+                                                        <option value="Tidak Ada">Tidak Ada</option>
+                                                    </select>
+                                                @endif
                                             </div>
                                         </td>
                                         <td>
@@ -316,12 +340,18 @@
                                         <td>2</td>
                                         <td>Bukti Kompetensi 2</td>
                                         <td>
-                                            <div class="form-group">
-                                                <select class="form-control" id="bukti_kompetensi_2" required>
-                                                    <option value="" hidden>-- Pilih Status --</option>
-                                                    <option value="Ada">Ada</option>
-                                                    <option value="Tidak Ada">Tidak Ada</option>
-                                                </select>
+                                            <div class="form-group my-1 mt-3">
+                                                @if ($data['kompetensi2']->apprv)
+                                                    <p class="form-control align-items-center">
+                                                        {{ $data['kompetensi2']->apprv }}
+                                                    </p>
+                                                @else
+                                                    <select class="form-control" id="bukti_kompetensi_2" required>
+                                                        <option value="" hidden>-- Pilih Status --</option>
+                                                        <option value="Ada">Ada</option>
+                                                        <option value="Tidak Ada">Tidak Ada</option>
+                                                    </select>
+                                                @endif
                                             </div>
                                         </td>
                                         <td>
@@ -336,12 +366,18 @@
                                         <td>3</td>
                                         <td>Bukti Kompetensi 3</td>
                                         <td>
-                                            <div class="form-group">
-                                                <select class="form-control" id="bukti_kompetensi_3" required>
-                                                    <option value="" hidden>-- Pilih Status --</option>
-                                                    <option value="Ada">Ada</option>
-                                                    <option value="Tidak Ada">Tidak Ada</option>
-                                                </select>
+                                            <div class="form-group my-1 mt-3">
+                                                @if ($data['kompetensi3']->apprv)
+                                                    <p class="form-control align-items-center">
+                                                        {{ $data['kompetensi3']->apprv }}
+                                                    </p>
+                                                @else
+                                                    <select class="form-control" id="bukti_kompetensi_3" required>
+                                                        <option value="" hidden>-- Pilih Status --</option>
+                                                        <option value="Ada">Ada</option>
+                                                        <option value="Tidak Ada">Tidak Ada</option>
+                                                    </select>
+                                                @endif
                                             </div>
                                         </td>
                                         <td>
@@ -356,12 +392,18 @@
                                         <td>4</td>
                                         <td>Bukti Kompetensi 4</td>
                                         <td>
-                                            <div class="form-group">
-                                                <select class="form-control" id="bukti_kompetensi_3" required>
-                                                    <option value="" hidden>-- Pilih Status --</option>
-                                                    <option value="Ada">Ada</option>
-                                                    <option value="Tidak Ada">Tidak Ada</option>
-                                                </select>
+                                            <div class="form-group my-1 mt-3">
+                                                @if ($data['kompetensi4']->apprv)
+                                                    <p class="form-control align-items-center">
+                                                        {{ $data['kompetensi4']->apprv }}
+                                                    </p>
+                                                @else>
+                                                    <select class="form-control" id="bukti_kompetensi_4" required>
+                                                        <option value="" hidden>-- Pilih Status --</option>
+                                                        <option value="Ada">Ada</option>
+                                                        <option value="Tidak Ada">Tidak Ada</option>
+                                                    </select>
+                                                @endif
                                             </div>
                                         </td>
                                         <td>
@@ -411,6 +453,7 @@
                     @csrf
                     <input type="hidden" name="email">
                     <input type="hidden" name="id_form01" value="{{ $data['apl01']->id }}">
+                    <input type="hidden" name="id_scheme_form01" value="{{ $data['schemeApl01']->id }}">
                     <div class="form-group">
                         <label for="asesor">Asesor</label>
                         <select class="form-control" id="asesor" name="id_asesor" required>
@@ -444,6 +487,10 @@
                     <div class="form-group">
                         <label>Keterangan Bukti Kompetensi 3</label>
                         <input type="text" class="form-control" name="ket_bukti_kompetensi_3" readonly="readonly">
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan Bukti Kompetensi 4</label>
+                        <input type="text" class="form-control" name="ket_bukti_kompetensi_4" readonly="readonly">
                     </div>
 
                     <div class="form-group">
@@ -482,6 +529,7 @@
             var kompetensi1  = $('#bukti_kompetensi_1').val()
             var kompetensi2  = $('#bukti_kompetensi_2').val()
             var kompetensi3  = $('#bukti_kompetensi_3').val()
+            var kompetensi4  = $('#bukti_kompetensi_4').val()
 
             $("input[name='ket_bukti_kelengkapan_1']").val(kelengkapan1)
             $("input[name='ket_bukti_kelengkapan_2']").val(kelengkapan2)
@@ -489,8 +537,9 @@
             $("input[name='ket_bukti_kompetensi_1']").val(kompetensi1)
             $("input[name='ket_bukti_kompetensi_2']").val(kompetensi2)
             $("input[name='ket_bukti_kompetensi_3']").val(kompetensi3)
+            $("input[name='ket_bukti_kompetensi_4']").val(kompetensi4)
 
-            if((kelengkapan1 == 'Memenuhi Syarat' && kelengkapan2 == 'Memenuhi Syarat' && kelengkapan3 == 'Memenuhi Syarat') && (kompetensi1 == 'Ada' && kompetensi2 == 'Ada' && kompetensi3 == 'Ada')) {
+            if((kelengkapan1 == 'Memenuhi Syarat' && kelengkapan2 == 'Memenuhi Syarat' && kelengkapan3 == 'Memenuhi Syarat') && (kompetensi1 == 'Ada' && kompetensi2 == 'Ada' && kompetensi3 == 'Ada' && kompetensi4 == 'Ada')) {
                 $('#storeSubmit').removeAttr('disabled')
             } else {
                 $('#note').show()

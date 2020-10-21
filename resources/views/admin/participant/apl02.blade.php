@@ -25,7 +25,7 @@
                                         <tr>
                                             <th class="text-center">
                                                 #
-                                            </th>z
+                                            </th>
                                             <th>Nama</th>
                                             <th>Telepon</th>
                                             <th>Email</th>
@@ -43,7 +43,7 @@
                                                 <td>{{ $apl02->private_email }}</td>
                                                 <td>{{ $apl02->nationality }}</td>
                                                 <td>
-                                                    @if ($apl02->status == 1)
+                                                    @if ($apl02->status == 1 || $apl02->status == 2)
                                                         <div class="badge badge-warning">Pending</div>
                                                     @endif
                                                 </td>

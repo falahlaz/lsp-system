@@ -26,78 +26,109 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                            <p>
-                                <b>
-                                    Peserta diminta untuk:
-                                    <br>
-                                    1.	Mempelajari Kriteria Unjuk Kerja  (KUK), Batasan Variabel, Panduan Penilaian, dan Aspek Kritis seluruh Unit Kompetensi yang diminta untuk di Ases.
-                                    <br>
-                                    2.	Melaksanakan Penilaian Mandiri secara obyektif atas sejumlah pertanyaan yang diajukan, bilamana Anda menilai diri sudah kompeten atas pertanyaan tersebut, tuliskan tanda v pada kolom (K), dan bilamana Anda menilai diri belum kompeten tuliskan tanda  pada kolom (BK).
-                                    <br>
-                                    3.	Mengisi bukti-bukti kompetensi yang relevan atas sejumlah pertanyaan yang dinyatakan Kompeten (bila ada).
-                                    <br>
-                                    4.	Menandatangani form Asesmen Mandiri.
-                                </b>
-                            </p>
-                            <form action="" method="post">
-                                <input type="hidden" name="id_form01" value="{{ $data['id_form01'] }}">
-                                @foreach($data['unit_scheme'] as $unitScheme)
-                                <table class="table table-bordered text-center mt-5 table-primary">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2" style="line-height: 100px;">Unit Kompetensi No.</th>
-                                            <th>Kode Unit</th>
-                                            <th>:</th>
-                                            <th>{{ $unitScheme->code }}</th>
-                                        </tr>
-                                        <tr>
-                                            <th>Judul Unit</th>
-                                            <th>:</th>
-                                            <th>{{ $unitScheme->name }}</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                @foreach($unitScheme->element as $element)
-                                <table class="table table-dark">
-                                    <thead>
-                                        <tr>
-                                            <th style="color: white">Elemen Kompetensi</th>
-                                            <th style="color: white;">:</th>
-                                            <th style="color: white">{{ $element->name }}</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                                <table class="table table-bordered text-center table-light">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2" >No. KUK </th>
-                                            <th rowspan="2" style="line-height: 100px">Daftar Pertanyaan (Asesmen Mandiri/Self Assessment)</th>
-                                            <th colspan="2">Penilaian</th>
-                                        </tr>
-                                        <tr>
-                                            <th>K</th>
-                                            <th>BK</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($element->question as $question)
-                                        <tr>
-                                            <th>{{ $question->id }}</th>
-                                            <td width="80%">{{ $question->question }}</td>
-                                            <td><input type="radio" name="penilaian1" id="" required value="K"></td>
-                                            <td><input type="radio" name="penilaian1" id="" required value="BK"></td>
-                                        </tr>
+                                @if (isset($data['isSubmitted']))
+                                    <p class="mb-0">
+                                        <b>
+                                            Form APL 02 berhasil dikirim, tunggu konfirmasi admin melalu WA atau SMS!
+                                        </b>
+                                    </p>
+                                @elseif ($data["apl02"]->status == 2)
+                                    <p class="mb-0">
+                                        <b>
+                                            Form APL 02 telah dikirim, tunggu konfirmasi admin melalu WA atau SMS!
+                                        </b>
+                                    </p>
+                                @else
+                                    <p>
+                                        <b>
+                                            Peserta diminta untuk:
+                                            <br>
+                                            1.	Mempelajari Kriteria Unjuk Kerja  (KUK), Batasan Variabel, Panduan Penilaian, dan Aspek Kritis seluruh Unit Kompetensi yang diminta untuk di Ases.
+                                            <br>
+                                            2.	Melaksanakan Penilaian Mandiri secara obyektif atas sejumlah pertanyaan yang diajukan, bilamana Anda menilai diri sudah kompeten atas pertanyaan tersebut, tuliskan tanda v pada kolom (K), dan bilamana Anda menilai diri belum kompeten tuliskan tanda  pada kolom (BK).
+                                            <br>
+                                            3.	Mengisi bukti-bukti kompetensi yang relevan atas sejumlah pertanyaan yang dinyatakan Kompeten (bila ada).
+                                            <br>
+                                            4.	Menandatangani form Asesmen Mandiri.
+                                        </b>
+                                    </p>
+                                    <form action="" method="post">
+                                        <input type="hidden" name="id_form02" value="{{ $data['id_form02'] }}">
+                                        {{ csrf_field() }}
+                                        @php
+                                            $idx = 0;
+                                        @endphp
+                                        @foreach($data['unit_scheme'] as $unitScheme)
+                                            <table class="table text-white-all text-center mt-5 table-dark">
+                                                <thead>
+                                                    <tr>
+                                                        <th rowspan="2" style="line-height: 100px;">Unit Kompetensi No.</th>
+                                                        <th>Kode Unit</th>
+                                                        <th>:</th>
+                                                        <th>{{ $unitScheme->code }}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Judul Unit</th>
+                                                        <th>:</th>
+                                                        <th>{{ $unitScheme->name }}</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                            @foreach($unitScheme->element as $element)
+                                                <table class="table table-bordered mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Elemen Kompetensi</th>
+                                                            <th>:</th>
+                                                            <th>{{ $element->name }}</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                                <table class="table table-bordered text-center">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="background: rgb(251,251,251); " rowspan="2" >No. KUK </th>
+                                                            <th style="background: rgb(251,251,251); line-height: 100px" rowspan="2" >Daftar Pertanyaan (Asesmen Mandiri/Self Assessment)</th>
+                                                            <th style="background: rgb(251,251,251); " colspan="2">Penilaian</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="background: rgb(251,251,251); ">K</th>
+                                                            <th style="background: rgb(251,251,251); ">BK</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($element->question as $question)
+                                                            <tr>
+                                                                <th>
+                                                                    {{ $question->id }}
+                                                                    <input type="hidden" name="question[{{ $idx }}][id_unit_question]" value="{{ $question->id }}">
+                                                                </th>
+                                                                <td width="80%">
+                                                                    {{ $question->question }}
+                                                                </td>
+                                                                <td>
+                                                                    <input type="radio" name="question[{{ $idx }}][answer]" required value="K"></td>
+                                                                <td>
+                                                                    <input type="radio" name="question[{{ $idx }}][answer]" required value="BK">
+                                                                    {{ old("question[" . $idx . "][answer]") }}
+                                                                </td>
+                                                            </tr>
+                                                            @php
+                                                                $idx++;
+                                                            @endphp
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @endforeach
                                         @endforeach
-                                    </tbody>
-                                    @endforeach
-                                    @endforeach
-                                </table>
-                                <div class="text-right">
-                                    <button class="btn btn-primary">
-                                        Submit
-                                    </button>
-                                </div>
-                            </form><br><br>
+                                        <div class="text-right">
+                                            <button class="btn btn-primary">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <br><br>
+                                @endif
                             </div>
                         </div>
                     </div>
