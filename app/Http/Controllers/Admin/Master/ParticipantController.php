@@ -10,6 +10,10 @@ use App\Form01;
 use App\Form01Scheme;
 use App\User;
 use App\Scheme;
+use App\Form02Answer;
+use App\UnitScheme;
+use App\Element;
+use App\Assessor;
 
 use Redirect;
 
@@ -124,6 +128,34 @@ class ParticipantController extends Controller
         $data['apl02'] = \DB::table('vw_form02')->where('status', '<>', 0)->orderBy('created_at', 'desc')->get();
 
         return view('admin.participant.apl02', compact('data'));
+    }
+    
+    public function showApl02($id) {
+        $data['user'] = User::find(\Session::get('id_user'));
+        $data["apl02"]  =   Form02::find($id);
+        $data["unit_scheme"] = UnitScheme::where('id_scheme', $data["apl02"]->schemeForm01Rel->id_scheme)->with('element')->get();
+        $data['id_form02'] = $id;
+        $data["answer"] = [];
+        foreach (Form02Answer::where("id_form02", $id)->get() as $answer) {
+            $data["answer"][$answer->id_unit_question] = $answer;
+        }
+        $data["user_asesor"] = Assessor::find($data["apl02"]->id_asesor);
+        return view('admin.participant.detailForm02',\compact('data'));
+    }
+
+    public function storeApl02 (Request $request, $id) {
+        foreach ($request->question as $question) {
+            $answer =   Form02Answer::where("id_unit_question", $question['id_unit_question'])
+                                    ->where("id_form02", $id)
+                                    ->first();
+            $answer->asesor_answer = $question['answer'];
+            $answer->save();
+        }
+        $form02 = \DB::table('t_form02')->where('id', $id);
+        $form02->update([
+                'status' => 3
+        ]);
+        return Redirect::to(route('admin.form.apl02'))->with('success',true);
     }
 
     public function indexRecap()

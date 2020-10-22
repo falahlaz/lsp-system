@@ -107,10 +107,10 @@
                                                                     {{ $question->question }}
                                                                 </td>
                                                                 <td>
-                                                                    <input type="radio" name="question[{{ $idx }}][answer]" required value="K"></td>
+                                                                    <input type="radio" name="question[{{ $idx }}][answer]" required value="K">
+                                                                </td>
                                                                 <td>
                                                                     <input type="radio" name="question[{{ $idx }}][answer]" required value="BK">
-                                                                    {{ old("question[" . $idx . "][answer]") }}
                                                                 </td>
                                                             </tr>
                                                             @php

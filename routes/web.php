@@ -40,6 +40,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
         Route::get('apl/01/kompetensi/{index}/{id}','Admin\Master\ParticipantController@showKompetensi')->name('apl01.kompetensi');
         Route::post('apl/01/store','Admin\Master\ParticipantController@store')->name('apl01.store');
         Route::get('apl/02', 'Admin\Master\ParticipantController@indexApl02')->name('apl02');
+        Route::get('apl/02/{id}','Admin\Master\ParticipantController@showApl02')->name('apl02.detail');
+        Route::post('apl/02/{id}','Admin\Master\ParticipantController@storeApl02');
         Route::get('recap', 'Admin\Master\ParticipantController@indexRecap')->name('recap');
     });
 });

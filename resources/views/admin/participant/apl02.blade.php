@@ -48,7 +48,9 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
+                                                    @if ($apl02->status > 1)
+                                                        <a href="{{ route('admin.form.apl02.detail',['id' => $apl02->id]) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
