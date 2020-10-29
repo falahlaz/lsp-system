@@ -13,11 +13,11 @@ use App\Element;
 
 class Form02Controller extends Controller
 {
-    public function index($id_form02)
+    public function index($token)
     {
-        $data["apl02"]  =   Form02::find($id_form02);
+        $data["apl02"]  =   Form02::where("token", $token)->first();
         $data['unit_scheme'] = UnitScheme::where('id_scheme', $data["apl02"]->schemeForm01Rel->id_scheme)->with('element')->get();
-        $data['id_form02'] = $id_form02;
+        $data['id_form02'] = $data["apl02"]->id;
         return view('participant.form02',\compact('data'));
     }
 

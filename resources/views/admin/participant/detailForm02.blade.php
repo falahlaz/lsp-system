@@ -123,7 +123,7 @@
                                     @endforeach
                                 @endforeach
                             </div>
-                            @if ($data['apl02']->status == 2)
+                            @if ($data['apl02']->status == 2 && $data['user_asesor']->id_users == $data['user']->id)
                                 <div class="card-footer">
                                     <div class="row">
                                         <div class="col-6">

@@ -115,6 +115,7 @@ class ParticipantController extends Controller
             'id_asesor' => $id_asesor,
             'id_scheme_form01' => $id_scheme_form01,
             'status' => 1,
+            'token' => md5(date("H:i:s d-M-Y") . " " . $id_form01)
         ]);
 
         return Redirect::to(route('admin.form.apl01'))->with('success',true);
