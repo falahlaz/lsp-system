@@ -67,5 +67,6 @@ Route::get('/register','Admin\Master\Form01Controller@index')->name('register');
 Route::post('/register/store','Admin\Master\Form01Controller@store')->name('register.store');
 Route::get('/register/unit/{id}', 'Admin\Master\Form01Controller@getUnit')->name('register.unit');
 Route::get('/register/apl/02/{token}','Admin\Master\Form02Controller@index')->name('register.apl02');
+Route::get('/register/exam/{token}','Admin\Master\ExamController@index')->name('register.exam');
 Route::post('/register/apl/02/{token}','Admin\Master\Form02Controller@store');
 Route::get('/register/confirm','Admin\AuthController@confirmRegister');

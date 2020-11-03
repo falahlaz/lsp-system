@@ -11,6 +11,7 @@ use App\Form01Scheme;
 use App\User;
 use App\Scheme;
 use App\Form02Answer;
+use App\ExamScore;
 use App\UnitScheme;
 use App\Element;
 use App\Assessor;
@@ -152,9 +153,15 @@ class ParticipantController extends Controller
             $answer->asesor_answer = $question['answer'];
             $answer->save();
         }
-        $form02 = \DB::table('t_form02')->where('id', $id);
-        $form02->update([
-                'status' => 3
+        $form02 = Form02::find($id);
+        $form02->status = 3;
+        $form02->save();
+        ExamScore::create([
+            'id_form02' => $id,
+            'id_scheme' => $form02->schemeForm01Rel->id_scheme,
+            'timeleft' => 120 * 60,
+            'status' => 1,
+            'token' => md5(date("H:i:s d-M-Y") . " " . $id)
         ]);
         return Redirect::to(route('admin.form.apl02'))->with('success',true);
     }
