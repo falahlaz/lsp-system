@@ -159,7 +159,7 @@ class ParticipantController extends Controller
         ExamScore::create([
             'id_form02' => $id,
             'id_scheme' => $form02->schemeForm01Rel->id_scheme,
-            'timeleft' => 120 * 60,
+            'timeleft' => 120,
             'status' => 1,
             'token' => md5(date("H:i:s d-M-Y") . " " . $id)
         ]);

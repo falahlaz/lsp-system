@@ -24,6 +24,17 @@ class ExamController extends Controller
         foreach ($data["questionList"] as $question) {
             $question["answerList"] = ExamAnswer::where("id_exam_question", $question->id)->get();
         }
+        if (!isset($data["exam"]->start_exam)) {
+            $startDate = date("Y-m-d H:i:s");
+            $data["exam"]->start_exam = $startDate;
+            $data["exam"]->save();
+        }
+        if (!isset($data["exam"]->end_exam)) {
+            $endDate = new \DateTime(date("Y-m-d H:i:s"));
+            $endDate->add(new \DateInterval('PT' . $data["exam"]->timeleft . 'M'));
+            $data["exam"]->end_exam = $endDate->format('Y-m-d H:i:s');
+            $data["exam"]->save();
+        }
         return view('participant.exam',\compact('data'));
     }
 }
