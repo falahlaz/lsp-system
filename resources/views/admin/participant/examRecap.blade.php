@@ -30,23 +30,26 @@
                                             <th>Telepon</th>
                                             <th>Email</th>
                                             <th>Warga Negara</th>
-                                            <th>Status</th>
+                                            <th>Skor</th>
                                             <th width="10%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+                                        @foreach ($data["exam"] as $exam)
                                             <tr>
-                                                <td>1</td>
-                                                <td>Al Falah Lazuardi Mahmudi</td>
-                                                <td>088977392521</td>
-                                                <td>alfalahlazuardi@gmail.com</td>
-                                                <td>Indonesia</td>
-                                                <td><div class="badge badge-warning">Pending</div></td>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $exam->form02Rel->schemeForm01Rel->form01Rel->name }}</td>
+                                                <td>{{ $exam->form02Rel->schemeForm01Rel->form01Rel->phone }}</td>
+                                                <td>{{ $exam->form02Rel->schemeForm01Rel->form01Rel->private_email }}</td>
+                                                <td>{{ $exam->form02Rel->schemeForm01Rel->form01Rel->nationality }}</td>
+                                                <td>{{ $exam->score }}</td>
                                                 <td>
-                                                    <a href="" class="btn btn-success btn-icon"><i class="fas fa-download"></i></a>
+                                                    @if ($exam->status > 1)
+                                                        <a href="{{ route('admin.form.exam.detail',['id' => $exam->id]) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
+                                                    @endif
                                                 </td>
                                             </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
