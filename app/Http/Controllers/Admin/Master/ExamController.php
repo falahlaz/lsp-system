@@ -64,6 +64,7 @@ class ExamController extends Controller
             $examAnswerUser->save();
         }
         $data["exam"]->score = $totalScore;
+        $data["exam"]->end_exam = date("Y-m-d H:i:s");
         $data["exam"]->save();
         return view('participant.examFinish',\compact('data'));
     }
