@@ -102,7 +102,7 @@ class Form01Controller extends Controller
         if($request->has('buktiKompetensi3')) $this->upload($request->buktiKompetensi3, 'kompetensi3', $participant->id, 'Bukti Kompetensi 3');
         if($request->has('buktiKompetensi4')) $this->upload($request->buktiKompetensi4, 'kompetensi4', $participant->id, 'Bukti Kompetensi 4');
 
-        return redirect()->route('register')->with('success', 'Form APL 01 berhasil dikirim, tunggu konfirmasi admin melalu WA atau SMS!')->withInput($request->all());
+        return redirect()->route('register')->with('success', 'Form APL 01 berhasil dikirim, tunggu konfirmasi admin melalu email, Whatsapp, atau SMS !')->withInput($request->all());
     }
 
     public function upload($image, $path, $form_id, $file_name)

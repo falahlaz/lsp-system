@@ -77,7 +77,7 @@
     <script src="{{ asset('/assets/js/page/correct-answer.js')}}"></script>
     <script>
         @if(Session::has('success'))
-            swal('Success', "{{ Session::get('success') }}", 'success');
+            swal('Berhasil', "{{ Session::get('success') }}", 'success');
         @endif
     </script>
 @endsection

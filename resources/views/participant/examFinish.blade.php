@@ -39,9 +39,7 @@
                 <div class="card">
                     <div class="card-body">
                         <p class="mb-0">
-                            <b>
-                                Waktu pengerjaan telah habis dan jawaban telah dikirimkan,
-                            </b>
+                            Ujian Mandiri telah <b>berakhir</b>, tunggu <b>konfirmasi</b> admin melalu Email, Whatsapp, atau SMS !
                         </p>
                     </div>
                 </div>

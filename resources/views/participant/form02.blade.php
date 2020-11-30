@@ -28,15 +28,11 @@
                             <div class="card-body">
                                 @if (isset($data['isSubmitted']))
                                     <p class="mb-0">
-                                        <b>
-                                            Form APL 02 berhasil dikirim, tunggu konfirmasi admin melalu WA atau SMS!
-                                        </b>
+                                        Form APL 02 <b>berhasil dikirim</b>, tunggu <b>konfirmasi</b> admin melalu Email, Whatsapp, atau SMS !
                                     </p>
-                                @elseif ($data["apl02"]->status == 2)
+                                @elseif ($data["apl02"]->status != 1)
                                     <p class="mb-0">
-                                        <b>
-                                            Form APL 02 telah dikirim, tunggu konfirmasi admin melalu WA atau SMS!
-                                        </b>
+                                        Form APL 02 <b>telah dikirim</b>, tunggu <b>konfirmasi</b> admin melalu Email, Whatsapp, atau SMS !
                                     </p>
                                 @else
                                     <p>

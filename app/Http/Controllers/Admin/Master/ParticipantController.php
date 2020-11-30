@@ -16,6 +16,9 @@ use App\UnitScheme;
 use App\Element;
 use App\Assessor;
 
+use App\Mail\Apl02Mail;
+use App\Mail\ExamMail;
+
 use Redirect;
 
 class ParticipantController extends Controller
@@ -57,6 +60,7 @@ class ParticipantController extends Controller
     {
         // mengambil data dari inputan
         $id_form01 = $request->id_form01;
+        $token = md5(date("H:i:s d-M-Y") . " " . $id_form01);
         $id_scheme_form01 = $request->id_scheme_form01;
         $id_asesor     = $request->id_asesor;
         $ket_bukti_kelengkapan_1 = $request->ket_bukti_kelengkapan_1;
@@ -116,10 +120,13 @@ class ParticipantController extends Controller
             'id_asesor' => $id_asesor,
             'id_scheme_form01' => $id_scheme_form01,
             'status' => 1,
-            'token' => md5(date("H:i:s d-M-Y") . " " . $id_form01)
+            'token' => $token
         ]);
 
-        return Redirect::to(route('admin.form.apl01'))->with('success',true);
+        $registrasi = \DB::table('t_form01')->where('id', $id_form01)->first();
+        \Mail::to($registrasi->private_email)->send(new Apl02Mail($registrasi->name, route('register.apl02', $token)));
+
+        return Redirect::to(route('admin.form.apl01'))->with('success','Data berhasil disimpan');
 
     }
 
@@ -153,6 +160,7 @@ class ParticipantController extends Controller
             $answer->asesor_answer = $question['answer'];
             $answer->save();
         }
+        $token = md5(date("H:i:s d-M-Y") . " " . $id);
         $form02 = Form02::find($id);
         $form02->status = 3;
         $form02->save();
@@ -161,9 +169,13 @@ class ParticipantController extends Controller
             'id_scheme' => $form02->schemeForm01Rel->id_scheme,
             'timeleft' => 120,
             'status' => 1,
-            'token' => md5(date("H:i:s d-M-Y") . " " . $id)
+            'token' => $token
         ]);
-        return Redirect::to(route('admin.form.apl02'))->with('success',true);
+        
+        $registrasi = \DB::table('t_form01')->where('id', $form02->id_form01)->first();
+        \Mail::to($registrasi->private_email)->send(new ExamMail($registrasi->name, route('register.exam', $token)));
+        
+        return Redirect::to(route('admin.form.apl02'))->with('success','Data berhasil disimpan');
     }
 
     public function indexRecap()

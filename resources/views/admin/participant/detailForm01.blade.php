@@ -397,7 +397,7 @@
                                                     <p class="form-control align-items-center">
                                                         {{ $data['kompetensi4']->apprv }}
                                                     </p>
-                                                @else>
+                                                @else
                                                     <select class="form-control" id="bukti_kompetensi_4" required>
                                                         <option value="" hidden>-- Pilih Status --</option>
                                                         <option value="Ada">Ada</option>
