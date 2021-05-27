@@ -42,7 +42,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
         Route::get('apl/02', 'Admin\Master\ParticipantController@indexApl02')->name('apl02');
         Route::get('apl/02/{id}','Admin\Master\ParticipantController@showApl02')->name('apl02.detail');
         Route::post('apl/02/{id}','Admin\Master\ParticipantController@storeApl02');
-        Route::get('recap', 'Admin\Master\ParticipantController@indexRecap')->name('recap');
+        Route::get('recap', 'Admin\Master\ParticipantController@indexExamRecap')->name('recap');
+        Route::get('recap/{id}', 'Admin\Master\ParticipantController@showExamRecap')->name('recap.detail');
     });
 });
 

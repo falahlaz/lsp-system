@@ -20,7 +20,7 @@ class ExamController extends Controller
         $data["exam"] = ExamScore::where("token", $token)->first();
         $data["apl02"] = Form02::find($data["exam"]->id_form02);
         $data["apl01"] = Form01::find($data["apl02"]->id_form01);
-        $data["schema"] = Scheme::find($data["exam"]->id_scheme);;
+        $data["schema"] = Scheme::find($data["exam"]->id_scheme);
         $data["questionList"] = ExamQuestion::where("id_scheme", $data["exam"]->id_scheme)->get();
         foreach ($data["questionList"] as $question) {
             $question["answerList"] = ExamAnswer::where("id_exam_question", $question->id)->get();
@@ -65,6 +65,7 @@ class ExamController extends Controller
         }
         $data["exam"]->score = $totalScore;
         $data["exam"]->end_exam = date("Y-m-d H:i:s");
+        $data["exam"]->status = 2;
         $data["exam"]->save();
         return view('participant.examFinish',\compact('data'));
     }

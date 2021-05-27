@@ -12,8 +12,10 @@ use App\User;
 use App\Scheme;
 use App\Form02Answer;
 use App\ExamScore;
+use App\ExamAnswer;
+use App\ExamUserAnswer;
+use App\ExamQuestion;
 use App\UnitScheme;
-use App\Element;
 use App\Assessor;
 
 use App\Mail\Apl02Mail;
@@ -178,11 +180,33 @@ class ParticipantController extends Controller
         return Redirect::to(route('admin.form.apl02'))->with('success','Data berhasil disimpan');
     }
 
-    public function indexRecap()
+    public function indexExamRecap()
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user'] = User::find(\Session::get('id_user'));
         $data["exam"] = ExamScore::whereDate("end_exam", "<", date("Y-m-d H:i:s"))->get();
         return view('admin.participant.examRecap', compact('data'));
+    }
+
+    public function showExamRecap($id)
+    {
+        if(!\Session::has('id_user')) return redirect()->route('login');
+        $data["user"] = User::find(\Session::get('id_user'));
+        $data["exam"] = ExamScore::find($id);
+        $data["userAnswer"] = ExamUserAnswer::where("id_exam_score", $id)->get();
+        $data["questionList"] = ExamQuestion::where("id_scheme", $data["exam"]->id_scheme)->get();
+        foreach ($data["questionList"] as $question) {
+            $question["answerList"] = ExamAnswer::where("id_exam_question", $question->id)->get();
+            foreach ($question["answerList"] as $answer) {
+                foreach ($data["userAnswer"] as $userAnswer) {
+                    $answer->is_checked = 0;
+                    if ($userAnswer->id_exam_answer == $answer->id) {
+                        $answer->is_checked = 1;
+                        break;
+                    }
+                }
+            }
+        }
+        return view('admin.participant.detailExam', compact('data'));
     }
 }

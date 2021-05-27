@@ -45,7 +45,7 @@
                                                 <td>{{ $exam->score }}</td>
                                                 <td>
                                                     @if ($exam->status > 1)
-                                                        <a href="{{ route('admin.form.exam.detail',['id' => $exam->id]) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
+                                                        <a href="{{ route('admin.form.recap.detail',['id' => $exam->id]) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
                                                     @endif
                                                 </td>
                                             </tr>
