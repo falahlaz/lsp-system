@@ -15,7 +15,7 @@ class Form01Controller extends Controller
     public function index()
     {
         $data = \DB::table('t_form01')->select('id', 'name', 'gender', 'nationality', 'private_email', 'phone', 'status')->get();
-        $data['skema'] = \DB::table('m_scheme')->select('id','name')->get();
+        $data['skema'] = \DB::table('m_scheme')->select('id','name')->where('status', 1)->get();
 
         return view('participant.form01',\compact('data'));
     }

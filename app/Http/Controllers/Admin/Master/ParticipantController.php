@@ -110,7 +110,7 @@ class ParticipantController extends Controller
             } 
         }
 
-        $registrasi = \DB::table('t_form01')->where('id',$id_form01);
+        $registrasi = Form01Scheme::find($id_scheme_form01);
         $registrasi->update([
                 'status' => 2
         ]);
