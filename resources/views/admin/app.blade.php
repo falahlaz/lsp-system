@@ -60,7 +60,7 @@
 						<li class="nav-item @yield('activedashboard')">
                             <a href="{{ route('admin.dashboard') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
 						</li>
-						@if($data['user']->id_position === 1)
+						@if($data['user']->id_position == 1)
 						<li class="menu-header">Master</li>
 						<li class="nav-item @yield('activeassessor')">
                             <a href="{{ route('admin.assessor.index') }}" class="nav-link "><i class="fas fa-users"></i> <span>Asesor</span></a>
@@ -79,7 +79,7 @@
 						</li>
 						@endif
 						<li class="menu-header">Peserta</li>
-						@if($data['user']->id_position === 1)
+						@if($data['user']->id_position == 1)
 						<li class="nav-item @yield('activeapl01')">
                             <a href="{{ route('admin.form.apl01') }}" class="nav-link"><i class="fas fa-file"></i> <span>Form APL-01</span></a>
 						</li>
@@ -87,7 +87,7 @@
 						<li class="nav-item @yield('activeapl02')">
                             <a href="{{ route('admin.form.apl02') }}" class="nav-link"><i class="fas fa-copy"></i> <span>Form APL-02</span></a>
 						</li>
-						@if($data['user']->id_position === 1)
+						@if($data['user']->id_position == 1)
 						<li class="nav-item @yield('activeujian')">
                             <a href="{{ route('admin.form.recap') }}" class="nav-link"><i class="fas fa-archive"></i> <span>Rekap Hasil Ujian</span></a>
 						</li>
