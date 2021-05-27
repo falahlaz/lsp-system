@@ -402,7 +402,7 @@
                                 </tbody>
                             </table>
 
-                        @if($data['apl01']->status == 1)
+                        @if($data['schemeApl01']->status == 1)
                             <div class="card-footer text-left">
                                 <label for="check" class="form-check-label ">
                                     <input type="checkbox" id="check" name="check" value="on" class="form-check-input">
@@ -413,9 +413,8 @@
                                 <button type="button" id="submit" class="btn btn-primary" data-toggle="modal" data-target="#registant" disabled >Submit</button>
                             </div>
                         @else
-                            <div class="modal-footer">
-                                <!-- <button type="button" class="btn btn-secondary">Close</button> -->
-                                <button type="button" id="submit" class="btn btn-primary" onclick="getData(this)" data-toggle="modal" data-target="#participant" data-id="">Detail Asesi</button>
+                            <div class="card-footer text-right">
+                                <a href="{{ route('admin.form.apl01') }}" class="btn btn-danger">Kembali</a>
                             </div>
                         @endif
                         </div>

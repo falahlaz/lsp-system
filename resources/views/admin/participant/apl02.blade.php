@@ -45,6 +45,8 @@
                                                 <td>
                                                     @if ($apl02->status == 1 || $apl02->status == 2)
                                                         <div class="badge badge-warning">Pending</div>
+                                                    @elseif ($apl02->status == 3)
+                                                        <div class="badge badge-success">Selesai</div>
                                                     @endif
                                                 </td>
                                                 <td>

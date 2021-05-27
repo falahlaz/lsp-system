@@ -137,6 +137,14 @@
                                         </div>
                                     </div>
                                 </div>
+                            @else
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col text-right">
+                                            <a href="{{ route('admin.form.apl02') }}" class="btn btn-danger">Kembali</a>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
                         </div>
                     </form>
