@@ -176,6 +176,12 @@ class ParticipantController extends Controller
             'token' => $token
         ]);
         
+        $registrasi = Form01Scheme::where('id_form01', $form02->id_form01)
+                        ->where('id_scheme', $form02->schemeForm01Rel->id_scheme)
+                        ->first();
+        $registrasi->status = 3;
+        $registrasi->save();
+        
         $registrasi = \DB::table('t_form01')->where('id', $form02->id_form01)->first();
         \Mail::to($registrasi->private_email)->send(new ExamMail($registrasi->name, route('register.exam', $token)));
         
@@ -230,13 +236,21 @@ class ParticipantController extends Controller
         $exam->status = 3;
         $exam->save();
 
+        $registration = Form01Scheme::where("id_form01", $form01->id)
+                                    ->where("id_scheme", $scheme->id)
+                                    ->first();
+
         if ($graduation == "Lulus") {
             $tuk = Tuk::find($request->id_tuk);
             $date = date("d-m-Y", strtotime($request->tanggal_ujikom));
             $time = date("H:i", strtotime($request->tanggal_ujikom));
+            $registration->status = 4;
+            $registration->save();
 
             $mail = new RecapMail($form01, $exam_date, $scheme->name, $graduation, $tuk, $date, $time);
         } else {
+            $registration->status = 5;
+            $registration->save();
             $mail = new RecapMail($form01, $exam_date, $scheme->name, $graduation);
         }
 

@@ -49,6 +49,12 @@
                                                         <div class="badge badge-warning">Pending</div>
                                                     @elseif ($apl01->status == 2)
                                                         <div class="badge badge-primary">On Progress (APL 02)</div>
+                                                    @elseif ($apl01->status == 3)
+                                                        <div class="badge badge-primary">On Progress (Ujian Tertulis)</div>
+                                                    @elseif ($apl01->status == 4)
+                                                        <div class="badge badge-success">Lulus</div>
+                                                    @elseif ($apl01->status == 5)
+                                                        <div class="badge badge-danger">Tidak Lulus</div>
                                                     @endif
                                                 </td>
                                                 <td>

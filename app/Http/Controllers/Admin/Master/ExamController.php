@@ -11,6 +11,7 @@ use App\ExamAnswer;
 use App\ExamUserAnswer;
 use App\Scheme;
 use App\Form01;
+use App\Form01Scheme;
 use App\Form02;
 
 class ExamController extends Controller
@@ -48,7 +49,7 @@ class ExamController extends Controller
         $data["exam"] = ExamScore::where("token", $token)->first();
         $data["apl02"] = Form02::find($data["exam"]->id_form02);
         $data["apl01"] = Form01::find($data["apl02"]->id_form01);
-        $data["schema"] = Scheme::find($data["exam"]->id_scheme);;
+        $data["schema"] = Scheme::find($data["exam"]->id_scheme);
         $data["questionList"] = ExamQuestion::where("id_scheme", $data["exam"]->id_scheme)->get();
         $valueQuestion = 100 / count($data["questionList"]);
         $totalScore = 0;
