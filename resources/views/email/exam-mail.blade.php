@@ -1,7 +1,7 @@
 Dear {{ $name }},
 <br>
 <p>
-    Dari hasil verifikasi Form APL 02 yang kamu isi, kamu dapat melanjutkan mengisi Ujian Mandiri. Ujian akan dimulai ketika anda menekan link dibawah ini dengan duras 120 menit :
+    Dari hasil verifikasi Form APL 02 yang kamu isi, kamu dapat melanjutkan mengisi Ujian Mandiri. Ujian akan dimulai ketika anda menekan link dibawah ini dengan durasi 120 menit :
 </p>
 <a href="{{ $url }}">{{ $url }}</a>
 <p>

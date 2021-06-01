@@ -44,6 +44,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
         Route::post('apl/02/{id}','Admin\Master\ParticipantController@storeApl02');
         Route::get('recap', 'Admin\Master\ParticipantController@indexExamRecap')->name('recap');
         Route::get('recap/{id}', 'Admin\Master\ParticipantController@showExamRecap')->name('recap.detail');
+        Route::post('/recap/{id}/store', 'Admin\Master\ParticipantController@storeExamRecap')->name('recap.store');
     });
 });
 

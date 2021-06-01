@@ -17,9 +17,11 @@ use App\ExamUserAnswer;
 use App\ExamQuestion;
 use App\UnitScheme;
 use App\Assessor;
+use App\Tuk;
 
 use App\Mail\Apl02Mail;
 use App\Mail\ExamMail;
+use App\Mail\RecapMail;
 
 use Redirect;
 
@@ -191,6 +193,7 @@ class ParticipantController extends Controller
     public function showExamRecap($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['tuk']  = Tuk::select('id', 'name')->where('status', 1)->orderBy('name')->get();
         $data["user"] = User::find(\Session::get('id_user'));
         $data["exam"] = ExamScore::find($id);
         $data["userAnswer"] = ExamUserAnswer::where("id_exam_score", $id)->get();
@@ -208,5 +211,36 @@ class ParticipantController extends Controller
             }
         }
         return view('admin.participant.detailExam', compact('data'));
+    }
+
+    public function storeExamRecap(Request $request, $id)
+    {
+        if(!\Session::has('id_user')) return redirect()->route('login');
+        $request->validate([
+            'graduation' => 'required'
+        ]);
+
+        $graduation = $request->graduation;
+        $exam = ExamScore::find($id);
+        $form02 = Form02::find($exam->id_form02);
+        $form01 = Form01::find($form02->id_form01);
+        $scheme = Scheme::find($exam->id_scheme);
+        $exam_date = date('d-m-Y', strtotime($exam->start_exam));
+
+        $exam->status = 3;
+        $exam->save();
+
+        if ($graduation == "Lulus") {
+            $tuk = Tuk::find($request->id_tuk);
+            $date = date("d-m-Y", strtotime($request->tanggal_ujikom));
+            $time = date("H:i", strtotime($request->tanggal_ujikom));
+
+            $mail = new RecapMail($form01, $exam_date, $scheme->name, $graduation, $tuk, $date, $time);
+        } else {
+            $mail = new RecapMail($form01, $exam_date, $scheme->name, $graduation);
+        }
+
+        \Mail::to($form01->private_email)->send($mail);
+        return \Redirect::to(route("admin.form.recap"))->with("success", "Email berhasil dikirm");
     }
 }

@@ -57,6 +57,9 @@
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col text-right">
+                                    @if ($data["exam"]->status == 2)
+                                        <button type="button" data-toggle="modal" data-target="#submit" class="btn btn-primary mr-1">Submit</button>
+                                    @endif
                                     <a href="{{ route('admin.form.recap') }}" class="btn btn-danger">Kembali</a>
                                 </div>
                             </div>
@@ -66,10 +69,64 @@
             </div>
         </div>
     </section>
+
+    <div class="modal fade" id="submit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tentukan Status Kelulusan Asesi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ route('admin.form.recap.store', ['id' => $data["exam"]->id]) }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="graduation">Status Kelulusan</label>
+                        <select class="form-control" id="graduation" name="graduation" required onchange="setGraduation(this)">
+                            <option value="">-- Pilih Status Kelulusan --</option>
+                            <option value="Lulus">Lulus</option>
+                            <option value="Tidak Lulus">Tidak Lulus</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-graduate d-none">
+                        <label for="tuk">Tempat Uji Kompetensi</label>
+                        <select class="form-control" id="tuk" name="id_tuk">
+                            <option value="">-- Pilih TUK --</option>
+                            @foreach ($data['tuk'] as $tuk)
+                                <option value="{{ $tuk->id }}">{{ $tuk->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group form-graduate d-none">
+                        <label for="tanggal">Tanggal Uji Kompetensi</label>
+                        <input type="datetime-local" name="tanggal_ujikom" id="tanggal" class="form-control">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="storeSubmit">Save</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/modules/select2/dist/css/select2.min.css') }}">
+@endsection
+
+@section('script')
+    <script>
+        function setGraduation(el) {
+            const value = $(el).val();
+            (value == "Lulus") 
+                ? $('.form-graduate').removeClass('d-none') 
+                : $('.form-graduate').addClass('d-none');
+        }
+    </script>
 @endsection
