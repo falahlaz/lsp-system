@@ -17,4 +17,9 @@ class Assessor extends Model
     public function user(){
         return $this->hasMany('App\User','id');
     }
+
+    public function tuk()
+    {
+        return $this->belongsTo('App\Tuk', 'id_tuk');
+    }
 }

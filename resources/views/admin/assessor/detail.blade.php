@@ -39,9 +39,12 @@
                             <div class="form-group">
                                 <label>TUK</label>
                                 <select class="form-control" name="id_tuk" data-height="100%">
-                                @foreach($data['tuk'] as $tuk)
-                                    <option value="{{ $tuk->id }}">{{ $tuk->name }}</option>
-                                @endforeach
+                                    <option value="{{ $data['asesor']->id_tuk }}">{{ $data['asesor']->tuk->name }}</option>
+                                    @foreach($data['tuk'] as $tuk)
+                                        @if ($tuk->id != $data['asesor']->id_tuk)
+                                            <option value="{{ $tuk->id }}">{{ $tuk->name }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
@@ -50,33 +53,30 @@
                             </div>
                             <div class="form-group">
                                 <label class="d-block">Jenis Kelamin</label>
-                                @if($data['asesor']->gender == 'laki-laki')
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Laki-Laki" checked value="{{ old('gender') }}">
+                                    <input 
+                                        class="form-check-input" 
+                                        type="radio" 
+                                        name="gender" 
+                                        id="exampleRadios1" 
+                                        @if($data['asesor']->gender == "Laki-Laki") checked @endif 
+                                        value="Laki-Laki">
                                     <label class="form-check-label" for="exampleRadios1">
                                             Pria
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Perempuan" value="{{ old('gender') }}">
+                                    <input 
+                                        class="form-check-input" 
+                                        type="radio" 
+                                        name="gender" 
+                                        id="exampleRadios2" 
+                                        @if($data['asesor']->gender == "Perempuan") checked @endif 
+                                        value="Perempuan">
                                     <label class="form-check-label" for="exampleRadios2">
                                             Wanita
                                     </label>
                                 </div>
-                                @else
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Laki-Laki" value="{{ old('gender') }}">
-                                        <label class="form-check-label" for="exampleRadios1">
-                                                Pria
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Perempuan" checked value="{{ old('gender') }}">
-                                        <label class="form-check-label" for="exampleRadios2">
-                                                Wanita
-                                        </label>
-                                    </div>
-                                @endif
                             </div>
                         </div>
                         <div class="card-footer text-right">
@@ -94,18 +94,22 @@
                 <h4>Add Assessor Scheme</h4>
                 </div>
                 <div class="card-body">
-                <div class="form-group">
-                    <label>Skema</label>
-                    <select class="form-control" data-height="100%">
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                    <option>Option 3</option>
-                    </select>
-                </div>
+                    <form action="{{ route("admin.assessor.add.scheme") }}" method="post">
+                        @csrf
+                        <input type="hidden" name="id_asesor" value="{{ $data['asesor']->id }}">
+                        <div class="form-group">
+                            <label>Skema</label>
+                            <select class="form-control" name="id_scheme" data-height="100%" required>
+                                <option value="">-- Pilih Skema --</option>
+                                @foreach ($data['scheme'] as $scheme)
+                                    <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                 </div>
                 <div class="card-footer text-right">
-                <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                        <button class="btn btn-primary mr-1" type="submit">Submit</button>
+                    </form>
                 </div>
             </div>
             </div>
@@ -128,38 +132,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <td>1</td>
-                        <td>SKM/0101/00006/3/2019/001-SS-MEKANIK-IAB-001-2016</td>
-                        <td>Klaster Perawatan Pencegahan (Preventive Maintenance) Alat Berat Small Bulldozer</td>
-                        <td>
-                            <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>2</td>
-                        <td>SKM/0101/00006/3/2019/001-SS-MEKANIK-IAB-001-2016</td>
-                        <td>Klaster Perawatan Pencegahan (Preventive Maintenance) Alat Berat Small Bulldozer</td>
-                        <td>
-                            <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>3</td>
-                        <td>SKM/0101/00006/3/2019/001-SS-MEKANIK-IAB-001-2016</td>
-                        <td>Klaster Perawatan Pencegahan (Preventive Maintenance) Alat Berat Small Bulldozer</td>
-                        <td>
-                            <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>4</td>
-                        <td>SKM/0101/00006/3/2019/001-SS-MEKANIK-IAB-001-2016</td>
-                        <td>Klaster Perawatan Pencegahan (Preventive Maintenance) Alat Berat Small Bulldozer</td>
-                        <td>
-                            <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
-                        </td>
-                        </tr>
+                        @foreach ($data['asesor_scheme'] as $asesor_scheme)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $asesor_scheme->scheme->code }}</td>
+                                <td>{{ $asesor_scheme->scheme->name }}</td>
+                                <td>
+                                    <form action="{{ route("admin.assessor.destroy.scheme", ["id" => $asesor_scheme->id]) }}" method="post">
+                                        @method('delete')
+                                        @csrf
+                                        <button 
+                                            type="submit"
+                                            class="btn btn-icon btn-danger">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                     </table>
                 </div>

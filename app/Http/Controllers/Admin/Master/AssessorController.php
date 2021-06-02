@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Assessor;
 use App\AssessorScheme;
+use App\Scheme;
+use App\Tuk;
 
 class AssessorController extends Controller
 {
@@ -92,6 +94,22 @@ class AssessorController extends Controller
         return redirect()->route('admin.assessor.index')->with('success', 'Data successfully added!');
     }
 
+    public function addScheme(Request $request)
+    {
+        $request->validate([
+            'id_scheme' => 'required',
+            'id_asesor' => 'required',
+        ]);
+
+        AssessorScheme::create([
+            'id_asesor' => $request->id_asesor,
+            'id_scheme' => $request->id_scheme,
+            'status' => 1
+        ]);
+
+        return redirect()->back()->with("success", "Skema berhasil ditambahkan!");
+    }
+
     /**
      * Display the specified resource.
      *
@@ -116,8 +134,16 @@ class AssessorController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user'] = User::find(\Session::get('id_user'));
-        $data['asesor'] = \DB::table('m_asesor')->where('id',$id)->first();
-        $data['tuk']    = \DB::table('m_tuk')->select('id','name')->get();
+        $data['asesor'] = Assessor::find($id);
+        $data['tuk']    = Tuk::select('id', 'name')->get();
+        $data['scheme'] = Scheme::select('id', 'name')->orderBy('name')->where('status', 1)->get();
+        $data['asesor_scheme'] = AssessorScheme::where('id_asesor', $id)->get();
+
+        foreach ($data['asesor_scheme'] as $asesor_scheme) {
+            $data['scheme'] = $data['scheme']->filter(function ($item) use ($asesor_scheme) {
+                return data_get($item, 'id') != $asesor_scheme->id_scheme;
+            });
+        }
 
         return view('admin.assessor.detail',\compact('data'));
     }
@@ -152,7 +178,7 @@ class AssessorController extends Controller
         ]);
 
 
-        return \redirect()->route('admin.assessor.index')->with('success', 'Data successfully updated!');
+        return \redirect()->back()->with('success', 'Data successfully updated!');
     }
 
 
@@ -170,5 +196,11 @@ class AssessorController extends Controller
         User::find($asesor->id_users)->delete();
 
         return redirect()->route('admin.assessor.index')->with('success', 'Data successfully deleted!');
+    }
+
+    public function destroyScheme($id)
+    {
+        AssessorScheme::find($id)->delete();
+        return redirect()->back()->with("success", "Skema berhasil dihapus!");
     }
 }

@@ -11,6 +11,9 @@ class Tuk extends Model
 
     protected $guarded =[];
 
-    
+    public function asesor()
+    {
+        return $this->hasMany('App\Assessor', 'id_tuk');
+    }
 }
 

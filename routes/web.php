@@ -25,6 +25,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/question','Admin\Master\ElementQuestionController');
     Route::resource('/user','Admin\Master\UserController');
 
+    // Asesor Route
+    Route::post("/assessor/scheme", "Admin\Master\AssessorController@addScheme")->name("assessor.add.scheme");
+    Route::delete("/assessor/scheme/{id}", "Admin\Master\AssessorController@destroyScheme")->name("assessor.destroy.scheme");
+
     // Register Route
     Route::get('/profile/{name}','Admin\Master\ProfileController@show')->name('profile.show');
     Route::post('/profile/update','Admin\Master\ProfileController@update')->name('profile.update');

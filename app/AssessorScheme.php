@@ -8,5 +8,10 @@ class AssessorScheme extends Model
 {
     protected $table = 'm_asesor_scheme';
 
-    protected $guarded =[];
+    protected $guarded = [];
+
+    public function scheme()
+    {
+        return $this->belongsTo('App\Scheme', 'id_scheme');
+    }
 }
