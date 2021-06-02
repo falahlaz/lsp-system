@@ -81,7 +81,7 @@ class ElementController extends Controller
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user'] = User::find(\Session::get('id_user'));
         $data['unit']       = \DB::table('m_unit')->select('id', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
-        $data['question']   = \DB::table('m_element_question')->select('id', 'question', 'status')->orderBy('question', 'asc')->get();
+        $data['question']   = \DB::table('m_element_question')->select('id', 'question', 'status')->where('id_element', $id)->orderBy('question', 'asc')->get();
         $data['element']    = Element::find($id);
 
         return view('admin.element.edit', compact('data'));
@@ -106,7 +106,7 @@ class ElementController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->route('admin.element.index')->with('success', 'Data successfully updated!');
+        return redirect()->back()->with('success', 'Data successfully updated!');
     }
 
     /**
