@@ -119,7 +119,7 @@ class SchemeController extends Controller
         ]);
 
         //response
-        return redirect()->route('admin.scheme.index')->with('success', 'Data successfully updated!');
+        return redirect()->back()->with('success', 'Data successfully updated!');
     }
 
     /**
