@@ -91,10 +91,10 @@
 						<li class="nav-item @yield('activeujian')">
                             <a href="{{ route('admin.form.recap') }}" class="nav-link"><i class="fas fa-archive"></i> <span>Rekap Hasil Ujian</span></a>
 						</li>
-						<li class="menu-header">Users</li>
+						{{-- <li class="menu-header">Users</li>
 						<li class="nav-item @yield('activeusers')">
                             <a href="{{ route('admin.user.index') }}" class="nav-link"><i class="far fa-user"></i> <span>Users</span></a>
-						</li>
+						</li> --}}
 						@endif
 					</ul>
 				</aside>
