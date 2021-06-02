@@ -110,7 +110,7 @@ class UnitSchemeController extends Controller
             'pub_year' => $request->pub_year,
         ]);
 
-        return redirect()->route('admin.scheme.edit', ['scheme' => $unit->id_scheme])->with('success', 'Data successfully updated');
+        return redirect()->back()->with('success', 'Data successfully updated');
     }
 
     /**
