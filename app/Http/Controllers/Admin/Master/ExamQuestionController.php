@@ -104,6 +104,12 @@ class ExamQuestionController extends Controller
         ])->get();
         $data['scheme']     = \DB::table('m_scheme')->select('id', 'name')->where('status', 1)->get();
         $data['edit']       = ExamQuestion::find($id);
+        
+        foreach ($data['answer'] as $answer) {
+            if ($answer->is_correct == 1) {
+                $data['correct_answer'] = $answer;
+            }
+        }
 
         return view('admin.examQuestion.edit', compact('data'));
     }
@@ -129,7 +135,7 @@ class ExamQuestionController extends Controller
             'id_scheme' => $request->id_scheme
         ]);
 
-        return redirect()->route('admin.exam.question.index')->with('success', 'Data successfully updated!');
+        return redirect()->back()->with('success', 'Data successfully updated!');
     }
 
     /**

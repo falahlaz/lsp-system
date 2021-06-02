@@ -68,11 +68,7 @@
                             <h4>Ubah Jawaban Benar</h4>
                         </div>
                         <input type="hidden" name="id_exam_question" value="{{ $data['edit']->id }}">
-                        @foreach ($data['answer'] as $answer)
-                            @if($answer->is_correct === 1)
-                                <input type="hidden" name="old_correct" value="{{ $answer->id }}">
-                            @endif
-                        @endforeach
+                        <input type="hidden" name="old_correct" value="{{ $data['correct_answer']->id }}">
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Jawaban</label>

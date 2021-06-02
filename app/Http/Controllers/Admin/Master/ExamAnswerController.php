@@ -69,7 +69,7 @@ class ExamAnswerController extends Controller
             'is_correct' => 1
         ]);
 
-        return redirect()->route('admin.exam.question.edit', ['question' => $request->id_exam_question])->with('success', 'Data successfully added!');
+        return redirect()->back()->with('success', 'Data successfully added!');
     }
 
     /**
