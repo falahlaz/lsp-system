@@ -54,7 +54,7 @@ class ElementQuestionController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.element.edit', ['element' => $request->id_element])->with('success', 'Data successfully added!');
+        return redirect()->back()->with('success', 'Data successfully added!');
     }
 
     /**
@@ -78,8 +78,12 @@ class ElementQuestionController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user'] = User::find(\Session::get('id_user'));
-        $data['question']   = \DB::table('m_element_question')->select('id', 'question', 'status')->orderBy('question', 'asc')->get();
         $data['edit']       = ElementQuestion::find($id);
+        $data['question']   = \DB::table('m_element_question')
+                                ->select('id', 'question', 'status')
+                                ->where('id_element', $data['edit']->id_element)
+                                ->orderBy('question', 'asc')
+                                ->get();
 
         return view('admin.question.edit', compact('data'));
     }
@@ -104,7 +108,7 @@ class ElementQuestionController extends Controller
             'question' => $request->question,
         ]);
 
-        return redirect()->route('admin.element.edit', ['element' => $request->id_element])->with('success', 'Data successfully updated!');
+        return redirect()->back()->with('success', 'Data successfully updated!');
     }
 
     /**

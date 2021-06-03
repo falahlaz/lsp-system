@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Element;
+use App\ElementQuestion;
 use App\User;
 
 class ElementController extends Controller
@@ -118,6 +119,7 @@ class ElementController extends Controller
     public function destroy($id)
     {
         Element::find($id)->delete();
+        ElementQuestion::where('id_element', $id)->delete();
 
         return redirect()->route('admin.element.index')->with('success', 'Data successfully deleted!');
     }
