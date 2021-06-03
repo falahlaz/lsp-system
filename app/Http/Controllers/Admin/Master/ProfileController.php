@@ -52,7 +52,7 @@ class ProfileController extends Controller
         if ($request->hasFile('image')) {
             $oldImage = public_path($imagePath);
             $image = $request->file('image');
-            $path  = 'assets/img/avatar/';
+            $path  = 'assets/img/avatar/profile/';
             $imageName = date('His').'_'.$image->getClientOriginalName();
             $imagePath = $path.$imageName;
             $image->move(public_path($path), $imageName);
