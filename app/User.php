@@ -44,4 +44,9 @@ class User extends Authenticatable
     public function asesor(){
         return $this->belongsTo('App\Assessor','id');
     }
+
+    public function position()
+    {
+        return $this->belongsTo('App\Position', 'id_position');
+    }
 }

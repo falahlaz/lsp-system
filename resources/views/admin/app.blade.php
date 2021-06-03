@@ -33,9 +33,6 @@
 						<img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
 						<div class="d-sm-none d-lg-inline-block">Hi, {{ $data['user']->username }}</div></a>
 						<div class="dropdown-menu dropdown-menu-right">
-							<div class="dropdown-title">Logged in 5 min ago</div>
-							<a href="" class="dropdown-item has-icon">
-
 							<a href="" class="dropdown-item has-icon">
 								<i class="far fa-user"></i> Profile
 							</a>
@@ -50,7 +47,7 @@
 			<div class="main-sidebar">
 				<aside id="sidebar-wrapper">
 					<div class="sidebar-brand">
-						<a href="{{ route('admin.dashboard') }}">LSP System</a>
+						<a href="{{ route('admin.dashboard') }}">LSP TO System</a>
 					</div>
 					<div class="sidebar-brand sidebar-brand-sm">
 						<a href="{{ route('admin.dashboard') }}">LSP</a>
