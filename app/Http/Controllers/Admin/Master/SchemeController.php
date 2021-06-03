@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
 
 use App\Scheme;
+use App\UnitScheme;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -86,7 +87,11 @@ class SchemeController extends Controller
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user'] = User::find(\Session::get('id_user'));
         $data['scheme'] = \DB::table('m_scheme')->where('id',$scheme->id)->first();
-        $data['unit']   = \DB::table('m_unit')->select('id', 'code', 'name')->where('status', 1)->orderBy('name', 'asc')->get();
+        $data['unit']   = \DB::table('m_unit')->select('id', 'code', 'name')
+                            ->where('id_scheme', $scheme->id)
+                            ->where('status', 1)
+                            ->orderBy('name', 'asc')
+                            ->get();
 
         return view('admin.scheme.edit', compact('data'));
     }
@@ -130,9 +135,8 @@ class SchemeController extends Controller
      */
     public function destroy($id)
     {
-        Scheme::find($id)->update([
-            'status' => 0
-        ]);
+        Scheme::find($id)->delete();
+        UnitScheme::where('id_scheme', $id)->delete();
 
         //response
         return \redirect()->route('admin.scheme.index')->with('success', 'Data successfully deleted!');
