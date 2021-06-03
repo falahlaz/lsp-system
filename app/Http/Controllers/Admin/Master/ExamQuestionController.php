@@ -147,6 +147,7 @@ class ExamQuestionController extends Controller
     public function destroy($id)
     {
         ExamQuestion::destroy($id);
+        ExamAnswer::where('id_exam_question', $id)->delete();
 
         return redirect()->route('admin.exam.question.index')->with('success', 'Data successfully deleted!');
     }
