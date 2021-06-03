@@ -28,6 +28,13 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" name="email" class="form-control" value="{{ $data['tuk']->email }}">
+                            @error('email')
+                                <div class="customalert">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label>Kode</label>
                             <input type="text" name="code" class="form-control" value="{{ $data['tuk']->code }}">
                             @error('code')

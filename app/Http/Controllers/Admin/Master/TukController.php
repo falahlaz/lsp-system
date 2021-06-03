@@ -114,14 +114,20 @@ class TukController extends Controller
         // validasi data yang diinput user
         $this->validate($request,[
             'code' => 'required',
+            'email' => 'required',
             'type' => 'required',
             'name' => 'required',
             'address' => 'required'
         ]);
 
         // mengambil data inputan dan tambah data ke database
-        Tuk::where('id',$id)->update([
+        $tuk = Tuk::find($id);
+        User::where('email', $tuk->email)->update([
+            'email' => $request->email
+        ]);
+        $tuk->update([
             'code' => $request->code,
+            'email' => $request->email,
             'type' => $request->type,
             'name' => $request->name,
             'address' => $request->address
@@ -139,9 +145,9 @@ class TukController extends Controller
      */
     public function destroy($id)
     {
-        Tuk::find($id)->update([
-            'status' => 0
-        ]);
+        $tuk = Tuk::find($id);
+        $tuk->delete();
+        User::where('email', $tuk->email)->delete();
 
         return \redirect()->route('admin.tuk.index')->with('success', 'Data successfully deleted!');
     }
