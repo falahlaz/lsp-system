@@ -32,6 +32,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     // Register Route
     Route::get('/profile/{name}','Admin\Master\ProfileController@show')->name('profile.show');
     Route::post('/profile/update','Admin\Master\ProfileController@update')->name('profile.update');
+    Route::post('/profile/password', 'Admin\Master\ProfileController@updatePassword')->name('profile.password');
     Route::post('/exam/answer/correct', 'Admin\Master\ExamAnswerController@correctAnswer')->name('answer.correct');
 
     // Participant route
