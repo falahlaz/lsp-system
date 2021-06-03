@@ -17,6 +17,7 @@ use App\ExamUserAnswer;
 use App\ExamQuestion;
 use App\UnitScheme;
 use App\AssessorScheme;
+use App\Assessor;
 use App\Tuk;
 use App\Requirement;
 
