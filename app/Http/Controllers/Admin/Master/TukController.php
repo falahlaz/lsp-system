@@ -47,7 +47,7 @@ class TukController extends Controller
             'type' => 'required',
             'name' => 'required',
             'address' => 'required',
-            'email' => 'required'
+            'email' => 'required|unique:m_tuk,email'
         ]);
 
         $username = str_replace(" ", "_", $request->name);
