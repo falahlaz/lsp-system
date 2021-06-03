@@ -55,9 +55,8 @@ class AssessorController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'id_tuk' => 'required',
-            'id_scheme' => 'required',
-            'username' => 'required',
-            'email' => 'required|email',
+            'username' => 'required|unique:m_users,username',
+            'email' => 'required|unique:m_users,email',
             'password' => 'required|confirmed',
         ]);
 
@@ -83,12 +82,14 @@ class AssessorController extends Controller
         ]);
 
         // add assessor scheme to database
-        foreach($request->id_scheme as $scheme){
-            AssessorScheme::create([
-                'id_asesor' => $asesor->id,
-                'id_scheme' => $scheme,
-                'status' => 1
-            ]);
+        if ($request->id_scheme) {
+            foreach($request->id_scheme as $scheme){
+                AssessorScheme::create([
+                    'id_asesor' => $asesor->id,
+                    'id_scheme' => $scheme,
+                    'status' => 1
+                ]);
+            }
         }
 
         return redirect()->route('admin.assessor.index')->with('success', 'Data successfully added!');
@@ -194,6 +195,7 @@ class AssessorController extends Controller
         $asesor->delete();
 
         User::find($asesor->id_users)->delete();
+        AssessorScheme::where('id_asesor', $id)->delete();
 
         return redirect()->route('admin.assessor.index')->with('success', 'Data successfully deleted!');
     }

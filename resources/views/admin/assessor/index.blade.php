@@ -24,49 +24,49 @@
                                 <div class="form-group">
                                     <label>Nama</label>
                                     <input type="text" class="form-control" name="name" value="{{ old('name') }}" >
-                                @error('name')
-                                    <div class="customalert">{{ $message }}</div>
-                                @enderror
+                                    @error('name')
+                                        <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>No Registrasi</label>
                                     <input type="text" class="form-control" name="reg_num" value="{{ old('reg_num') }}">
-                                @error('reg_num')
-                                    <div class="customalert">{{ $message }}</div>
-                                @enderror
+                                    @error('reg_num')
+                                        <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
                                     <input type="email" class="form-control" value="{{ old('email') }}" name="email">
-                                @error('email')
-                                    <div class="customalert">{{ $message }}</div>
-                                @enderror
+                                    @error('email')
+                                        <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Username</label>
                                     <input type="text" class="form-control" value="{{ old('username') }}" name="username">
-                                @error('username')
-                                    <div class="customalert">{{ $message }}</div>
-                                @enderror
+                                    @error('username')
+                                        <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>No Telepon</label>
                                     <input type="number" class="form-control" value="{{ old('phone') }}" name="phone">
-                                @error('phone')
-                                    <div class="customalert">{{ $message }}</div>
-                                @enderror
+                                    @error('phone')
+                                        <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>TUK</label>
-                                    <select class="form-control" name="id_tuk" value="{{ old('id_tuk') }}">
+                                    <select class="form-control" name="id_tuk">
                                         <option value="">-- Pilih TUK --</option>
                                         @foreach($data['tuk'] as $tuk)
-                                        <option value="{{ $tuk->id }}">{{ $tuk->name }}</option>
+                                        <option value="{{ $tuk->id }}" @if(old('id_tuk') == $tuk->id) selected @endif>{{ $tuk->name }}</option>
                                         @endforeach
                                     </select>
-                                @error('id_tuk')
-                                    <div class="customalert">{{ $message }}</div>
-                                @enderror
+                                    @error('id_tuk')
+                                        <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Skema</label>
@@ -76,47 +76,47 @@
                                         <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
                                         @endforeach
                                     </select>
-                                @error('id_scheme')
-                                    <div class="customalert">{{ $message }}</div>
-                                @enderror
+                                    @error('id_scheme')
+                                        <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <textarea class="form-control" style="height: 100%;" rows="4" name="address" value="{{ old('address') }}"></textarea>
-                                @error('address')
-                                    <div class="customalert">{{ $message }}</div>
-                                @enderror
+                                    <textarea class="form-control" style="height: 100%;" rows="4" name="address">{{ old('address') }}</textarea>
+                                    @error('address')
+                                        <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label class="d-block">Jenis Kelamin</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Laki-Laki" value="{{ old('gender') }}">
+                                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Laki-Laki" @if(old('gender') == 'Laki-Laki') checked @endif>
                                         <label class="form-check-label" for="exampleRadios1">
                                                 Pria
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Perempuan" value="{{ old('gender') }}">
+                                        <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Perempuan" @if(old('gender') == 'Perempuan') checked @endif>
                                         <label class="form-check-label" for="exampleRadios2">
                                                 Wanita
                                         </label>
                                     </div>
-                                @error('gender')
-                                    <div class="customalert">{{ $message }}</div>
-                                @enderror
+                                    @error('gender')
+                                        <div class="customalert">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input type="password" class="form-control" name="password">
                                     @error('password')
-                                    <div class="customalert">{{ $message }}</div>
+                                        <div class="customalert">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>Konfirmasi Password</label>
                                     <input type="password" class="form-control" name="password_confirmation">
                                     @error('password_confirmation')
-                                    <div class="customalert">{{ $message }}</div>
+                                        <div class="customalert">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="text-right">
@@ -181,6 +181,12 @@
 
     <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
   	<script src="{{ asset('/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+
+    <script>
+        @if (Session::has('success'))
+            swal('Success', "{{ Session::get('success') }}", 'success');
+        @endif
+    </script>
 @endsection
 
 @section('style')
