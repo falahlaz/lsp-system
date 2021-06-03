@@ -14,4 +14,9 @@ class AssessorScheme extends Model
     {
         return $this->belongsTo('App\Scheme', 'id_scheme');
     }
+
+    public function asesor()
+    {
+        return $this->belongsTo('App\Assessor', 'id_asesor');
+    }
 }

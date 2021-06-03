@@ -22,4 +22,9 @@ class Assessor extends Model
     {
         return $this->belongsTo('App\Tuk', 'id_tuk');
     }
+
+    public function asesorScheme()
+    {
+        return $this->hasMany('App\AssessorScheme', 'id_asesor');
+    }
 }

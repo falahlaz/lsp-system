@@ -16,8 +16,9 @@ use App\ExamAnswer;
 use App\ExamUserAnswer;
 use App\ExamQuestion;
 use App\UnitScheme;
-use App\Assessor;
+use App\AssessorScheme;
 use App\Tuk;
+use App\Requirement;
 
 use App\Mail\Apl02Mail;
 use App\Mail\ExamMail;
@@ -43,9 +44,9 @@ class ParticipantController extends Controller
         $data['apl01']          = Form01::find($id);
         $data['scheme']         = Scheme::select('name')->find($id_scheme);
         $data['schemeApl01']    = Form01Scheme::where("id_scheme", $id_scheme)->where("id_form01", $id)->first();
-        $data['unit']           = \DB::table('m_unit')->select('id','code','name', 'pub_year')->where('id_scheme', $id_scheme)->get();
-        $data['asesor']         = \DB::table('m_asesor')->get();
-        $data['requirement']    = \DB::table('t_requirement')->where('id_form01', $id)->get();
+        $data['unit']           = UnitScheme::select('id','code','name', 'pub_year')->where('id_scheme', $id_scheme)->get();
+        $data['asesor']         = AssessorScheme::where('id_scheme', $id_scheme)->get();
+        $data['requirement']    = Requirement::where('id_form01', $id)->get();
 
         foreach($data['requirement'] as $requirement) {
             if($requirement->name === 'Bukti Lulusan SMK Jurusan Teknik Otomotif') $data['kelengkapan1'] = $requirement;

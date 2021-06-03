@@ -410,6 +410,7 @@
                                 </label>
                             </div>
                             <div class="card-footer text-right">
+                                <a href="{{ route('admin.form.apl01') }}" class="btn btn-danger">Kembali</a>
                                 <button type="button" id="submit" class="btn btn-primary" data-toggle="modal" data-target="#registant" disabled >Submit</button>
                             </div>
                         @else
@@ -444,7 +445,7 @@
                         <select class="form-control" id="asesor" name="id_asesor" required>
                             <option value="">-- Pilih Asesor --</option>
                             @foreach($data['asesor'] as $asesor)
-                            <option value="{{$asesor->id}}">{{$asesor->name}}</option>
+                            <option value="{{$asesor->asesor->id}}">{{$asesor->asesor->name}}</option>
                             @endforeach
                         </select>
                     </div>
