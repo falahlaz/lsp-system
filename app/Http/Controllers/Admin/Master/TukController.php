@@ -46,8 +46,12 @@ class TukController extends Controller
             'code' => 'required',
             'type' => 'required',
             'name' => 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'email' => 'required'
         ]);
+
+        $username = str_replace(" ", "_", $request->name);
+        $password = bcrypt(12345);
 
         // mengambil data inputan dan tambah data ke database
         Tuk::create([
@@ -55,6 +59,16 @@ class TukController extends Controller
             'type' => $request->type,
             'name' => $request->name,
             'address' => $request->address,
+            'email' => $request->email,
+            'status' => 1
+        ]);
+
+        // create tuk user
+        User::create([
+            'username' => $username,
+            'password' => $password,
+            'email' => $request->email,
+            'id_position' => 3,
             'status' => 1
         ]);
 

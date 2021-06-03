@@ -48,6 +48,13 @@
                                 @enderror
                                 </div>
                                 <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" name="email" value="{{old('email')}}">
+                                @error('email')
+                                    <div class="customalert">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="form-group">
                                     <label>Alamat</label>
                                     <textarea class="form-control" name="address" value="{{old('address')}}" style="height: 100%;" rows="4">{{old('address')}}</textarea>
                                 @error('address')
