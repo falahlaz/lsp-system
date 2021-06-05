@@ -140,7 +140,13 @@ class ParticipantController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user'] = User::find(\Session::get('id_user'));
-        $data['apl02'] = \DB::table('vw_form02')->where('status', '<>', 0)->orderBy('created_at', 'desc')->get();
+        $asesor = Assessor::where('id_users', \Session::get('id_user'))->first();
+
+        if ($asesor) {
+            $data['apl02'] = \DB::table('vw_form02')->where('id_asesor', $asesor->id)->where('status', '<>', 0)->orderBy('created_at', 'desc')->get();
+        } else {
+            $data['apl02'] = \DB::table('vw_form02')->where('status', '<>', 0)->orderBy('created_at', 'desc')->get();
+        }
 
         return view('admin.participant.apl02', compact('data'));
     }
