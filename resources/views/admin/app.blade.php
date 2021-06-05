@@ -84,14 +84,10 @@
 						<li class="nav-item @yield('activeapl02')">
                             <a href="{{ route('admin.form.apl02') }}" class="nav-link"><i class="fas fa-copy"></i> <span>Form APL-02</span></a>
 						</li>
-						@if($data['user']->id_position == 1)
+						@if($data['user']->id_position != 3)
 						<li class="nav-item @yield('activeujian')">
                             <a href="{{ route('admin.form.recap') }}" class="nav-link"><i class="fas fa-archive"></i> <span>Rekap Hasil Ujian</span></a>
 						</li>
-						{{-- <li class="menu-header">Users</li>
-						<li class="nav-item @yield('activeusers')">
-                            <a href="{{ route('admin.user.index') }}" class="nav-link"><i class="far fa-user"></i> <span>Users</span></a>
-						</li> --}}
 						@endif
 					</ul>
 				</aside>

@@ -57,7 +57,7 @@
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col text-right">
-                                    @if ($data["exam"]->status == 2)
+                                    @if ($data["exam"]->status == 2 && $data['user']->id_position == 2)
                                         <button type="button" data-toggle="modal" data-target="#submit" class="btn btn-primary mr-1">Submit</button>
                                     @endif
                                     <a href="{{ route('admin.form.recap') }}" class="btn btn-danger">Kembali</a>

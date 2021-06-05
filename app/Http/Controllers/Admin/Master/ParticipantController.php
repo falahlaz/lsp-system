@@ -201,6 +201,13 @@ class ParticipantController extends Controller
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user'] = User::find(\Session::get('id_user'));
         $data["exam"] = ExamScore::whereDate("end_exam", "<", date("Y-m-d H:i:s"))->orderBy('created_at', 'desc')->get();
+
+        if ($data['user']->id_position == 2) {
+            $data['exam'] = $data['exam']->filter(function($item) use ($data) {
+                return $item->form02Rel->id_asesor == $data['user']->asesor->id;
+            });
+        }
+
         return view('admin.participant.examRecap', compact('data'));
     }
 

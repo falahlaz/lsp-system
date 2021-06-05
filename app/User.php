@@ -42,7 +42,7 @@ class User extends Authenticatable
     ];
 
     public function asesor(){
-        return $this->belongsTo('App\Assessor','id');
+        return $this->hasOne('App\Assessor','id_users');
     }
 
     public function position()
