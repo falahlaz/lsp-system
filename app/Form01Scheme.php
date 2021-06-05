@@ -14,4 +14,9 @@ class Form01Scheme extends Model
     {
         return $this->belongsTo(Form01::class, 'id_form01','id');
     }
+
+    public function schemeRel()
+    {
+        return $this->belongsTo(Scheme::class, 'id_scheme', 'id');
+    }
 }

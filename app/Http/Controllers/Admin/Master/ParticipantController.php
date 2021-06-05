@@ -33,7 +33,13 @@ class ParticipantController extends Controller
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user']   = User::find(\Session::get('id_user'));
-        $data['apl01']  = \DB::table('vw_form01')->select('id', 'name', 'nationality', 'phone', 'private_email', 'status', 'scheme', 'id_scheme')->where('status', '<>', 0)->orderBy('created_at', 'desc')->get();
+
+        if ($data['user']->id_position == 3) {
+            $tuk = Tuk::where('email', $data['user']->email)->first();
+            $data['apl01']  = Form01Scheme::where('status', 4)->where('id_tuk', $tuk->id)->orderBy('created_at', 'desc')->get();
+        } else {
+            $data['apl01']  = Form01Scheme::where('status', '<>', 0)->orderBy('created_at', 'desc')->get();
+        }
 
         return view('admin.participant.apl01', compact('data'));
     }
@@ -261,6 +267,12 @@ class ParticipantController extends Controller
             $time = date("H:i", strtotime($request->tanggal_ujikom));
             $registration->status = 4;
             $registration->save();
+
+            Form01Scheme::where('id_form01', $form01->id)
+                        ->where('id_scheme', $scheme->id)
+                        ->update([
+                            'id_tuk' => $tuk->id
+                        ]);
 
             $mail = new RecapMail($form01, $exam_date, $scheme->name, $graduation, $tuk, $date, $time);
         } else {

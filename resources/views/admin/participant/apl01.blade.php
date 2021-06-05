@@ -39,11 +39,11 @@
                                         @foreach ($data['apl01'] as $apl01)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $apl01->name }}</td>
-                                                <td>{{ $apl01->phone }}</td>
-                                                <td>{{ $apl01->private_email }}</td>
-                                                <td>{{ $apl01->nationality }}</td>
-                                                <td>{{ $apl01->scheme }}</td>
+                                                <td>{{ $apl01->form01Rel->name }}</td>
+                                                <td>{{ $apl01->form01Rel->phone }}</td>
+                                                <td>{{ $apl01->form01Rel->private_email }}</td>
+                                                <td>{{ $apl01->form01Rel->nationality }}</td>
+                                                <td>{{ $apl01->schemeRel->name }}</td>
                                                 <td>
                                                     @if ($apl01->status == 1)
                                                         <div class="badge badge-warning">Pending</div>
@@ -58,7 +58,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('admin.form.apl01.detail',['id' => $apl01->id, 'scheme' => $apl01->id_scheme]) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
+                                                    <a href="{{ route('admin.form.apl01.detail',['id' => $apl01->id_form01, 'scheme' => $apl01->id_scheme]) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
