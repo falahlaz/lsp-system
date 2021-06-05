@@ -46,6 +46,8 @@
                                                 <td>
                                                     @if ($exam->status > 1)
                                                         <a href="{{ route('admin.form.recap.detail',['id' => $exam->id]) }}" class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></a>
+                                                    @elseif ($exam->status == 1)
+                                                        <button type="button" disabled class="btn btn-primary btn-icon"><i class="fas fa-edit"></i></button>
                                                     @endif
                                                 </td>
                                             </tr>
