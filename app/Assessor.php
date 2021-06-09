@@ -9,6 +9,7 @@ class Assessor extends Model
     protected $table = 'm_asesor';
 
     protected $guarded =[];
+    protected $hidden = ["status", "created_at", "updated_at"];
 
     public function scheme(){
         return $this->hasMany('App\Scheme','id_scheme');

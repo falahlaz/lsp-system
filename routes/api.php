@@ -35,3 +35,8 @@ Route::group(['prefix'=>'/lsp/be', 'middleware' => ['token']],function(){
     Route::resource('/unit/question','Admin\Master\ElementQuestionController');
 
 });
+
+Route::get("scheme", "Api\LandingPageController@getAllScheme");
+Route::get("scheme/{id}", "Api\LandingPageController@getSingleScheme");
+Route::get("asesor", "Api\LandingPageController@getAllAsesor");
+Route::get("asesor/{id}", "Api\LandingPageController@getSingleAsesor");
