@@ -220,9 +220,10 @@ class ParticipantController extends Controller
     public function showExamRecap($id)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
-        $data['tuk']  = Tuk::select('id', 'name')->where('status', 1)->orderBy('name')->get();
+        // $data['tuk']  = Tuk::select('id', 'name')->where('status', 1)->orderBy('name')->get();
         $data["user"] = User::find(\Session::get('id_user'));
         $data["exam"] = ExamScore::find($id);
+        $data["tuk"]  = TukScheme::where("id_scheme", $data["exam"]->id_scheme)->get();
         $data["userAnswer"] = ExamUserAnswer::where("id_exam_score", $id)->get();
         $data["questionList"] = ExamQuestion::where("id_scheme", $data["exam"]->id_scheme)->get();
         foreach ($data["questionList"] as $question) {
