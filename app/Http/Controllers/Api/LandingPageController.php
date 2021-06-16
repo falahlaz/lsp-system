@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\ResponseService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+use App\Tuk;
 use App\Scheme;
 use App\Assessor;
 
@@ -55,5 +56,23 @@ class LandingPageController extends Controller
         }
         $asesor->count_scheme = $asesor->asesorScheme()->count();
         return $this->responseOk($asesor);
+    }
+
+    public function getAllTuk()
+    {
+        $allTuk = Tuk::where('status', 1)->orderBy('name')->get();
+
+        return $this->responseOk($allTuk);
+    }
+
+    public function getSingleTuk($id)
+    {
+        try {
+            $tuk = Tuk::findOrFail($id);
+        } catch(ModelNotFoundException $e) {
+            return $this->responseNotFound("Tuk not found");
+        }
+
+        return $this->responseOk($tuk);
     }
 }

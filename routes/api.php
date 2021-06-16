@@ -40,3 +40,5 @@ Route::get("scheme", "Api\LandingPageController@getAllScheme");
 Route::get("scheme/{id}", "Api\LandingPageController@getSingleScheme");
 Route::get("asesor", "Api\LandingPageController@getAllAsesor");
 Route::get("asesor/{id}", "Api\LandingPageController@getSingleAsesor");
+Route::get("tuk", "Api\LandingPageController@getAllTuk");
+Route::get("tuk/{id}", "Api\LandingPageController@getSingleTuk");

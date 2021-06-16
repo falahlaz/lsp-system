@@ -10,6 +10,7 @@ class Tuk extends Model
     protected $table = 'm_tuk';
 
     protected $guarded =[];
+    protected $hidden = ['status', 'created_at', 'updated_at'];
 
     public function asesor()
     {
