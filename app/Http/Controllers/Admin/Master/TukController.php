@@ -84,6 +84,20 @@ class TukController extends Controller
         return \redirect()->route('admin.tuk.index')->with('success', 'Data successfully added!');
     }
 
+    public function storeScheme(Request $request, $id)
+    {
+        $request->validate([
+            'id_scheme' => 'required'
+        ]);
+
+        TukScheme::create([
+            'id_tuk' => $id,
+            'id_scheme' => $request->id_scheme
+        ]);
+
+        return redirect()->back()->with('success', 'Data schema successfully added!');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -159,5 +173,12 @@ class TukController extends Controller
         User::where('email', $tuk->email)->delete();
 
         return \redirect()->route('admin.tuk.index')->with('success', 'Data successfully deleted!');
+    }
+
+    public function destoryScheme($id)
+    {
+        TukScheme::find($id)->delete();
+
+        return redirect()->back()->with("success", "Data schema successfully deleted!");
     }
 }
