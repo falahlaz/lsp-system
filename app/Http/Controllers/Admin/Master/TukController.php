@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Tuk;
 use App\User;
+use App\TukScheme;
 use Illuminate\Http\Request;
 
 class TukController extends Controller
@@ -47,21 +48,29 @@ class TukController extends Controller
             'type' => 'required',
             'name' => 'required',
             'address' => 'required',
-            'email' => 'required|unique:m_tuk,email'
+            'email' => 'required|unique:m_tuk,email',
+            'scheme' => 'required',
         ]);
 
         $username = str_replace(" ", "_", $request->name);
         $password = bcrypt(12345);
 
         // mengambil data inputan dan tambah data ke database
-        Tuk::create([
+        $id = Tuk::create([
             'code' => $request->code,
             'type' => $request->type,
             'name' => $request->name,
             'address' => $request->address,
             'email' => $request->email,
             'status' => 1
-        ]);
+        ])->id;
+
+        foreach ($request->scheme as $scheme) {
+            TukScheme::create([
+                'id_tuk' => $id,
+                'id_scheme' => $scheme
+            ]);
+        }
 
         // create tuk user
         User::create([
