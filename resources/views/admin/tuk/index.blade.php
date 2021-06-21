@@ -30,13 +30,24 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Jenis TUK</label>
-                                    <select class="form-control" name="type" value="{{old('type')}}">
+                                    <select class="form-control" name="type" required>
                                         <option value="">-- Pilih Jenis TUK --</option>
                                         <option>Sewaktu</option>
                                         <option>Mandiri</option>
                                         <option>Tempat Kerja</option>
                                     </select>
                                 @error('type')
+                                    <div class="customalert">{{ $message }}</div>
+                                @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Skema</label>
+                                    <select class="form-control select2" name="scheme[]" multiple data-placeholder="-- Pilih Skema --">
+                                        @foreach ($data['scheme'] as $scheme)
+                                            <option value="{{ $scheme->id }}">{{ $scheme->name }}</option>
+                                        @endforeach
+                                    </select>
+                                @error('scheme')
                                     <div class="customalert">{{ $message }}</div>
                                 @enderror
                                 </div>
@@ -121,6 +132,7 @@
     <script src="{{ asset('/assets/modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
 	<script src="{{ asset('/assets/modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
     <script src="{{ asset('/assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('/assets/modules/sweetalert/dist/sweetalert.min.js')}}"></script>
     
     <script src="{{ asset('/assets/js/page/modules-datatables.js')}}"></script>
@@ -135,4 +147,5 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/modules/select2/dist/css/select2.min.css') }}">
 @endsection

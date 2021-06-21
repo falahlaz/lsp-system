@@ -17,7 +17,7 @@ class CreateMTukScheme extends Migration
             $table->id();
             $table->foreignId('id_tuk');
             $table->foreignId('id_scheme');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->timestamps();
 
             $table->foreign('id_tuk')->references('id')->on('m_tuk');

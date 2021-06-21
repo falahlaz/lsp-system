@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Tuk;
 use App\User;
+use App\Scheme;
 use App\TukScheme;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,7 @@ class TukController extends Controller
         if(!\Session::has('id_user')) return redirect()->route('login');
         $data['user'] = User::find(\Session::get('id_user'));
         $data['tuk'] = \DB::table('m_tuk')->select('id', 'code', 'name', 'type')->where('status', 1)->get();
+        $data['scheme'] = Scheme::select("id", "name")->where("status", 1)->orderBy("name")->get();
         // return response()->json($data,200);
         return view('admin.tuk.index',\compact('data'));
     }
