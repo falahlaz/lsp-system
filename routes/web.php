@@ -23,7 +23,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('/exam/question','Admin\Master\ExamQuestionController', ['as' => 'exam']);
     Route::resource('/exam/answer','Admin\Master\ExamAnswerController');
     Route::resource('/question','Admin\Master\ElementQuestionController');
-    Route::resource('/user','Admin\Master\UserController');
+    Route::resource('/news','Admin\LandingPage\NewsController');
 
     // Asesor Route
     Route::post("/assessor/scheme", "Admin\Master\AssessorController@addScheme")->name("assessor.add.scheme");
