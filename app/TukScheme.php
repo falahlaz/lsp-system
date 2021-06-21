@@ -14,4 +14,9 @@ class TukScheme extends Model
     {
         return $this->belongsTo("App\Tuk", 'id_tuk');
     }
+
+    public function scheme()
+    {
+        return $this->belongsTo("App\Scheme", "id_scheme");
+    }
 }

@@ -31,7 +31,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 
     // Tuk Route
     Route::post("/tuk/scheme/{id}", "Admin\Master\TukController@storeScheme")->name("tuk.add.scheme");
-    Route::delete("/tuk/scheme/{id}", "Admin\Master\TukController@deleteScheme")->name("tuk.destroy.scheme");
+    Route::delete("/tuk/scheme/{id}", "Admin\Master\TukController@destroyScheme")->name("tuk.destroy.scheme");
 
     // Register Route
     Route::get('/profile/{name}','Admin\Master\ProfileController@show')->name('profile.show');

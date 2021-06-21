@@ -89,13 +89,16 @@ class TukController extends Controller
     public function storeScheme(Request $request, $id)
     {
         $request->validate([
-            'id_scheme' => 'required'
+            'scheme' => 'required'
         ]);
 
-        TukScheme::create([
-            'id_tuk' => $id,
-            'id_scheme' => $request->id_scheme
-        ]);
+        foreach ($request->scheme as $scheme) {
+
+            TukScheme::create([
+                'id_tuk' => $id,
+                'id_scheme' => $scheme
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Data schema successfully added!');
     }
@@ -120,9 +123,17 @@ class TukController extends Controller
     public function edit(Tuk $tuk)
     {
         if(!\Session::has('id_user')) return redirect()->route('login');
+        $data['tuk_scheme'] = TukScheme::where('id_tuk', $tuk->id)->get();
+        $data['scheme'] = Scheme::select("id", "name")->where("status", 1)->orderBy("name")->get();
         $data['user'] = User::find(\Session::get('id_user'));
-        $data['tuk'] = \DB::table('m_tuk')->where('id',$tuk->id)->first();
         $data['type'] = ['Sewaktu','Mandiri','Tempat Kerja'];
+        $data['tuk'] = Tuk::find($tuk->id);
+        
+        foreach ($data['tuk_scheme'] as $tuk_scheme) {
+            $data['scheme'] = $data['scheme']->filter(function($item) use ($tuk_scheme) {
+                return data_get($item, "id") != $tuk_scheme->id_scheme;
+            });
+        }
 
         return view('admin.tuk.edit',\compact('data'));
     }
@@ -177,7 +188,7 @@ class TukController extends Controller
         return \redirect()->route('admin.tuk.index')->with('success', 'Data successfully deleted!');
     }
 
-    public function destoryScheme($id)
+    public function destroyScheme($id)
     {
         TukScheme::find($id)->delete();
 
