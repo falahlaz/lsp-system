@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\LandingPage;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 use App\User;
@@ -108,9 +109,26 @@ class NewsController extends Controller
             "body" => "required"
         ]);
 
-        News::find($id)->update([
+        $news = News::find($id);
+        $oldImage = $news->image;
+
+        if ($request->hasFile("image")) {
+            $image = $request->image;
+            $imageName = time()."_".$image->getClientOriginalName();
+            $imagePath = public_path("images/news/");
+            $image->move($imagePath, $imageName);
+
+            if (File::exists($imagePath.$imageName)) {
+                File::delete($imagePath.$oldImage);
+            }
+        } else {
+            $imageName = $oldImage;
+        }
+
+        $news->update([
             "title" => $request->title,
             "body" => $request->body,
+            "image" => $imageName
         ]);
 
         return redirect()->back()->with("success", "Data successfully updated!");
