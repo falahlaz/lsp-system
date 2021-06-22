@@ -75,12 +75,12 @@
                             <a href="{{ route('admin.exam.question.index') }}" class="nav-link"><i class="fas fa-pen"></i> <span>Ujian Tertulis</span></a>
 						</li>
 						@endif
+						@if($data['user']->id_position == 1)
 						<li class="menu-header">Landing Page</li>
 						<li class="nav-item @yield('activeberita')">
                             <a href="{{ route('admin.news.index') }}" class="nav-link"><i class="fas fa-newspaper"></i><span>Berita</span></a>
 						</li>
 						<li class="menu-header">Peserta</li>
-						@if($data['user']->id_position == 1)
 						<li class="nav-item @yield('activeapl01')">
                             <a href="{{ route('admin.form.apl01') }}" class="nav-link"><i class="fas fa-file"></i> <span>Form APL-01</span></a>
 						</li>

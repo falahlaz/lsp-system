@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\News;
 
 class NewsController extends Controller
 {
@@ -18,6 +19,7 @@ class NewsController extends Controller
     {
         if (!\Session::has("id_user")) return redirect()->route("login");
         $data["user"] = User::find(\Session::get("id_user"));
+        $data["news"] = News::select("id", "title")->where("is_active", 1)->orderBy("created_at", "desc")->get();
         return view("admin.berita.index", compact("data"));
     }
 
@@ -43,13 +45,24 @@ class NewsController extends Controller
         $request->validate([
             "title" => "required",
             "body" => "required",
+            "image" => "required",
         ]);
+
+        $image = $request->image;
+        $imageName = time()."_".$image->getClientOriginalName();
+        $image->move(public_path("images/news"), $imageName);
+
+        $isShow = 0;
+        $showedNews = News::where("is_show", 1)->get()->count();
+        if ($showedNews <= 5) $isShow = 1;
 
         $id_user = \Session::get("id_user");
         News::create([
             "id_user" => $id_user,
             "title" => $request->title,
-            "body" => $request->body
+            "body" => $request->body,
+            "image" => $imageName,
+            "is_show" => $isShow,
         ]);
 
         return redirect()->back()->with("success", "Data successfully added!");
