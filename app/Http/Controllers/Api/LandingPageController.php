@@ -7,6 +7,7 @@ use App\Services\ResponseService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Tuk;
+use App\News;
 use App\Scheme;
 use App\Assessor;
 
@@ -74,5 +75,35 @@ class LandingPageController extends Controller
         }
 
         return $this->responseOk($tuk);
+    }
+
+    public function getAllNews()
+    {
+        $allNews = News::select("id", "title", "image")
+                    ->where("is_show", 1)
+                    ->where("is_active", 1)
+                    ->limit(5)
+                    ->get();
+        
+        foreach ($allNews as $news) {
+            $url = url("images/news")."/".$news->image;
+            $news->image_url = $url;
+        }
+
+        return $this->responseOk($allNews);
+    }
+
+    public function getSingleNews($id)
+    {
+        try {
+            $news = News::find($id);
+        } catch(ModelNotFoundException $e) {
+            return $this->reponseNotFound("Tuk not found");
+        }
+
+        $url = url("images/news")."/".$news->image;
+        $news->image_url = $url;
+
+        return $this->responseOk($news);
     }
 }

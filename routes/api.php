@@ -42,3 +42,5 @@ Route::get("asesor", "Api\LandingPageController@getAllAsesor");
 Route::get("asesor/{id}", "Api\LandingPageController@getSingleAsesor");
 Route::get("tuk", "Api\LandingPageController@getAllTuk");
 Route::get("tuk/{id}", "Api\LandingPageController@getSingleTuk");
+route::get("news", "Api\LandingPageController@getAllNews");
+route::get("news/{id}", "Api\LandingPageController@getSingleNews");
