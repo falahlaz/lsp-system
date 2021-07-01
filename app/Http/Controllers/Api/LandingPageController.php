@@ -33,7 +33,7 @@ class LandingPageController extends Controller
         } catch (ModelNotFoundException $e) {
             return $this->responseNotFound("Scheme not found");
         }
-        $scheme->count_unit = $scheme->unit()->count();
+        $scheme->count_unit = $scheme->unit()->get();
         return $this->responseOk($scheme);
     }
 
