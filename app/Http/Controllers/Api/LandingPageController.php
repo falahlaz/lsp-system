@@ -68,6 +68,10 @@ class LandingPageController extends Controller
     {
         $allTuk = Tuk::where('status', 1)->orderBy('name')->get();
 
+        foreach ($allTuk as $tuk) {
+            $tuk->count_scheme = $tuk->tukScheme()->count();
+        }
+
         return $this->responseOk($allTuk);
     }
 
@@ -78,6 +82,12 @@ class LandingPageController extends Controller
         } catch(ModelNotFoundException $e) {
             return $this->responseNotFound("Tuk not found");
         }
+        $tuk->schemes = $tuk->tukScheme()->get();
+
+        foreach ($tuk->schemes as $scheme) {
+            $scheme->detail_scheme = Scheme::find($scheme->id_scheme);
+        }
+
 
         return $this->responseOk($tuk);
     }

@@ -16,5 +16,10 @@ class Tuk extends Model
     {
         return $this->hasMany('App\Assessor', 'id_tuk');
     }
+
+    public function tukScheme()
+    {
+        return $this->hasMany('App\TukScheme', 'id_tuk');
+    }
 }
 
