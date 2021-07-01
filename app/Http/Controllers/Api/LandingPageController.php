@@ -55,7 +55,12 @@ class LandingPageController extends Controller
         } catch (ModelNotFoundException $e) {
             return $this->responseNotFound("Asesor not found");
         }
-        $asesor->count_scheme = $asesor->asesorScheme()->count();
+        $asesor->schemes = $asesor->asesorScheme()->get();
+
+        foreach ($asesor->schemes as $scheme) {
+            $scheme->scheme_detail = Scheme::find($scheme->id_scheme);
+        }
+
         return $this->responseOk($asesor);
     }
 
