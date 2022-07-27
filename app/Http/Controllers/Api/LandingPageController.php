@@ -40,6 +40,7 @@ class LandingPageController extends Controller
             return $this->responseNotFound("Scheme not found");
         }
         $scheme->units = $scheme->unit()->get();
+        $scheme->image_url = !$scheme->image ?: asset($scheme->image);
         return $this->responseOk($scheme);
     }
 
