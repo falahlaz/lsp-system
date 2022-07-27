@@ -19,7 +19,7 @@
                                 <h4>Add New Scheme</h4>
                             </div>
 
-                            <form action="{{ route('admin.scheme.store') }}" method="POST">
+                            <form action="{{ route('admin.scheme.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
@@ -54,6 +54,13 @@
                                         <label>Status Mea</label>
                                         <input type="text" class="form-control" name="mea_status" value="{{ old('mea_status') }}">
                                     @error('mea_status')
+                                        <div class="customalert">{{ $message }}</div>
+                                    @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Gambar</label>
+                                        <input type="file" class="form-control" name="image">
+                                    @error('image')
                                         <div class="customalert">{{ $message }}</div>
                                     @enderror
                                     </div>

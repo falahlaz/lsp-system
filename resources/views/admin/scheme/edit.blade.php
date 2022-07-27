@@ -17,7 +17,7 @@
                     <div class="card-header">
                     <h4>Edit Skema</h4>
                     </div>
-                    <form action="{{ route('admin.scheme.update', ['scheme' => $data['scheme']->id]) }}" method="post">
+                    <form action="{{ route('admin.scheme.update', ['scheme' => $data['scheme']->id]) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
                         <div class="card-body">
@@ -53,6 +53,13 @@
                                 <label>Status Mea</label>
                                 <input type="text" class="form-control" name="mea_status" value="{{ $data['scheme']->mea_status }}">
                             @error('mea_status')
+                                <div class="customalert">{{ $message }}</div>
+                            @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Gambar</label>
+                                <input type="file" class="form-control" name="image">
+                            @error('image')
                                 <div class="customalert">{{ $message }}</div>
                             @enderror
                             </div>

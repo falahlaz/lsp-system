@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Master;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 use App\Scheme;
 use App\UnitScheme;
@@ -48,8 +49,16 @@ class SchemeController extends Controller
             'name' => 'required',
             'category' => 'required',
             'field' => 'required',
-            'mea_status' => 'required'
+            'mea_status' => 'required',
+            'image' => 'mimes:jpeg,jpg,png,JPEG,JPG,PNG',
         ]);
+
+        $filename = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = 'images/scheme/'.time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/scheme/'), $filename);
+        }
 
         // mengambil data inputan dan tambah data ke database
         Scheme::create([
@@ -58,6 +67,7 @@ class SchemeController extends Controller
             'category' => $request->category,
             'field' => $request->field,
             'mea_status' => $request->mea_status,
+            'image' => $filename,
             'status' => 1
         ]);
 
@@ -111,16 +121,34 @@ class SchemeController extends Controller
             'name' => 'required',
             'category' => 'required',
             'field' => 'required',
-            'mea_status' => 'required'
+            'mea_status' => 'required',
+            'image' => 'mimes:jpeg,jpg,png,JPEG,JPG,PNG',
         ]);
 
+        // get data from database
+        $scheme = Scheme::find($id);
+
+        // upload image if exist
+        $filename = $scheme->image;
+        if ($request->hasFile('image')) {
+            $oldfile = $scheme->image;
+            $image = $request->file('image');
+            $filename = 'images/scheme/'.time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/scheme/'), $filename);
+
+            if (File::exists($oldfile)) {
+                File::delete($oldfile);
+            }
+        }
+
         // mengambil data inputan dan tambah data ke database
-        Scheme::where('id',$id)->update([
+        $scheme->update([
             'code' => $request->code,
             'name' => $request->name,
             'category' => $request->category,
             'field' => $request->field,
-            'mea_status' => $request->mea_status
+            'mea_status' => $request->mea_status,
+            'image' => $filename,
         ]);
 
         //response

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Services\ResponseService;
+use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Tuk;
@@ -15,12 +16,17 @@ class LandingPageController extends Controller
 {
     use ResponseService;
 
-    public function getAllScheme()
+    public function getAllScheme(Request $request)
     {
-        $schemes = Scheme::orderBy('name')->limit(5)->get();
+        $schemes = Scheme::orderBy('name')
+                    ->when($request->limit, function($query, $limit) {
+                        return $query->limit($limit);
+                    })
+                    ->get();
 
         foreach ($schemes as $scheme) {
             $scheme->count_unit = $scheme->unit()->count();
+            $scheme->image_url = !$scheme->image ?: asset($scheme->image);
         }
 
         return $this->responseOk($schemes);
